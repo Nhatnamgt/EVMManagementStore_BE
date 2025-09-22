@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "JtNOm1weMXW78uE/H1Kb34sjyfZEpA+myKWZQ/spnBE=",
-  "Source": "EVMManagementStore",
-  "BasePath": "_content/EVMManagementStore",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"JtNOm1weMXW78uE/H1Kb34sjyfZEpA+myKWZQ/spnBE=","Source":"EVMManagementStore","BasePath":"_content/EVMManagementStore","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

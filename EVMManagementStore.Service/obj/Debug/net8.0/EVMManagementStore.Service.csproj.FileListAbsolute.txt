@@ -13,3 +13,21 @@ C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore\EVMManagementStor
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Repository.pdb
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.csproj.AssemblyReference.cache
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore\EVMManagementStore.Service\obj\Debug\net8.0\EVMManag.9459F1DB.Up2Date
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Service.deps.json
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Service.dll
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Service.pdb
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Repository.dll
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Repository.pdb
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.csproj.AssemblyReference.cache
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.AssemblyInfoInputs.cache
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.AssemblyInfo.cs
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.csproj.CoreCompileInputs.cache
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.sourcelink.json
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManag.9459F1DB.Up2Date
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.dll
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\refint\EVMManagementStore.Service.dll
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.pdb
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\ref\EVMManagementStore.Service.dll
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\bin\Debug\net8.0\EVMManagementStore.Service.runtimeconfig.json
+C:\Users\nhatn\Desktop\SWP\EVMManagementStore_BE\EVMManagementStore.Service\obj\Debug\net8.0\EVMManagementStore.Service.genruntimeconfig.cache
