@@ -7,16 +7,16 @@ namespace EVMManagementStore.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoginController : ControllerBase
+    public class AuthController : ControllerBase
     {
-        private readonly ILoginService _loginService;
+        private readonly IAuthService _loginService;
 
-        public LoginController(ILoginService loginService)
+        public AuthController(IAuthService loginService)
         {
             _loginService = loginService;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             if (!ModelState.IsValid)

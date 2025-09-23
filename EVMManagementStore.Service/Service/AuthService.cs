@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace EVMManagementStore.Service.Service
 {
-    public class LoginService : ILoginService
+    public class AuthService : IAuthService
     {
         private readonly EVMManagementStoreContext _context;
         private readonly IConfiguration _config;
 
-        public LoginService(EVMManagementStoreContext context, IConfiguration config)
+        public AuthService(EVMManagementStoreContext context, IConfiguration config)
         {
             _context = context;
             _config = config;

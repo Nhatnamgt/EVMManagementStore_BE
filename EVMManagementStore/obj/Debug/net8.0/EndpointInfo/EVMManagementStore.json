@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Login": {
+    "/api/Auth/login": {
       "post": {
         "tags": [
-          "Login"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -35,6 +35,71 @@
           }
         }
       }
+    },
+    "/api/Dealer/GetVehicle": {
+      "get": {
+        "tags": [
+          "Dealer"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dealer/GetVehicleById/{id}": {
+      "get": {
+        "tags": [
+          "Dealer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dealer/Compare": {
+      "get": {
+        "tags": [
+          "Dealer"
+        ],
+        "parameters": [
+          {
+            "name": "vehicleId1",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "vehicleId2",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -53,6 +118,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Nhập token dạng: Bearer {token}",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

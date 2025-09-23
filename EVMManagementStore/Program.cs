@@ -1,4 +1,5 @@
 ﻿using EVMManagementStore.Repository.Models;
+using EVMManagementStore.Repository.UnitOfWork;
 using EVMManagementStore.Service.Interface;
 using EVMManagementStore.Service.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,7 +17,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IDealerService, DealerService>();
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -46,7 +49,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Nhập token dạng: {token}"
+        Description = "Nhập token dạng: Bearer {token}"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
