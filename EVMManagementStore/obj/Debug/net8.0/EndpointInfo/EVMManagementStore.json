@@ -5,10 +5,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Login": {
+    "/auth/Auth/login": {
       "post": {
         "tags": [
-          "Login"
+          "Auth"
         ],
         "requestBody": {
           "content": {
@@ -53,6 +53,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Nhập token dạng: {token}",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

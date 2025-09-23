@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "EVMManagementStore.Controllers.LoginController",
+    "ContainingType": "EVMManagementStore.Controllers.AuthController",
     "Method": "Login",
-    "RelativePath": "api/Login",
+    "RelativePath": "auth/Auth/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
