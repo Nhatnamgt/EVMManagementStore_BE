@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVMManagementStore.Service.Interface
+namespace EVMManagementStore.Service.Interface.Dealer
 {
-    public interface IDealerService
+    public interface IVehicleService
     {
         Task<IEnumerable<VehicleDTO>> GetAllVehicle();
         Task<VehicleDTO?> GetVehicleById(int vehicleId);

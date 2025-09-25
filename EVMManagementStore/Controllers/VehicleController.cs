@@ -1,7 +1,7 @@
 ﻿using Azure;
 using EVMManagementStore.Models;
 using EVMManagementStore.Service.DTO;
-using EVMManagementStore.Service.Interface;
+using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +9,11 @@ namespace EVMManagementStore.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DealerController : ControllerBase
+    public class VehicleController : ControllerBase
     {
-        private readonly IDealerService _vehicleService;
+        private readonly IVehicleService _vehicleService;
 
-        public DealerController(IDealerService vehicleService)
+        public VehicleController(IVehicleService vehicleService)
         {
             _vehicleService = vehicleService;
         }
@@ -51,7 +51,5 @@ namespace EVMManagementStore.Controllers
             }
             return Ok(ApiResponse<VehicleComparisonDTO>.OkResponse(comparison, "So sánh xe thành công"));
         }
-
-
     }
 }

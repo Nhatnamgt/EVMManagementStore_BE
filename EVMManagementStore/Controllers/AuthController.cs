@@ -1,6 +1,6 @@
 ﻿using EVMManagementStore.Models;
 using EVMManagementStore.Service.DTO;
-using EVMManagementStore.Service.Interface;
+using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EVMManagementStore.Controllers

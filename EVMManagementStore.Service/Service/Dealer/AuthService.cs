@@ -1,6 +1,6 @@
 ﻿using EVMManagementStore.Repository.Models;
 using EVMManagementStore.Service.DTO;
-using EVMManagementStore.Service.Interface;
+using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVMManagementStore.Service.Service
+namespace EVMManagementStore.Service.Dealer
 {
     public class AuthService : IAuthService
     {

@@ -1,19 +1,19 @@
 ﻿using EVMManagementStore.Repository.UnitOfWork;
 using EVMManagementStore.Service.DTO;
-using EVMManagementStore.Service.Interface;
+using EVMManagementStore.Service.Interface.Dealer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVMManagementStore.Service.Service
+namespace EVMManagementStore.Service.Dealer
 {
-    public class DealerService : IDealerService
+    public class VehicleService : IVehicleService
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public DealerService(IUnitOfWork unitOfWork)
+        public VehicleService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

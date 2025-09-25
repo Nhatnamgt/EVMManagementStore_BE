@@ -1,7 +1,8 @@
 ﻿using EVMManagementStore.Repository.Models;
 using EVMManagementStore.Repository.UnitOfWork;
-using EVMManagementStore.Service.Interface;
-using EVMManagementStore.Service.Service;
+using EVMManagementStore.Service.Dealer;
+using EVMManagementStore.Service.Interface.Dealer;
+using EVMManagementStore.Service.Service.Dealer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,7 +20,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IDealerService, DealerService>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
