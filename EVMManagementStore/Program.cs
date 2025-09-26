@@ -22,6 +22,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ITestDriveAppointmentService, TestDriveAppointmentService>();
 
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>

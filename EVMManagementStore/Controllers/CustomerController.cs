@@ -1,6 +1,7 @@
 ﻿using EVMManagementStore.Models;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EVMManagementStore.Controllers
@@ -16,14 +17,16 @@ namespace EVMManagementStore.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet("GetCustomer")]
+        [Authorize(Roles = "dealer")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var customers = await _customerService.GetAllCustomersAsync();
             return Ok(ApiResponse<List<CustomerDTO>>.OkResponse(customers, "Lấy danh sách khách hàng thành công"));
         }
 
-        [HttpGet("GetCustomerById/{id}")]
+        [Authorize(Roles = "dealer")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var customer = await _customerService.GetCustomersByIdAsync(id);
@@ -33,7 +36,8 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<CustomerDTO>.OkResponse(customer, "Lấy thông tin khách hàng thành công"));
         }
 
-        [HttpPost("CreateCustomer")]
+        [Authorize(Roles = "dealer")]
+        [HttpPost]
         public async Task<IActionResult> Create([FromBody] CustomerDTO dto)
         {
             if (!ModelState.IsValid)
@@ -43,7 +47,8 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<CustomerDTO>.OkResponse(created, "Tạo khách hàng thành công"));
         }
 
-        [HttpPut("UpdateCustomer/{id}")]
+        [Authorize(Roles = "dealer")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] CustomerDTO dto)
         {
             if (!ModelState.IsValid)
@@ -56,7 +61,8 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<CustomerDTO>.OkResponse(updated, "Cập nhật khách hàng thành công"));
         }
 
-        [HttpDelete("DeleteCustomer/{id}")]
+        [Authorize(Roles = "dealer")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _customerService.DeleteCustomersAsync(id);

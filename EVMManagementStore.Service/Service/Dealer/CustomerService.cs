@@ -38,7 +38,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Username = customerDto.Username,
                 Email = customerDto.Email,
                 PasswordHash = customerDto.PasswordHash,
-                RoleId = customerDto.RoleId,
+                RoleId = 4,
                 FullName = customerDto.FullName,
                 Phone = customerDto.Phone,
                 Address = customerDto.Address,
@@ -60,7 +60,6 @@ namespace EVMManagementStore.Service.Service.Dealer
             customer.Username = customerDto.Username;
             customer.Email = customerDto.Email;
             customer.PasswordHash = customerDto.PasswordHash;
-            customer.RoleId = customerDto.RoleId;
             customer.FullName = customerDto.FullName;
             customer.Phone = customerDto.Phone;
             customer.Address = customerDto.Address;
