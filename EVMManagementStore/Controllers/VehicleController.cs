@@ -20,7 +20,7 @@ namespace EVMManagementStore.Controllers
         [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
-        {         
+        {
             var vehicles = await _vehicleService.GetAllVehicle();
             if (vehicles == null || !vehicles.Any())
             {
@@ -41,7 +41,7 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
-        [HttpGet]
+        [HttpGet("CompareCar")]
         public async Task<IActionResult> Compare(int vehicleId1, int vehicleId2)
         {
             var comparison = await _vehicleService.CompareVehicles(vehicleId1, vehicleId2);

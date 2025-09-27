@@ -36,7 +36,7 @@
         }
       }
     },
-    "/api/Customer/GetCustomer": {
+    "/api/Customer": {
       "get": {
         "tags": [
           "Customer"
@@ -46,32 +46,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Customer/GetCustomerById/{id}": {
-      "get": {
-        "tags": [
-          "Customer"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Customer/CreateCustomer": {
+      },
       "post": {
         "tags": [
           "Customer"
@@ -102,7 +77,28 @@
         }
       }
     },
-    "/api/Customer/UpdateCustomer/{id}": {
+    "/api/Customer/{id}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Customer"
@@ -142,9 +138,7 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api/Customer/DeleteCustomer/{id}": {
+      },
       "delete": {
         "tags": [
           "Customer"
@@ -167,7 +161,132 @@
         }
       }
     },
-    "/api/Vehicle/GetVehicle": {
+    "/api/TestDriveAppointment": {
+      "get": {
+        "tags": [
+          "TestDriveAppointment"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TestDriveAppointment"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDriveAppointmentDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDriveAppointmentDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDriveAppointmentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TestDriveAppointment/{id}": {
+      "get": {
+        "tags": [
+          "TestDriveAppointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "TestDriveAppointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDriveAppointmentDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDriveAppointmentDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TestDriveAppointmentDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TestDriveAppointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vehicle": {
       "get": {
         "tags": [
           "Vehicle"
@@ -179,7 +298,7 @@
         }
       }
     },
-    "/api/Vehicle/GetVehicleById/{id}": {
+    "/api/Vehicle/{id}": {
       "get": {
         "tags": [
           "Vehicle"
@@ -202,7 +321,7 @@
         }
       }
     },
-    "/api/Vehicle/Compare": {
+    "/api/Vehicle/CompareCar": {
       "get": {
         "tags": [
           "Vehicle"
@@ -285,6 +404,40 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TestDriveAppointmentDTO": {
+        "type": "object",
+        "properties": {
+          "appointmentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "appointmentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleName": {
             "type": "string",
             "nullable": true
           }

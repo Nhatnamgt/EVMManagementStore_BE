@@ -17,8 +17,18 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.CustomerController",
+    "Method": "GetAll",
+    "RelativePath": "api/Customer",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.CustomerController",
     "Method": "Create",
-    "RelativePath": "api/Customer/CreateCustomer",
+    "RelativePath": "api/Customer",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -33,34 +43,8 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.CustomerController",
-    "Method": "Delete",
-    "RelativePath": "api/Customer/DeleteCustomer/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EVMManagementStore.Controllers.CustomerController",
-    "Method": "GetAll",
-    "RelativePath": "api/Customer/GetCustomer",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EVMManagementStore.Controllers.CustomerController",
     "Method": "GetById",
-    "RelativePath": "api/Customer/GetCustomerById/{id}",
+    "RelativePath": "api/Customer/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -76,7 +60,7 @@
   {
     "ContainingType": "EVMManagementStore.Controllers.CustomerController",
     "Method": "Update",
-    "RelativePath": "api/Customer/UpdateCustomer/{id}",
+    "RelativePath": "api/Customer/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -95,9 +79,130 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.CustomerController",
+    "Method": "Delete",
+    "RelativePath": "api/Customer/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.TestDriveAppointmentController",
+    "Method": "GetAll",
+    "RelativePath": "api/TestDriveAppointment",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.TestDriveAppointmentController",
+    "Method": "Create",
+    "RelativePath": "api/TestDriveAppointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.TestDriveAppointmentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.TestDriveAppointmentController",
+    "Method": "GetById",
+    "RelativePath": "api/TestDriveAppointment/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.TestDriveAppointmentController",
+    "Method": "Update",
+    "RelativePath": "api/TestDriveAppointment/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.TestDriveAppointmentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.TestDriveAppointmentController",
+    "Method": "Delete",
+    "RelativePath": "api/TestDriveAppointment/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
+    "Method": "GetVehicle",
+    "RelativePath": "api/Vehicle",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
+    "Method": "GetVehicleById",
+    "RelativePath": "api/Vehicle/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.VehicleController",
     "Method": "Compare",
-    "RelativePath": "api/Vehicle/Compare",
+    "RelativePath": "api/Vehicle/CompareCar",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -111,32 +216,6 @@
         "Name": "vehicleId2",
         "Type": "System.Int32",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
-    "Method": "GetVehicle",
-    "RelativePath": "api/Vehicle/GetVehicle",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
-    "Method": "GetVehicleById",
-    "RelativePath": "api/Vehicle/GetVehicleById/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
