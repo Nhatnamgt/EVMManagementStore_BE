@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 9\\SWP391\\EVMManagementStore\\",
+  "WorkspaceRootPath": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|c:\\users\\nhatn\\onedrive\\desktop\\ky 9\\swp391\\evmmanagementstore\\evmmanagementstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|c:\\users\\nhatn\\desktop\\swp\\evmmanagementstore_be\\evmmanagementstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
@@ -14,19 +14,27 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 9\\SWP391\\EVMManagementStore\\EVMManagementStore\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore\\appsettings.json",
               "RelativeDocumentMoniker": "EVMManagementStore\\appsettings.json",
-              "ToolTip": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 9\\SWP391\\EVMManagementStore\\EVMManagementStore\\appsettings.json",
+              "ToolTip": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore\\appsettings.json",
               "RelativeToolTip": "EVMManagementStore\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-22T07:56:24.729Z",
+              "WhenOpened": "2025-09-27T12:21:34.682Z",
               "EditorCaption": ""
             }
           ]
