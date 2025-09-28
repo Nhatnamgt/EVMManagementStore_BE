@@ -81,7 +81,6 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             return true;
         }
-
         private static CustomerDTO MapToDTO(User u)
         {
             return new CustomerDTO
