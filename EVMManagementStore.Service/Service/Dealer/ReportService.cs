@@ -27,7 +27,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             return reports.Select(r => new GetReportDTO
             {
                 ReportId = r.ReportId,
-                SenderName = r.User.Username,
+                SenderName = r.User.FullName,
                 ReportType = r.ReportType,
                 CreatedDate = r.CreatedDate,
                 ResolvedDate = r.ResolvedDate,
@@ -47,7 +47,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new GetReportDTO
             {
                 ReportId = report.ReportId,
-                SenderName = report.User.Username,
+                SenderName = report.User.FullName,
                 ReportType = report.ReportType,
                 CreatedDate = report.CreatedDate,
                 ResolvedDate = report.ResolvedDate,
@@ -112,7 +112,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new ReportDTO
             {
                 ReportId = updated.ReportId,
-                SenderName = updated.User.Username,
+                SenderName = updated.User.FullName,
                 UserId = updated.UserId,
                 OrderId = updated.OrderId,
                 ReportType = updated.ReportType,
