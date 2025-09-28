@@ -37,15 +37,15 @@ namespace EVMManagementStore.Controllers
         }
 
     //    [Authorize(Roles = "dealer")]
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ReportDTO dto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
+        // [HttpPost]
+        //public async Task<IActionResult> Create([FromBody] ReportDTO dto)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
 
-            var created = await _reportService.CreateReportAsync(dto);
-            return Ok(ApiResponse<ReportDTO>.OkResponse(created, "Tạo phản hồi thành công"));
-        }
+        //    var created = await _reportService.CreateReportAsync(dto);
+        //    return Ok(ApiResponse<ReportDTO>.OkResponse(created, "Tạo phản hồi thành công"));
+        //}
 
  //      [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]

@@ -56,39 +56,39 @@ namespace EVMManagementStore.Service.Service.Dealer
             };
         }
 
-        public async Task<ReportDTO> CreateReportAsync(ReportDTO reportDTO)
-        {
-            var report = new Report
-            {
-                UserId = reportDTO.UserId,
-                OrderId = reportDTO.OrderId,
-                ReportType = reportDTO.ReportType,
-                CreatedDate = reportDTO.CreatedDate,
-                ResolvedDate = reportDTO.ResolvedDate,
-                Content = reportDTO.Content,
-                Status = reportDTO.Status
-            };
+        //public async Task<ReportDTO> CreateReportAsync(ReportDTO reportDTO)
+        //{
+        //    var report = new Report
+        //    {
+        //        UserId = reportDTO.UserId,
+        //        OrderId = reportDTO.OrderId,
+        //        ReportType = reportDTO.ReportType,
+        //        CreatedDate = reportDTO.CreatedDate,
+        //        ResolvedDate = reportDTO.ResolvedDate,
+        //        Content = reportDTO.Content,
+        //        Status = reportDTO.Status
+        //    };
 
-            await _unitOfWork.ReportRepository.AddAsync(report);
-            await _unitOfWork.SaveAsync();
+        //    await _unitOfWork.ReportRepository.AddAsync(report);
+        //    await _unitOfWork.SaveAsync();
 
-            var created = (await _unitOfWork.ReportRepository
-                .FindIncludeAsync(r => r.ReportId == report.ReportId, r => r.User))
-                .FirstOrDefault();
+        //    var created = (await _unitOfWork.ReportRepository
+        //        .FindIncludeAsync(r => r.ReportId == report.ReportId, r => r.User))
+        //        .FirstOrDefault();
 
-            return new ReportDTO
-            {
-                ReportId = created.ReportId,
-                SenderName = created.User.Username,
-                UserId = created.UserId,
-                OrderId = created.OrderId,
-                ReportType = created.ReportType,
-                CreatedDate = created.CreatedDate,
-                ResolvedDate = created.ResolvedDate,
-                Content = created.Content,
-                Status = created.Status,
-            };
-        }
+        //    return new ReportDTO
+        //    {
+        //        ReportId = created.ReportId,
+        //        SenderName = created.User.Username,
+        //        UserId = created.UserId,
+        //        OrderId = created.OrderId,
+        //        ReportType = created.ReportType,
+        //        CreatedDate = created.CreatedDate,
+        //        ResolvedDate = created.ResolvedDate,
+        //        Content = created.Content,
+        //        Status = created.Status,
+        //    };
+        //}
 
         public async Task<ReportDTO> UpdateReportAsync(int reportid, ReportDTO reportDTO)
         {

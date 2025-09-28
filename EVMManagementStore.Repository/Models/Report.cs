@@ -15,11 +15,13 @@ public partial class Report
 
     public string ReportType { get; set; }
 
-    public DateOnly? PeriodFrom { get; set; }
+    public DateOnly? CreatedDate { get; set; }
 
-    public DateOnly? PeriodTo { get; set; }
+    public DateOnly? ResolvedDate { get; set; }
 
     public string Content { get; set; }
+
+    public string Status { get; set; }
 
     public virtual Order Order { get; set; }
 
