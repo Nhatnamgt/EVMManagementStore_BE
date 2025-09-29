@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
             _customerService = customerService;
         }
 
-    //    [Authorize(Roles = "dealer")]
+        //    [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,7 +25,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<CustomerDTO>>.OkResponse(customers, "Lấy danh sách khách hàng thành công"));
         }
 
-    //    [Authorize(Roles = "dealer")]
+        //    [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -36,7 +36,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<CustomerDTO>.OkResponse(customer, "Lấy thông tin khách hàng thành công"));
         }
 
-    //    [Authorize(Roles = "dealer")]
+        //    [Authorize(Roles = "dealer")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CustomerDTO dto)
         {
@@ -47,7 +47,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<CustomerDTO>.OkResponse(created, "Tạo khách hàng thành công"));
         }
 
-      //  [Authorize(Roles = "dealer")]
+        //  [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] CustomerDTO dto)
         {
@@ -61,7 +61,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<CustomerDTO>.OkResponse(updated, "Cập nhật khách hàng thành công"));
         }
 
-   //     [Authorize(Roles = "dealer")]
+        //     [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
