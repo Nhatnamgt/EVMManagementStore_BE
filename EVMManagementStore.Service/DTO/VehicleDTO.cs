@@ -20,6 +20,8 @@ namespace EVMManagementStore.Service.DTO
 
         public decimal Price { get; set; }
 
+        public string Image { get; set; }   
+
         public string Status { get; set; }
     }
 

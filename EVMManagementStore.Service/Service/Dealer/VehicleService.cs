@@ -29,6 +29,7 @@ namespace EVMManagementStore.Service.Dealer
                 Version = v.Version,
                 Color = v.Color,
                 Price = v.Price,
+                Image = v.Image,    
                 Status = v.Status
             }).ToList();
         }
@@ -46,6 +47,7 @@ namespace EVMManagementStore.Service.Dealer
                 Version = v.Version,
                 Color = v.Color,
                 Price = v.Price,
+                Image = v.Image,
                 Status = v.Status
             };
         }
