@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B593EBAE-77DA-4C27-8FCF-56AD9C085B3A}|EVMManagementStore.Repository\\EVMManagementStore.Repository.csproj|c:\\users\\nhatn\\desktop\\swp\\evmmanagementstore_be\\evmmanagementstore.repository\\models\\evmmanagementstorecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B593EBAE-77DA-4C27-8FCF-56AD9C085B3A}|EVMManagementStore.Repository\\EVMManagementStore.Repository.csproj|solutionrelative:evmmanagementstore.repository\\models\\evmmanagementstorecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|c:\\users\\nhatn\\desktop\\swp\\evmmanagementstore_be\\evmmanagementstore.service\\service\\dealer\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\service\\dealer\\reportservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -27,12 +31,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "EVMManagementStoreContext.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Repository\\Models\\EVMManagementStoreContext.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Repository\\Models\\EVMManagementStoreContext.cs",
+              "ToolTip": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Repository\\Models\\EVMManagementStoreContext.cs",
+              "RelativeToolTip": "EVMManagementStore.Repository\\Models\\EVMManagementStoreContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-29T15:41:17.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ReportService.cs",
               "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\ReportService.cs",
               "RelativeDocumentMoniker": "EVMManagementStore.Service\\Service\\Dealer\\ReportService.cs",
               "ToolTip": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\ReportService.cs",
               "RelativeToolTip": "EVMManagementStore.Service\\Service\\Dealer\\ReportService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHMAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHMAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-28T14:58:16.711Z",
               "EditorCaption": ""
