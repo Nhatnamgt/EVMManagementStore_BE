@@ -45,33 +45,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Nhập trực tiếp JWT token, không cần 'Bearer '"
-    });
-
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Id = "JWT",
-                    Type = ReferenceType.SecurityScheme
-                }
-            },
-            new string[] {}
-        }
-    });
-});
-
+builder.Services.AddSwaggerGen(options => { options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme { Name = "Authorization", Type = SecuritySchemeType.ApiKey, Scheme = "Bearer", BearerFormat = "JWT", In = ParameterLocation.Header, Description = "Nhập token dạng: Bearer {token}" }); options.AddSecurityRequirement(new OpenApiSecurityRequirement { { new OpenApiSecurityScheme { Reference = new OpenApiReference { Id = "Bearer", Type = ReferenceType.SecurityScheme } }, new string[] {} } }); });
 
 var app = builder.Build();
 

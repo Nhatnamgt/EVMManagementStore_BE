@@ -92,7 +92,6 @@ namespace EVMManagementStore.Service.Dealer
                 Vehicle2 = dto2,
                 PriceDifference = dto1.Price - dto2.Price,
 
-                // So sánh chi tiết
                 TypeComparison = dto1.Type == dto2.Type ? "Giống nhau" : $"{dto1.Type} vs {dto2.Type}",
                 ModelComparison = dto1.Model == dto2.Model ? "Giống nhau" : $"{dto1.Model} vs {dto2.Model}",
                 VersionComparison = dto1.Version == dto2.Version ? "Giống nhau" : $"{dto1.Version} vs {dto2.Version}",
