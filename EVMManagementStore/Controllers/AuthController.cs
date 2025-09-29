@@ -1,4 +1,5 @@
 ﻿using EVMManagementStore.Models;
+using EVMManagementStore.Service.Dealer;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace EVMManagementStore.Controllers
                 return BadRequest(ApiResponse<LoginResponse>.BadRequestResponse("Dữ liệu không hợp lệ"));
             }
 
-            var response = await _loginService.Login(request);
+            var response = await _loginService.LoginAsync(request);
 
             if (response == null)
             {

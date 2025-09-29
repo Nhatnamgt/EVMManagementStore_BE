@@ -1,10 +1,12 @@
 ﻿using EVMManagementStore.Repository.Models;
+using EVMManagementStore.Repository.UnitOfWork;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -24,7 +26,7 @@ namespace EVMManagementStore.Service.Dealer
             _config = config;
         }
 
-        public async Task<LoginResponse?> Login(LoginRequest request)
+        public async Task<LoginResponse?> LoginAsync(LoginRequest request)
         {
             // Lấy user + role từ DB
             var user = await _context.Users
@@ -65,7 +67,7 @@ namespace EVMManagementStore.Service.Dealer
             );
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            int expiresInMinutes = 60; 
+            int expiresInMinutes = 60; // default 1h
             if (!string.IsNullOrEmpty(jwtSettings["ExpiresInMinutes"]))
                 int.TryParse(jwtSettings["ExpiresInMinutes"], out expiresInMinutes);
 

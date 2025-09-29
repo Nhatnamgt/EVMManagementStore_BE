@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
         {
             _vehicleService = vehicleService;
         }
-     //   [Authorize(Roles = "dealer")]
+      //  [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {
@@ -28,7 +28,7 @@ namespace EVMManagementStore.Controllers
             }
             return Ok(ApiResponse<List<VehicleDTO>>.OkResponse(vehicles.ToList(), "Lấy danh sách xe thành công"));
         }
-        [Authorize(Roles = "dealer")]
+ //       [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicleById(int id)
         {

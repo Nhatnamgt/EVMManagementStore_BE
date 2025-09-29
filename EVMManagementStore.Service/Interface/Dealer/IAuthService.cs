@@ -9,6 +9,6 @@ namespace EVMManagementStore.Service.Interface.Dealer
 {
     public interface IAuthService
     {
-        Task<LoginResponse> Login(LoginRequest request);
+        Task<LoginResponse?> LoginAsync(LoginRequest request);
     }
 }
