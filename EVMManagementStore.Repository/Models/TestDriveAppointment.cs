@@ -11,6 +11,8 @@ public partial class TestDriveAppointment
 
     public int UserId { get; set; }
 
+    public string Username { get; set; }
+
     public int VehicleId { get; set; }
 
     public DateTime AppointmentDate { get; set; }

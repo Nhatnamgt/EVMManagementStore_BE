@@ -65,7 +65,7 @@ namespace EVMManagementStore.Service.Dealer
             );
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            int expiresInMinutes = 60; // default 1h
+            int expiresInMinutes = 60; 
             if (!string.IsNullOrEmpty(jwtSettings["ExpiresInMinutes"]))
                 int.TryParse(jwtSettings["ExpiresInMinutes"], out expiresInMinutes);
 

@@ -47,14 +47,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
+        Scheme = "JWT",
         In = ParameterLocation.Header,
-        Description = "Nhập token dạng: Bearer {token}"
+        Description = "Nhập trực tiếp JWT token, không cần 'Bearer '"
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -64,7 +63,7 @@ builder.Services.AddSwaggerGen(options =>
             {
                 Reference = new OpenApiReference
                 {
-                    Id = "Bearer",
+                    Id = "JWT",
                     Type = ReferenceType.SecurityScheme
                 }
             },
@@ -72,6 +71,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
 
 var app = builder.Build();
 

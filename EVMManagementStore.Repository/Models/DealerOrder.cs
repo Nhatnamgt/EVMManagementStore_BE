@@ -19,6 +19,8 @@ public partial class DealerOrder
 
     public string Status { get; set; }
 
+    public string PaymentStatus { get; set; }
+
     public decimal TotalAmount { get; set; }
 
     public virtual User User { get; set; }

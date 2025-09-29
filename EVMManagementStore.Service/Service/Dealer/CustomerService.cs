@@ -22,13 +22,18 @@ namespace EVMManagementStore.Service.Service.Dealer
         public async Task<List<CustomerDTO>> GetAllCustomersAsync()
         {
             var customers = await _unitOfWork.UserRepository.GetAllAsync();
-            return customers.Select(u => MapToDTO(u)).ToList();
+            return customers
+                .Where(u => u.RoleId == 4)
+                .Select(u => MapToDTO(u))
+                .ToList();
         }
 
         public async Task<CustomerDTO> GetCustomersByIdAsync(int customerId)
         {
             var customer = await _unitOfWork.UserRepository.GetByIdAsync(customerId);
-            return customer == null ? null : MapToDTO(customer);
+            return (customer != null && customer.RoleId == 4)
+                ? MapToDTO(customer)
+                : null;
         }
 
         public async Task<CustomerDTO> CreateCustomersAsync(CustomerDTO customerDto)

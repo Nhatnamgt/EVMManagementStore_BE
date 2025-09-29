@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
         {
             _vehicleService = vehicleService;
         }
-   //     [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {

@@ -15,7 +15,11 @@ public partial class Vehicle
 
     public string Version { get; set; }
 
-    public string Image { get; set; }
+    public string Image1 { get; set; }
+
+    public string Image2 { get; set; }
+
+    public string Image3 { get; set; }
 
     public string Color { get; set; }
 

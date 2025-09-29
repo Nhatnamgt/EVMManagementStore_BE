@@ -588,9 +588,9 @@
       }
     },
     "securitySchemes": {
-      "Bearer": {
+      "JWT": {
         "type": "apiKey",
-        "description": "Nhập token dạng: Bearer {token}",
+        "description": "Nhập trực tiếp JWT token, không cần 'Bearer '",
         "name": "Authorization",
         "in": "header"
       }
@@ -598,7 +598,7 @@
   },
   "security": [
     {
-      "Bearer": [ ]
+      "JWT": [ ]
     }
   ]
 }
