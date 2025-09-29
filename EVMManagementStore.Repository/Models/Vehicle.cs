@@ -15,6 +15,12 @@ public partial class Vehicle
 
     public string Version { get; set; }
 
+    public string Distance { get; set; }
+
+    public string Timecharging { get; set; }
+
+    public string Speed { get; set; }
+
     public string Image1 { get; set; }
 
     public string Image2 { get; set; }

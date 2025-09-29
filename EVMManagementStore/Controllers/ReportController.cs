@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
             _reportService = reportService; 
         }
 
-    //    [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,7 +25,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<GetReportDTO>>.OkResponse(reports, "Lấy danh sách phản hồi thành công"));
         }
 
-   //     [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -36,18 +36,18 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<GetReportDTO>.OkResponse(report, "Lấy thông tin phản hồi thành công"));
         }
 
-    //    [Authorize(Roles = "dealer")]
-        // [HttpPost]
-        //public async Task<IActionResult> Create([FromBody] ReportDTO dto)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
+        [Authorize(Roles = "dealer")]
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] ReportDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
 
-        //    var created = await _reportService.CreateReportAsync(dto);
-        //    return Ok(ApiResponse<ReportDTO>.OkResponse(created, "Tạo phản hồi thành công"));
-        //}
+            var created = await _reportService.CreateReportAsync(dto);
+            return Ok(ApiResponse<ReportDTO>.OkResponse(created, "Tạo phản hồi thành công"));
+        }
 
- //      [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] ReportDTO dto)
         {
@@ -61,7 +61,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<ReportDTO>.OkResponse(updated, "Cập nhật phản hồi thành công"));
         }
 
-  //      [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -11,7 +11,7 @@ namespace EVMManagementStore.Service.Interface.Dealer
     {
         Task<List<GetReportDTO>> GetReportAsync();
         Task<GetReportDTO> GetReportByIdAsync(int reportid);
-        //Task<ReportDTO> CreateReportAsync(ReportDTO reportDTO);
+        Task<ReportDTO> CreateReportAsync(ReportDTO reportDTO);
         Task<ReportDTO> UpdateReportAsync(int reportid, ReportDTO reportDTO);
         Task<bool> DeleteReportAsync(int reportid);
     }

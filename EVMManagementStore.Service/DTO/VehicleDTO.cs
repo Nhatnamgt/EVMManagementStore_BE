@@ -20,6 +20,13 @@ namespace EVMManagementStore.Service.DTO
 
         public decimal Price { get; set; }
 
+        public string Distance { get; set; }
+
+        public string Timecharging { get; set; }
+
+        public string Speed { get; set; }
+
+
         public string Image1 { get; set; }
 
         public string Image2 { get; set; }
@@ -39,6 +46,9 @@ namespace EVMManagementStore.Service.DTO
         public string VersionComparison { get; set; }
         public string ColorComparison { get; set; }
         public string StatusComparison { get; set; }
+        public string DistanceComparison { get; set; }
+        public string SpeedComparison { get; set; }
+        public string  TimeChargingComparison {get; set; }
     }
 
 }

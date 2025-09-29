@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
             _testDriveAppointmentService = testDriveAppointmentService; 
         }
 
-     //   [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -25,7 +25,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<TestDriveAppointmentDTO>>.OkResponse(appointments, "Lấy danh sách lịch hẹn thành công"));
         }
 
-    //    [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -36,7 +36,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<TestDriveAppointmentDTO>.OkResponse(appointment, "Lấy thông tin lịch hẹn thành công"));
         }
 
-    //    [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] TestDriveAppointmentDTO dto)
         {
@@ -47,7 +47,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<TestDriveAppointmentDTO>.OkResponse(created, "Tạo lịch hẹn thành công"));
         }
 
-   //     [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] TestDriveAppointmentDTO dto)
         {
@@ -61,7 +61,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<TestDriveAppointmentDTO>.OkResponse(updated, "Cập nhật lịch hẹn thành công"));
         }
 
-     //   [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

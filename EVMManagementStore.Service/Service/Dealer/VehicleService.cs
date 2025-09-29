@@ -29,6 +29,9 @@ namespace EVMManagementStore.Service.Dealer
                 Version = v.Version,
                 Color = v.Color,
                 Price = v.Price,
+                Distance = v.Distance,
+                Timecharging = v.Timecharging,
+                Speed = v.Speed,    
                 Image1 = v.Image1,
                 Image2 = v.Image3,
                 Image3 = v.Image3,
@@ -49,6 +52,9 @@ namespace EVMManagementStore.Service.Dealer
                 Version = v.Version,
                 Color = v.Color,
                 Price = v.Price,
+                Distance = v.Distance,
+                Timecharging = v.Timecharging,
+                Speed = v.Speed,
                 Image1 = v.Image1,
                 Image2 = v.Image3,
                 Image3 = v.Image3,
@@ -72,6 +78,9 @@ namespace EVMManagementStore.Service.Dealer
                 Version = vehicle1.Version,
                 Color = vehicle1.Color,
                 Price = vehicle1.Price,
+                Distance = vehicle1.Distance,
+                Timecharging = vehicle1.Timecharging,
+                Speed = vehicle1.Speed,
                 Status = vehicle1.Status
             };
 
@@ -83,6 +92,9 @@ namespace EVMManagementStore.Service.Dealer
                 Version = vehicle2.Version,
                 Color = vehicle2.Color,
                 Price = vehicle2.Price,
+                Distance = vehicle2.Distance,
+                Timecharging = vehicle2.Timecharging,
+                Speed = vehicle2.Speed,
                 Status = vehicle2.Status
             };
 
@@ -96,7 +108,9 @@ namespace EVMManagementStore.Service.Dealer
                 ModelComparison = dto1.Model == dto2.Model ? "Giống nhau" : $"{dto1.Model} vs {dto2.Model}",
                 VersionComparison = dto1.Version == dto2.Version ? "Giống nhau" : $"{dto1.Version} vs {dto2.Version}",
                 ColorComparison = dto1.Color == dto2.Color ? "Giống nhau" : $"{dto1.Color} vs {dto2.Color}",
-                StatusComparison = dto1.Status == dto2.Status ? "Giống nhau" : $"{dto1.Status} vs {dto2.Status}"
+                DistanceComparison = dto1.Distance == dto2.Distance ? "Giống nhau" : $"{dto1.Distance} vs {dto2.Distance}",
+                TimeChargingComparison = dto1.Timecharging == dto2.Timecharging ? "Giống nhau" : $"{dto1.Timecharging} vs {dto2.Timecharging}",
+                SpeedComparison = dto1.Speed == dto2.Speed ? "Giống nhau" : $"{dto1.Speed} vs {dto2.Speed}"
             };
         }
 

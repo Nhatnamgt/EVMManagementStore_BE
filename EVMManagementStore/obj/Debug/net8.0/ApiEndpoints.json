@@ -106,6 +106,22 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.ReportController",
+    "Method": "Create",
+    "RelativePath": "api/Report",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.ReportDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.ReportController",
     "Method": "GetById",
     "RelativePath": "api/Report/{id}",
     "HttpMethod": "GET",
