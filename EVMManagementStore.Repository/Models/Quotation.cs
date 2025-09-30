@@ -9,8 +9,6 @@ public partial class Quotation
 {
     public int QuotationId { get; set; }
 
-    public int CustomerId { get; set; }
-
     public int UserId { get; set; }
 
     public int VehicleId { get; set; }
@@ -24,8 +22,6 @@ public partial class Quotation
     public decimal FinalPrice { get; set; }
 
     public string Status { get; set; }
-
-    public virtual User Customer { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

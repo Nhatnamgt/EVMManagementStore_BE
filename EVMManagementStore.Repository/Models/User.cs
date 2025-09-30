@@ -31,9 +31,7 @@ public partial class User
 
     public virtual ICollection<Promotion> Promotions { get; set; } = new List<Promotion>();
 
-    public virtual ICollection<Quotation> QuotationCustomers { get; set; } = new List<Quotation>();
-
-    public virtual ICollection<Quotation> QuotationUsers { get; set; } = new List<Quotation>();
+    public virtual ICollection<Quotation> Quotations { get; set; } = new List<Quotation>();
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 

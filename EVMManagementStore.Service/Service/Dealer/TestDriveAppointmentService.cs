@@ -96,7 +96,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Status = entity.Status,
                 UserId = entity.UserId,
                 VehicleId = entity.VehicleId,
-                Username = entity.User?.FullName,
+                Username = entity.Username,
                 VehicleName = entity.Vehicle?.Model
             };
         }
