@@ -110,7 +110,7 @@ namespace EVMManagementStore.Service.Dealer
             };
 
             decimal discountValue = quotation.Discount ?? 0;
-            quotation.FinalPrice = quotation.BasePrice - discountValue;
+            quotation.FinalPrice = quotation.BasePrice - (quotation.BasePrice * discountValue);
 
             await _unitOfWork.QuotationRepository.AddAsync(quotation);
             await _unitOfWork.SaveAsync();
