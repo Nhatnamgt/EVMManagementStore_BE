@@ -13,7 +13,7 @@ namespace EVMManagementStore.Service.Interface.Dealer
         Task<QuotationDTO> CreateQuotationAsync(QuotationDTO quotationDTO);
         Task<OrderDTO> CreateOrderAsync(OrderDTO orderDTO);
         Task<DealerOrderDTO> CreateDealerOrderAsync(DealerOrderDTO dealerorderDTO);
-
+        Task<SalesContractDTO> CteateSaleContractAsync(SalesContractDTO salesContractDTO);   
 
 
     }

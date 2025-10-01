@@ -21,6 +21,8 @@ public partial class Order
 
     public decimal TotalAmount { get; set; }
 
+    public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
+
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
     public virtual Quotation Quotation { get; set; }

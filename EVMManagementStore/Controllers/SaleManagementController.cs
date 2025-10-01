@@ -23,7 +23,7 @@ namespace EVMManagementStore.Controllers
         public async Task<IActionResult> CreateQuotation([FromBody] QuotationDTO dto)
         {
             var create = await _saleManagement.CreateQuotationAsync(dto);
-            return Ok(ApiResponse<QuotationDTO>.OkResponse(create, "Lấy danh sách phản hồi thành công"));
+            return Ok(ApiResponse<QuotationDTO>.OkResponse(create, "Tạo báo giá thành công"));
         }
 
         [Authorize(Roles = "dealer")]
@@ -31,7 +31,15 @@ namespace EVMManagementStore.Controllers
         public async Task<IActionResult> CreateOrder([FromBody] OrderDTO dto)
         {
             var create = await _saleManagement.CreateOrderAsync(dto);
-            return Ok(ApiResponse<OrderDTO>.OkResponse(create, "Lấy danh sách phản hồi thành công"));
+            return Ok(ApiResponse<OrderDTO>.OkResponse(create, "Tạo đơn hàng thành công"));
+        }
+
+        [Authorize(Roles = "dealer")]
+        [HttpPost("CreateSaleContract")]
+        public async Task<IActionResult> CteateSaleContract([FromBody] SalesContractDTO dto)
+        {
+            var create = await _saleManagement.CteateSaleContractAsync(dto);
+            return Ok(ApiResponse<SalesContractDTO>.OkResponse(create, "Tạo hợp đồng bán hàng thành công"));
         }
 
         [Authorize(Roles = "dealer")]
@@ -39,7 +47,7 @@ namespace EVMManagementStore.Controllers
         public async Task<IActionResult> CreateDealerOrder([FromBody] DealerOrderDTO dto)
         {
             var create = await _saleManagement.CreateDealerOrderAsync(dto);
-            return Ok(ApiResponse<DealerOrderDTO>.OkResponse(create, "Lấy danh sách phản hồi thành công"));
+            return Ok(ApiResponse<DealerOrderDTO>.OkResponse(create, "Đặt xe từ hãng thành công"));
         }
 
     }

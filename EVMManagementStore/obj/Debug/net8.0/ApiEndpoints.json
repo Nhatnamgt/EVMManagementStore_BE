@@ -222,6 +222,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.SaleManagementController",
+    "Method": "CteateSaleContract",
+    "RelativePath": "api/SaleManagement/CreateSaleContract",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.SalesContractDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.TestDriveAppointmentController",
     "Method": "GetAll",
     "RelativePath": "api/TestDriveAppointment",

@@ -128,5 +128,30 @@ namespace EVMManagementStore.Service.Dealer
             };
         }
 
+        public async Task<SalesContractDTO> CteateSaleContractAsync(SalesContractDTO salesContractDTO)
+        {
+            if (salesContractDTO == null)
+                throw new ArgumentNullException(nameof(salesContractDTO));
+
+            var salecontract = new SalesContract
+            {
+                OrderId = salesContractDTO.OrderId,
+                ContractDate = salesContractDTO.ContractDate ?? DateTime.UtcNow,
+                Terms = salesContractDTO.Terms,
+                SignedByDealer = salesContractDTO.SignedByDealer,
+            };
+
+            await _unitOfWork.SalesContractRepository.AddAsync(salecontract);
+            await _unitOfWork.SaveAsync();
+
+            return new SalesContractDTO
+            {
+                SalesContractId = salecontract.SalesContractId,
+                OrderId = salecontract.OrderId,
+                ContractDate = salecontract.ContractDate ?? DateTime.UtcNow,
+                Terms = salecontract.Terms,
+                SignedByDealer = salecontract.SignedByDealer,
+            };
+        }
     }
 }

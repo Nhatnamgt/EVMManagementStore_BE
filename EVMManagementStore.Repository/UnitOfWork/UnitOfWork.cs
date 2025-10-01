@@ -25,6 +25,7 @@ namespace EVMManagementStore.Repository.UnitOfWork
         private GenericRepository<TestDriveAppointment> _testdriveappointmentRepository = null!;
         private GenericRepository<Vehicle> _vehicleRepository = null!;
         private GenericRepository<User> _userRepository = null!;
+        private GenericRepository<Delivery> _deliveryRepository = null!;
 
         public UnitOfWork(EVMManagementStoreContext context)
         {
@@ -44,6 +45,7 @@ namespace EVMManagementStore.Repository.UnitOfWork
         public GenericRepository<TestDriveAppointment> TestDriveAppointmentRepository => _testdriveappointmentRepository ??= new GenericRepository<TestDriveAppointment>(_context);
         public GenericRepository<Vehicle> VehicleRepository => _vehicleRepository ??= new GenericRepository<Vehicle>(_context);
         public GenericRepository<User> UserRepository => _userRepository ??= new GenericRepository<User>(_context);
+        public GenericRepository<Delivery> DeliveryRepository => _deliveryRepository ??= new GenericRepository<Delivery>(_context);
 
         public int Save() => _context.SaveChanges();
 

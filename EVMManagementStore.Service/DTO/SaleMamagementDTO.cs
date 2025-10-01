@@ -43,7 +43,22 @@ namespace EVMManagementStore.Service.DTO
         public decimal TotalAmount { get; set; }
     }
 
-    public  class DealerOrderDTO
+
+    public class SalesContractDTO
+    {
+        public int SalesContractId { get; set; }
+
+        public int OrderId { get; set; }
+
+        public DateTime? ContractDate { get; set; }
+
+        public string Terms { get; set; }
+
+        public string SignedByDealer { get; set; }
+    }
+
+
+        public class DealerOrderDTO
     {
         public int DealerOrderId { get; set; }
 

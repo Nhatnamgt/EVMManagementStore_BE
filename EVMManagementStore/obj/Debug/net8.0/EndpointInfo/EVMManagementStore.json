@@ -348,6 +348,37 @@
         }
       }
     },
+    "/api/SaleManagement/CreateSaleContract": {
+      "post": {
+        "tags": [
+          "SaleManagement"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalesContractDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalesContractDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalesContractDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/SaleManagement/CreateDealerOrder": {
       "post": {
         "tags": [
@@ -783,6 +814,33 @@
             "nullable": true
           },
           "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SalesContractDTO": {
+        "type": "object",
+        "properties": {
+          "salesContractId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "contractDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "terms": {
+            "type": "string",
+            "nullable": true
+          },
+          "signedByDealer": {
             "type": "string",
             "nullable": true
           }

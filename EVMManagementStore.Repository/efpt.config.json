@@ -19,6 +19,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Deliveries]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Inventory]",
          "ObjectType": 0
       },
