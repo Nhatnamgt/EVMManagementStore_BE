@@ -2,6 +2,7 @@
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
 using EVMManagementStore.Service.Service.Dealer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace EVMManagementStore.Controllers
             _saleManagement = saleManagement;
         }
 
-        //      [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPost("CreateQuotation")]
         public async Task<IActionResult> CreateQuotation([FromBody] QuotationDTO dto)
         {
@@ -25,7 +26,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<QuotationDTO>.OkResponse(create, "Lấy danh sách phản hồi thành công"));
         }
 
-        //      [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPost("CreateOrder")]
         public async Task<IActionResult> CreateOrder([FromBody] OrderDTO dto)
         {
@@ -33,7 +34,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<OrderDTO>.OkResponse(create, "Lấy danh sách phản hồi thành công"));
         }
 
-        //      [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPost("CreateDealerOrder")]
         public async Task<IActionResult> CreateDealerOrder([FromBody] DealerOrderDTO dto)
         {

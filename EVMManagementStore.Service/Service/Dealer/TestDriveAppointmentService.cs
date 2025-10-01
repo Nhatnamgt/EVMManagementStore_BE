@@ -107,6 +107,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             entity.Status = dto.Status;
             entity.UserId = dto.UserId;
             entity.VehicleId = dto.VehicleId;
+            entity.Username = dto.Username;
         }    
     }
 
