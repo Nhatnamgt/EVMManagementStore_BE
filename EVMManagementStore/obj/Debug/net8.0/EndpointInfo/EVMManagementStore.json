@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "EVMManagementStore",
-    "version": "1.0"
+    "title": "EVMManagementStore API",
+    "version": "v1"
   },
   "paths": {
     "/api/Auth/login": {
@@ -1037,6 +1037,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Nhập token dạng: Bearer {your JWT token}",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }
