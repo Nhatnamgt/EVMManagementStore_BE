@@ -81,7 +81,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             if (entity == null)
                 return false;
 
-            _unitOfWork.TestDriveAppointmentRepository.Delete(entity);
+            _unitOfWork.TestDriveAppointmentRepository.RemoveAsync(entity);
             await _unitOfWork.SaveAsync();
             return true;
         }
@@ -97,6 +97,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = entity.UserId,
                 VehicleId = entity.VehicleId,
                 Username = entity.Username,
+                Address = entity.Address,
                 VehicleName = entity.Vehicle?.Model
             };
         }
@@ -108,6 +109,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             entity.UserId = dto.UserId;
             entity.VehicleId = dto.VehicleId;
             entity.Username = dto.Username;
+            entity.Address = dto.Address;
         }    
     }
 

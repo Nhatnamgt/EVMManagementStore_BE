@@ -107,16 +107,6 @@ namespace PlanyApp.Repository.Base
             return Task.CompletedTask;
         }
 
-        public virtual void Delete(TEntity entity)
-        {
-            if (_context.Entry(entity).State == EntityState.Detached)
-            {
-                _dbSet.Attach(entity);
-            }
-            _dbSet.Remove(entity);
-        }
-
-
         //----------------------------------------------------------------------------
         //----------------------------------------------------------------------------
         // 1. GetAllIncludeAsync

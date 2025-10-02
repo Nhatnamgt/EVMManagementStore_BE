@@ -59,15 +59,15 @@ namespace EVMManagementStore.Service.Dealer
             if (orderDTO == null)
                 throw new ArgumentNullException(nameof(orderDTO));
 
-            //decimal totalAmount = orderDTO.TotalAmount;
-            //if (orderDTO.QuotationId.HasValue)
-            //{
-            //    var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId.Value);
-            //    if (quotation == null)
-            //        throw new KeyNotFoundException($"QuotationId {orderDTO.QuotationId.Value} not found.");
+            decimal totalAmount = orderDTO.TotalAmount;
+            if (orderDTO.QuotationId.HasValue)
+            {
+                var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId.Value);
+                if (quotation == null)
+                    throw new KeyNotFoundException($"QuotationId {orderDTO.QuotationId.Value} not found.");
 
-            //    totalAmount = quotation.FinalPrice;
-            //}
+                totalAmount = quotation.FinalPrice;
+            }
 
             var order = new Order
             {
@@ -76,7 +76,7 @@ namespace EVMManagementStore.Service.Dealer
                 VehicleId = orderDTO.VehicleId,
                 OrderDate = orderDTO.OrderDate ?? DateTime.UtcNow,
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
-                TotalAmount = orderDTO.TotalAmount  
+                TotalAmount = totalAmount  
             };
 
             await _unitOfWork.OrderRepository.AddAsync(order);

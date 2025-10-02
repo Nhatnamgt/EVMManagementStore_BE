@@ -10,9 +10,9 @@ namespace EVMManagementStore.Service.Interface.Dealer
     public interface IPaymentService
     {
         Task<List<PaymentDTO>> GetAllPaymentsAsync();
-        Task<List<PaymentDTO>> GetPaymentsByIdAsync(int paymentid);
+        Task<PaymentDTO> GetPaymentsByIdAsync(int paymentid);
         Task<PaymentDTO> CreatePaymentAsync(PaymentDTO paymentDto);
-        Task<PaymentDTO> UpdatePaymentAsync(PaymentDTO paymentDTO);
+        Task<PaymentDTO> UpdatePaymentAsync(int id, PaymentDTO paymentDTO);
         Task<bool> DeletePaymentAsync(int paymentid);
     }
 }

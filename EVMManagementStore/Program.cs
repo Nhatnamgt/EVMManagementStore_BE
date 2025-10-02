@@ -26,6 +26,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ITestDriveAppointmentService, TestDriveAppointmentService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<ISaleManagementService, SaleManagementService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>

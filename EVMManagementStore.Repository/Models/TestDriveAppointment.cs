@@ -13,6 +13,8 @@ public partial class TestDriveAppointment
 
     public string Username { get; set; }
 
+    public string Address { get; set; }
+
     public int VehicleId { get; set; }
 
     public DateTime AppointmentDate { get; set; }
