@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Context\**" />
     <Compile Remove="DBContext\**" />
+    <EmbeddedResource Remove="Context\**" />
     <EmbeddedResource Remove="DBContext\**" />
+    <None Remove="Context\**" />
     <None Remove="DBContext\**" />
   </ItemGroup>
 
@@ -23,10 +26,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Context\" />
   </ItemGroup>
 
 </Project>

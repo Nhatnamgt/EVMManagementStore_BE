@@ -95,6 +95,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.DeliveryController",
+    "Method": "GetAll",
+    "RelativePath": "api/Delivery",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DeliveryController",
+    "Method": "Create",
+    "RelativePath": "api/Delivery",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.DeliveryDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DeliveryController",
+    "Method": "GetById",
+    "RelativePath": "api/Delivery/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DeliveryController",
+    "Method": "Update",
+    "RelativePath": "api/Delivery/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.DeliveryDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DeliveryController",
+    "Method": "Delete",
+    "RelativePath": "api/Delivery/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.ReportController",
     "Method": "GetAll",
     "RelativePath": "api/Report",

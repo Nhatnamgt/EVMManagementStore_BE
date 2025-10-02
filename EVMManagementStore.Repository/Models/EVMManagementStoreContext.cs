@@ -8,6 +8,9 @@ namespace EVMManagementStore.Repository.Models;
 
 public partial class EVMManagementStoreContext : DbContext
 {
+    public EVMManagementStoreContext()
+    {
+    }
     public EVMManagementStoreContext(DbContextOptions<EVMManagementStoreContext> options)
         : base(options)
     {
