@@ -95,6 +95,52 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.DealerRevenueController",
+    "Method": "GetDealerRevenue",
+    "RelativePath": "api/DealerRevenue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DealerRevenueController",
+    "Method": "GetDealerRevenueById",
+    "RelativePath": "api/DealerRevenue/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DebtReportController",
+    "Method": "GetCustomerDebtReport",
+    "RelativePath": "api/DebtReport/Customers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DebtReportController",
+    "Method": "GetDealerDebtReport",
+    "RelativePath": "api/DebtReport/Dealers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.DeliveryController",
     "Method": "GetAll",
     "RelativePath": "api/Delivery",
@@ -240,6 +286,59 @@
     "ContainingType": "EVMManagementStore.Controllers.PaymentController",
     "Method": "Delete",
     "RelativePath": "api/Payment/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.PromotionController",
+    "Method": "Create",
+    "RelativePath": "api/Promotion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.PromotionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.PromotionController",
+    "Method": "Update",
+    "RelativePath": "api/Promotion/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.PromotionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.PromotionController",
+    "Method": "Delete",
+    "RelativePath": "api/Promotion/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
