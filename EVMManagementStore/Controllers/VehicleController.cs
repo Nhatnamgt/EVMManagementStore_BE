@@ -51,5 +51,17 @@ namespace EVMManagementStore.Controllers
             }
             return Ok(ApiResponse<VehicleComparisonDTO>.OkResponse(comparison, "So sánh xe thành công"));
         }
+
+        [Authorize(Roles = "dealer")]
+        [HttpGet("Sreach")]
+        public async Task<IActionResult> Search(string search)
+        {
+            var searchs = await _vehicleService.SearchVehicle(search);
+            if (searchs == null)
+            {
+                return NotFound(ApiResponse<string>.NotFoundResponse("Không tìm thấy xe"));
+            }
+            return Ok(ApiResponse<List<VehicleDTO>>.OkResponse(searchs, "search xe thành công"));
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace EVMManagementStore.Service.Dealer
                 Price = v.Price,
                 Distance = v.Distance,
                 Timecharging = v.Timecharging,
-                Speed = v.Speed,    
+                Speed = v.Speed,
                 Image1 = v.Image1,
                 Image2 = v.Image3,
                 Image3 = v.Image3,
@@ -113,6 +113,65 @@ namespace EVMManagementStore.Service.Dealer
                 SpeedComparison = dto1.Speed == dto2.Speed ? "Giống nhau" : $"{dto1.Speed} vs {dto2.Speed}"
             };
         }
+        public async Task<List<VehicleDTO>> SearchVehicle(string search)
+        {
+            var vehicles = await _unitOfWork.VehicleRepository.GetAllAsync();
+            var query = vehicles.AsQueryable();
 
+            // Nếu người dùng không nhập gì, trả toàn bộ danh sách
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return vehicles.Select(v => new VehicleDTO
+                {
+                    VehicleId = v.VehicleId,
+                    Type = v.Type,
+                    Model = v.Model,
+                    Version = v.Version,
+                    Distance = v.Distance,
+                    Timecharging = v.Timecharging,
+                    Speed = v.Speed,
+                    Image1 = v.Image1,
+                    Image2 = v.Image2,
+                    Image3 = v.Image3,
+                    Color = v.Color,
+                    Price = v.Price,
+                    Status = v.Status
+                }).ToList();
+            }
+
+            // Xử lý tìm theo text hoặc giá
+            search = search.Trim().ToLower();
+            decimal? priceValue = null;
+            if (decimal.TryParse(search, out decimal parsedPrice))
+                priceValue = parsedPrice;
+
+            // Chỉ cần khớp 1 trong các field
+            query = query.Where(v =>
+                v.Type.ToLower().Contains(search) ||
+                v.Model.ToLower().Contains(search) ||
+                v.Version.ToLower().Contains(search) ||
+                v.Color.ToLower().Contains(search) ||
+                (priceValue != null && v.Price <= priceValue)
+            );
+
+            var result = query.Select(v => new VehicleDTO
+            {
+                VehicleId = v.VehicleId,
+                Type = v.Type,
+                Model = v.Model,
+                Version = v.Version,
+                Distance = v.Distance,
+                Timecharging = v.Timecharging,
+                Speed = v.Speed,
+                Image1 = v.Image1,
+                Image2 = v.Image2,
+                Image3 = v.Image3,
+                Color = v.Color,
+                Price = v.Price,
+                Status = v.Status
+            }).ToList();
+
+            return result;
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace EVMManagementStore.Service.Interface.Dealer
         Task<IEnumerable<VehicleDTO>> GetAllVehicle();
         Task<VehicleDTO?> GetVehicleById(int vehicleId);
         Task<VehicleComparisonDTO> CompareVehicles(int vehicleId1, int vehicleId2);
+        Task<List<VehicleDTO>> SearchVehicle(string sreach);
     }
 }

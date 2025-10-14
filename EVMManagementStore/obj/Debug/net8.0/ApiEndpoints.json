@@ -619,5 +619,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
+    "Method": "Search",
+    "RelativePath": "api/Vehicle/Sreach",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
