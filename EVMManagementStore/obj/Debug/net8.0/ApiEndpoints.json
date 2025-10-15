@@ -95,6 +95,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
+    "Method": "GeDealerOrder",
+    "RelativePath": "api/DealerOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
+    "Method": "GetDealerOrderById",
+    "RelativePath": "api/DealerOrder/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
+    "Method": "UpdateDealerOrder",
+    "RelativePath": "api/DealerOrder/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.DealerOrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
+    "Method": "DeleteDealerOrder",
+    "RelativePath": "api/DealerOrder/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
+    "Method": "CreateDealerOrder",
+    "RelativePath": "api/DealerOrder/CreateDealerOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.DealerOrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.DealerRevenueController",
     "Method": "GetDealerRevenue",
     "RelativePath": "api/DealerRevenue",
@@ -220,6 +299,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.OrderController",
+    "Method": "GetOrder",
+    "RelativePath": "api/Order",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.OrderController",
+    "Method": "GetOrderById",
+    "RelativePath": "api/Order/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.OrderController",
+    "Method": "UpdateOrder",
+    "RelativePath": "api/Order/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.OrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.OrderController",
+    "Method": "DeleteOrder",
+    "RelativePath": "api/Order/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/Order/CreateOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.OrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.PaymentController",
     "Method": "GetAll",
     "RelativePath": "api/Payment",
@@ -296,6 +454,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.PromotionController",
+    "Method": "GetVehicle",
+    "RelativePath": "api/Promotion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -316,6 +484,22 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.PromotionController",
+    "Method": "GetVehicleById",
+    "RelativePath": "api/Promotion/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.PromotionController",
     "Method": "Update",
     "RelativePath": "api/Promotion/{id}",
     "HttpMethod": "PUT",
@@ -346,6 +530,85 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.QuotationController",
+    "Method": "GetQuotation",
+    "RelativePath": "api/Quotation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.QuotationController",
+    "Method": "GetQuotationById",
+    "RelativePath": "api/Quotation/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.QuotationController",
+    "Method": "UpdateQuotation",
+    "RelativePath": "api/Quotation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.QuotationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.QuotationController",
+    "Method": "DeleteQuotation",
+    "RelativePath": "api/Quotation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.QuotationController",
+    "Method": "CreateQuotation",
+    "RelativePath": "api/Quotation/CreateQuotation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.QuotationDTO",
         "IsRequired": true
       }
     ],
@@ -431,57 +694,72 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EVMManagementStore.Controllers.SaleManagementController",
-    "Method": "CreateDealerOrder",
-    "RelativePath": "api/SaleManagement/CreateDealerOrder",
-    "HttpMethod": "POST",
+    "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
+    "Method": "GetVehicle",
+    "RelativePath": "api/SaleContract",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
+    "Method": "GetSaleContractById",
+    "RelativePath": "api/SaleContract/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.DealerOrderDTO",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EVMManagementStore.Controllers.SaleManagementController",
-    "Method": "CreateOrder",
-    "RelativePath": "api/SaleManagement/CreateOrder",
-    "HttpMethod": "POST",
+    "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
+    "Method": "UpdateSaleContract",
+    "RelativePath": "api/SaleContract/{id}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
         "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.OrderDTO",
+        "Type": "EVMManagementStore.Service.DTO.SalesContractDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EVMManagementStore.Controllers.SaleManagementController",
-    "Method": "CreateQuotation",
-    "RelativePath": "api/SaleManagement/CreateQuotation",
-    "HttpMethod": "POST",
+    "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
+    "Method": "DeleteSaleContract",
+    "RelativePath": "api/SaleContract/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.QuotationDTO",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "EVMManagementStore.Controllers.SaleManagementController",
+    "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
     "Method": "CteateSaleContract",
-    "RelativePath": "api/SaleManagement/CreateSaleContract",
+    "RelativePath": "api/SaleContract/CreateSaleContract",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
