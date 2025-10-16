@@ -1,7 +1,16 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nhatn\\Desktop\\EVMManagementStore_BE\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|c:\\users\\nhatn\\desktop\\swp\\evmmanagementstore_be\\evmmanagementstore.service\\service\\dealer\\salemanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\service\\dealer\\salemanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|c:\\users\\nhatn\\desktop\\swp\\evmmanagementstore_be\\evmmanagementstore.service\\dto\\salemamagementdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\dto\\salemamagementdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,12 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -22,6 +27,32 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SaleMamagementDTO.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Service\\DTO\\SaleMamagementDTO.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\DTO\\SaleMamagementDTO.cs",
+              "ToolTip": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Service\\DTO\\SaleMamagementDTO.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\DTO\\SaleMamagementDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T13:23:44.695Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SaleManagementService.cs",
+              "DocumentMoniker": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
+              "ToolTip": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
+              "ViewState": "AgIAAGEBAAAAAAAAAAAkwHYBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-16T13:23:21.383Z",
+              "EditorCaption": ""
             }
           ]
         }
