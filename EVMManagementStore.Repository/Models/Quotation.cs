@@ -21,6 +21,10 @@ public partial class Quotation
 
     public decimal FinalPrice { get; set; }
 
+    public string AttachmentImage { get; set; }
+
+    public string AttachmentFile { get; set; }
+
     public string Status { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

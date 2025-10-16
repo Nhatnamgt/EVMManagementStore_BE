@@ -31,8 +31,6 @@ public partial class Vehicle
 
     public decimal Price { get; set; }
 
-    public int Quantity { get; set; }
-
     public string Status { get; set; }
 
     public virtual ICollection<DealerOrder> DealerOrders { get; set; } = new List<DealerOrder>();
