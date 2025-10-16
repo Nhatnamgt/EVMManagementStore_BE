@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
         {
             _vehicleService = vehicleService;
         }
-          [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {
@@ -28,7 +28,7 @@ namespace EVMManagementStore.Controllers
             }
             return Ok(ApiResponse<List<VehicleDTO>>.OkResponse(vehicles.ToList(), "Lấy danh sách xe thành công"));
         }
-               [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicleById(int id)
         {
@@ -52,7 +52,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<VehicleComparisonDTO>.OkResponse(comparison, "So sánh xe thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet("Sreach")]
         public async Task<IActionResult> Search(string search)
         {

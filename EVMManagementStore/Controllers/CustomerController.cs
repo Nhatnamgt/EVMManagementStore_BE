@@ -60,16 +60,5 @@ namespace EVMManagementStore.Controllers
 
             return Ok(ApiResponse<CustomerDTO>.OkResponse(updated, "Cập nhật khách hàng thành công"));
         }
-
-             [Authorize(Roles = "dealer")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var success = await _customerService.DeleteCustomersAsync(id);
-            if (!success)
-                return NotFound(ApiResponse<string>.NotFoundResponse("Không tìm thấy khách hàng"));
-
-            return Ok(ApiResponse<string>.OkResponse(null, "Xóa khách hàng thành công"));
-        }
     }
 }

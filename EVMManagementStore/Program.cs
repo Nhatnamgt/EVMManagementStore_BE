@@ -29,7 +29,7 @@ builder.Services.AddScoped<ISaleManagementService, SaleManagementService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IDealerRevenueService, DealerRevenueService>();
 builder.Services.AddScoped<IDebtReportService, DebtReportService>();
-
+builder.Services.AddScoped<IPromotionService, PromotionService>();  
 
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>

@@ -390,12 +390,6 @@ C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementS
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets\msbuild.EVMManagementStore.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets\msbuild.EVMManagementStore.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets\msbuild.build.EVMManagementStore.props
-C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.EVMManagementStore.props
-C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.EVMManagementStore.props
-C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManag.D078254D.Up2Date
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.dll
@@ -403,3 +397,8 @@ C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementS
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.pdb
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.genruntimeconfig.cache
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\ref\EVMManagementStore.dll
+C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\staticwebassets.build.json.cache

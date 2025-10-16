@@ -13,6 +13,6 @@ namespace EVMManagementStore.Service.Interface.Dealer
        Task<CustomerDTO> GetCustomersByIdAsync(int customerid);
        Task<CustomerDTO> CreateCustomersAsync(CustomerDTO customerDto);
        Task<CustomerDTO> UpdateCustomersAsync(int customerId, CustomerDTO customerDto);
-       Task<bool> DeleteCustomersAsync(int customerid);
+  //     Task<bool> DeleteCustomersAsync(int customerid);
     }
 }

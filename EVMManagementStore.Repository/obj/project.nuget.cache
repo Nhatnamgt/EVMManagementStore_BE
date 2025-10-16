@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "85vten0X6Aw=",
+  "dgSpecHash": "MbKyWg/v4KE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\nhatn\\Desktop\\SWP\\EVMManagementStore_BE\\EVMManagementStore.Repository\\EVMManagementStore.Repository.csproj",
+  "projectFilePath": "C:\\Users\\nhatn\\OneDrive\\Desktop\\Ky 9\\SWP391\\EVMManagementStore_BE\\EVMManagementStore.Repository\\EVMManagementStore.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nhatn\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\nhatn\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

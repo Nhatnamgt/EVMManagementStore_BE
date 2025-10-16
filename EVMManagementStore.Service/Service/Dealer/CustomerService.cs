@@ -76,16 +76,16 @@ namespace EVMManagementStore.Service.Service.Dealer
             return MapToDTO(customer);
         }
 
-        public async Task<bool> DeleteCustomersAsync(int customerId)
-        {
-            var customer = await _unitOfWork.UserRepository.GetByIdAsync(customerId);
-            if (customer == null) return false;
+        //public async Task<bool> DeleteCustomersAsync(int customerId)
+        //{
+        //    var customer = await _unitOfWork.UserRepository.GetByIdAsync(customerId);
+        //    if (customer == null) return false;
 
-            await _unitOfWork.UserRepository.RemoveAsync(customer);
-            await _unitOfWork.SaveAsync();
+        //    await _unitOfWork.UserRepository.RemoveAsync(customer);
+        //    await _unitOfWork.SaveAsync();
 
-            return true;
-        }
+        //    return true;
+        //}
         private static CustomerDTO MapToDTO(User u)
         {
             return new CustomerDTO
