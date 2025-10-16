@@ -17,6 +17,8 @@ public partial class Order
 
     public DateTime? OrderDate { get; set; }
 
+    public string DeliveryAddress { get; set; }
+
     public string Status { get; set; }
 
     public decimal TotalAmount { get; set; }
