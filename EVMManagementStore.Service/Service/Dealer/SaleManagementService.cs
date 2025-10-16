@@ -341,7 +341,14 @@ namespace EVMManagementStore.Service.Dealer
                 OrderId = s.OrderId,
                 ContractDate = s.ContractDate,
                 Terms = s.Terms,
-                SignedByDealer = s.SignedByDealer
+                SignedByDealer = s.SignedByDealer,
+                CustomerName = s.CustomerName,
+                Phone = s.Phone,
+                Email = s.Email,
+                PaymentMethod = s.PaymentMethod,
+                Address = s.Address,
+                Cccd = s.Cccd,
+                ContractImage = s.ContractImage
             }).ToList();
         }
         public async Task<SalesContractDTO> GetSaleContractByIdAsync(int id)
@@ -356,7 +363,14 @@ namespace EVMManagementStore.Service.Dealer
                 OrderId = c.OrderId,
                 ContractDate = c.ContractDate,
                 Terms = c.Terms,
-                SignedByDealer = c.SignedByDealer
+                SignedByDealer = c.SignedByDealer,
+                CustomerName = c.CustomerName,
+                Phone = c.Phone,
+                Email = c.Email,
+                PaymentMethod = c.PaymentMethod,
+                Address = c.Address,
+                Cccd = c.Cccd,
+                ContractImage = c.ContractImage
             };
         }
         public async Task<SalesContractDTO> CteateSaleContractAsync(SalesContractDTO salesContractDTO)
@@ -370,6 +384,13 @@ namespace EVMManagementStore.Service.Dealer
                 ContractDate = salesContractDTO.ContractDate ?? DateTime.UtcNow,
                 Terms = salesContractDTO.Terms,
                 SignedByDealer = salesContractDTO.SignedByDealer,
+                CustomerName = salesContractDTO.CustomerName,
+                Phone = salesContractDTO.Phone,
+                Email = salesContractDTO.Email,
+                PaymentMethod = salesContractDTO.PaymentMethod,
+                Address = salesContractDTO.Address,
+                Cccd = salesContractDTO.Cccd,
+                ContractImage = salesContractDTO.ContractImage
             };
 
             await _unitOfWork.SalesContractRepository.AddAsync(salecontract);
@@ -382,6 +403,14 @@ namespace EVMManagementStore.Service.Dealer
                 ContractDate = salecontract.ContractDate ?? DateTime.UtcNow,
                 Terms = salecontract.Terms,
                 SignedByDealer = salecontract.SignedByDealer,
+                CustomerName = salesContractDTO.CustomerName,
+                Phone = salesContractDTO.Phone,
+                Email = salesContractDTO.Email,
+                PaymentMethod = salesContractDTO.PaymentMethod,
+                Address = salesContractDTO.Address,
+                Cccd = salesContractDTO.Cccd,
+                ContractImage = salesContractDTO.ContractImage
+
             };
         }
         public async Task<SalesContractDTO> UpdateSaleContractAsync(int id, SalesContractDTO dto)
@@ -392,6 +421,13 @@ namespace EVMManagementStore.Service.Dealer
 
             c.Terms = dto.Terms;
             c.SignedByDealer = dto.SignedByDealer;
+            c.CustomerName = c.CustomerName;
+            c.Phone = dto.Phone;
+            c.Email = dto.Email;
+            c.PaymentMethod = dto.PaymentMethod;
+            c.Address = dto.Address;
+            c.Cccd = dto.Cccd;
+            c.ContractImage = dto.ContractImage;
 
             _unitOfWork.SalesContractRepository.Update(c);
             await _unitOfWork.SaveAsync();
@@ -402,7 +438,14 @@ namespace EVMManagementStore.Service.Dealer
                 OrderId = c.OrderId,
                 ContractDate = c.ContractDate,
                 Terms = c.Terms,
-                SignedByDealer = c.SignedByDealer
+                SignedByDealer = c.SignedByDealer,
+                CustomerName = c.CustomerName,
+                Phone = c.Phone,
+                Email = c.Email,
+                PaymentMethod = c.PaymentMethod,
+                Address = c.Address,
+                Cccd = c.Cccd,
+                ContractImage = c.ContractImage
             };
         }
         public async Task<bool> DeleteSaleContractAsync(int id)
