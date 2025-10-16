@@ -60,7 +60,7 @@ namespace EVMManagementStore.Service.Service.Dealer
         {
             var report = new Report
             {
-                UserId = 4,
+                UserId = reportDTO.UserId,
                 OrderId = reportDTO.OrderId,
                 ReportType = reportDTO.ReportType,
                 CreatedDate = reportDTO.CreatedDate,
@@ -80,7 +80,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 ReportId = created.ReportId,
                 SenderName = created.User.Username,
-                UserId = 4,
+                UserId = created.User.UserId,
                 OrderId = created.OrderId,
                 ReportType = created.ReportType,
                 CreatedDate = created.CreatedDate,
@@ -95,7 +95,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             var report = await _unitOfWork.ReportRepository.GetByIdAsync(reportid);
             if (report == null) return null;
 
-            report.UserId = 4;
+            report.UserId = reportDTO.UserId;
             report.OrderId = reportDTO.OrderId;
             report.ReportType = reportDTO.ReportType;
             report.CreatedDate = reportDTO.CreatedDate;
@@ -113,7 +113,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 ReportId = updated.ReportId,
                 SenderName = updated.User.FullName,
-                UserId = 4,
+                UserId = updated.UserId,
                 OrderId = updated.OrderId,
                 ReportType = updated.ReportType,
                 CreatedDate = updated.CreatedDate,
