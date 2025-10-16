@@ -31,6 +31,8 @@ namespace EVMManagementStore.Service.Dealer
                 BasePrice = q.BasePrice,
                 Discount = q.Discount,
                 FinalPrice = q.FinalPrice,
+                AttachmentFile = q.AttachmentFile,
+                AttachmentImage = q.AttachmentImage,    
                 Status = q.Status
             }).ToList();
         }
@@ -49,6 +51,8 @@ namespace EVMManagementStore.Service.Dealer
                 BasePrice = q.BasePrice,
                 Discount = q.Discount,
                 FinalPrice = q.FinalPrice,
+                AttachmentFile = q.AttachmentFile,
+                AttachmentImage = q.AttachmentImage,
                 Status = q.Status
             };
         }
@@ -64,6 +68,8 @@ namespace EVMManagementStore.Service.Dealer
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
                 BasePrice = quotationDTO.BasePrice,
                 Discount = quotationDTO.Discount,
+                AttachmentFile = quotationDTO.AttachmentFile,   
+                AttachmentImage = quotationDTO.AttachmentImage, 
                 Status = string.IsNullOrEmpty(quotationDTO.Status) ? "Pending" : quotationDTO.Status
             };
 
@@ -82,6 +88,8 @@ namespace EVMManagementStore.Service.Dealer
                 BasePrice = quotation.BasePrice,
                 Discount = quotation.Discount,
                 FinalPrice = quotation.FinalPrice,
+                AttachmentFile = quotation.AttachmentFile,
+                AttachmentImage = quotation.AttachmentImage,
                 Status = quotation.Status
             };
         }
@@ -94,6 +102,8 @@ namespace EVMManagementStore.Service.Dealer
             q.BasePrice = dto.BasePrice;
             q.Discount = dto.Discount;
             q.Status = dto.Status;
+            q.AttachmentFile = dto.AttachmentFile;
+            q.AttachmentImage = dto.AttachmentImage;    
             q.FinalPrice = q.BasePrice - (q.BasePrice * (q.Discount ?? 0));
 
             _unitOfWork.QuotationRepository.Update(q);
@@ -108,6 +118,8 @@ namespace EVMManagementStore.Service.Dealer
                 BasePrice = q.BasePrice,
                 Discount = q.Discount,
                 FinalPrice = q.FinalPrice,
+                AttachmentFile = q.AttachmentFile,
+                AttachmentImage = q.AttachmentImage,
                 Status = q.Status
             };
         }
