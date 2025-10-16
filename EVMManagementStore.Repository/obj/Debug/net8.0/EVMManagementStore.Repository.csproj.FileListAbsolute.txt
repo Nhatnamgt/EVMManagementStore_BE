@@ -40,3 +40,18 @@ C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementS
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.pdb
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.genruntimeconfig.cache
 C:\Users\nhatn\OneDrive\Desktop\Ky 9\SWP391\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\ref\EVMManagementStore.Repository.dll
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\bin\Debug\net8.0\EVMManagementStore.Repository.deps.json
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\bin\Debug\net8.0\EVMManagementStore.Repository.runtimeconfig.json
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\bin\Debug\net8.0\EVMManagementStore.Repository.dll
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\bin\Debug\net8.0\EVMManagementStore.Repository.pdb
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.csproj.AssemblyReference.cache
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.AssemblyInfoInputs.cache
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.AssemblyInfo.cs
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.csproj.CoreCompileInputs.cache
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.sourcelink.json
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.dll
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\refint\EVMManagementStore.Repository.dll
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.pdb
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\EVMManagementStore.Repository.genruntimeconfig.cache
+C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore.Repository\obj\Debug\net8.0\ref\EVMManagementStore.Repository.dll
