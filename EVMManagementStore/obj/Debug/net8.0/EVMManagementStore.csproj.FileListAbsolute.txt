@@ -585,3 +585,15 @@ C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Deb
 C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.pdb
 C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.genruntimeconfig.cache
 C:\Users\nhatn\OneDrive\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\ref\EVMManagementStore.dll
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.csproj.AssemblyReference.cache
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.AssemblyInfoInputs.cache
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.AssemblyInfo.cs
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.csproj.CoreCompileInputs.cache
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.sourcelink.json
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.dll
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\refint\EVMManagementStore.dll
+C:\Users\nhatn\Desktop\EVMManagementStore_BE\EVMManagementStore\obj\Debug\net8.0\EVMManagementStore.pdb
