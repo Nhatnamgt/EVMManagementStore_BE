@@ -42,9 +42,6 @@ namespace EVMManagementStore.Service.DTO
         public DateTime? OrderDate { get; set; }
 
         public string Status { get; set; }
-        public string AttachmentImage { get; set; }
-
-        public string AttachmentFile { get; set; }
 
         public decimal TotalAmount { get; set; }
     }
