@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVMManagementStore.Service.Dealer
+namespace EVMManagementStore.Service.Service.Dealer
 {
     public class VehicleService : IVehicleService
     {

@@ -5,12 +5,10 @@ using EVMManagementStore.Service.Interface.Dealer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EVMManagementStore.Service.Dealer
+namespace EVMManagementStore.Service.Service.Dealer
 {
     public class SaleManagementService : ISaleManagementService
     {
@@ -348,8 +346,8 @@ namespace EVMManagementStore.Service.Dealer
                 Phone = s.Phone,
                 Email = s.Email,
                 PaymentMethod = s.PaymentMethod,
-                Address = s.Address,    
-                Cccd =s.Cccd,
+                Address = s.Address,
+                Cccd = s.Cccd,
                 ContractImage = s.ContractImage
             }).ToList();
         }

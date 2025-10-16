@@ -61,7 +61,7 @@ namespace EVMManagementStore.Service.DTO
         public string Terms { get; set; }
 
         public string SignedByDealer { get; set; }
-      
+
         public string CustomerName { get; set; }
 
         public string Phone { get; set; }
@@ -78,7 +78,7 @@ namespace EVMManagementStore.Service.DTO
     }
 
 
-        public class DealerOrderDTO
+    public class DealerOrderDTO
     {
         public int DealerOrderId { get; set; }
 
