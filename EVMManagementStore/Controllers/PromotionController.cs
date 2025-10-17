@@ -1,6 +1,5 @@
 ﻿using EVMManagementStore.Models;
 using EVMManagementStore.Repository.Models;
-using EVMManagementStore.Service.Dealer;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.AspNetCore.Authorization;
