@@ -2,6 +2,8 @@
 using EVMManagementStore.Repository.UnitOfWork;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,11 @@ namespace EVMManagementStore.Service.Service.Dealer
     public class SaleManagementService : ISaleManagementService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public SaleManagementService(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _env;
+        public SaleManagementService(IUnitOfWork unitOfWork, IWebHostEnvironment env)
         {
             _unitOfWork = unitOfWork;
+            _env = env;
         }
 
         //=======================================================Quotation===========================================================
@@ -35,6 +39,42 @@ namespace EVMManagementStore.Service.Service.Dealer
                 AttachmentImage = q.AttachmentImage,    
                 Status = q.Status
             }).ToList();
+        }
+        public async Task<QuotationDTO> UploadFiles(IFormFile attachmentFile, IFormFile attachmentImage)
+        {
+            if (attachmentFile == null || attachmentImage == null)
+                throw new ArgumentNullException("Vui lòng chọn đầy đủ file hợp đồng và hình ảnh.");
+
+            // Thư mục lưu file (wwwroot/uploads)
+            var uploadFolder = Path.Combine(_env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), "uploads");
+
+            if (!Directory.Exists(uploadFolder))
+                Directory.CreateDirectory(uploadFolder);
+
+            // Lưu file hợp đồng
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(attachmentFile.FileName)}";
+            var filePath = Path.Combine(uploadFolder, fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await attachmentFile.CopyToAsync(stream);
+            }
+
+            // Lưu file hình ảnh
+            var imageName = $"{Guid.NewGuid()}{Path.GetExtension(attachmentImage.FileName)}";
+            var imagePath = Path.Combine(uploadFolder, imageName);
+            using (var stream = new FileStream(imagePath, FileMode.Create))
+            {
+                await attachmentImage.CopyToAsync(stream);
+            }
+
+            // Tạo DTO kết quả trả về (đường dẫn tương đối)
+            var result = new QuotationDTO
+            {
+                AttachmentFile = $"uploads/{fileName}",
+                AttachmentImage = $"uploads/{imageName}"
+            };
+
+            return result;
         }
         public async Task<QuotationDTO> GetQuotationByIdAsync(int id)
         {
