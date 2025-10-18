@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
-        [HttpPost("CreateDealerOrder")]
+        [HttpPost]
         public async Task<IActionResult> CreateDealerOrder([FromBody] DealerOrderDTO dto)
         {
             var create = await _saleManagement.CreateDealerOrderAsync(dto);

@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
-        [HttpPost("CreateSaleContract")]
+        [HttpPost]
         public async Task<IActionResult> CteateSaleContract([FromBody] SalesContractDTO dto)
         {
             var salecontract = await _saleManagement.CteateSaleContractAsync(dto);
