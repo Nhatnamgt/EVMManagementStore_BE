@@ -144,6 +144,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = o.UserId,
                 VehicleId = o.VehicleId,
                 OrderDate = o.OrderDate,
+                DeliveryAddress = o.DeliveryAddress,    
                 Status = o.Status,
                 TotalAmount = o.TotalAmount
             }).ToList();
@@ -161,6 +162,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                DeliveryAddress = order.DeliveryAddress,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
@@ -186,6 +188,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = orderDTO.UserId,
                 VehicleId = orderDTO.VehicleId,
                 OrderDate = orderDTO.OrderDate ?? DateTime.UtcNow,
+                DeliveryAddress = orderDTO.DeliveryAddress,
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
                 TotalAmount = totalAmount
             };
@@ -200,6 +203,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                DeliveryAddress = order.DeliveryAddress,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
@@ -209,7 +213,9 @@ namespace EVMManagementStore.Service.Service.Dealer
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(id);
             if (order == null)
                 throw new KeyNotFoundException($"OrderId {id} not found.");
-
+          
+            order.OrderDate = dto.OrderDate;    
+            order.DeliveryAddress = dto.DeliveryAddress;   
             order.Status = dto.Status;
             order.TotalAmount = dto.TotalAmount;
 
@@ -223,6 +229,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                DeliveryAddress = order.DeliveryAddress,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
