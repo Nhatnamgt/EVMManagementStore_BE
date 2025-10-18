@@ -12,7 +12,7 @@ namespace EVMManagementStore.Service.Interface.Dealer
     public interface ISaleManagementService
     {
         // Quotaion
-        Task<QuotationDTO> UploadFiles(IFormFile attachmentFile, IFormFile attachmentImage);
+        Task<QuotationDTO> UploadFiles(int quotationId, IFormFile attachmentFile, IFormFile attachmentImage);
         Task<List<QuotationDTO>> GetAllQuotationsAsync();
         Task<QuotationDTO> GetQuotationByIdAsync(int id);
         Task<QuotationDTO> CreateQuotationAsync(QuotationDTO quotationDTO);

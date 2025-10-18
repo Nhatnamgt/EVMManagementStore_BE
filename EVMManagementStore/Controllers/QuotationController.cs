@@ -66,9 +66,9 @@ namespace EVMManagementStore.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFiles(IFormFile attachmentFile, IFormFile attachmentImage)
+        public async Task<IActionResult> UploadFiles(int id, IFormFile attachmentFile, IFormFile attachmentImage)
         {
-            var upload = await _saleManagement.UploadFiles(attachmentFile, attachmentImage);
+            var upload = await _saleManagement.UploadFiles(id, attachmentFile, attachmentImage);
             return Ok(ApiResponse<QuotationDTO>.OkResponse(upload, "Upload báo giá thành công"));
         }
 
