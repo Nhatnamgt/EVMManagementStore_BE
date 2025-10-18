@@ -40,41 +40,60 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Status = q.Status
             }).ToList();
         }
-        public async Task<QuotationDTO> UploadFiles(IFormFile attachmentFile, IFormFile attachmentImage)
+        public async Task<QuotationDTO> UploadFiles(int quotationId, IFormFile attachmentFile, IFormFile attachmentImage)
         {
-            if (attachmentFile == null || attachmentImage == null)
-                throw new ArgumentNullException("Vui lòng chọn đầy đủ file hợp đồng và hình ảnh.");
+            // Lấy quotation
+            var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(quotationId);
+            if (quotation == null)
+                throw new Exception("Quotation not found");
 
-            // Thư mục lưu file (wwwroot/uploads)
-            var uploadFolder = Path.Combine(_env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"), "uploads");
+            // Tạo thư mục uploads nếu chưa có
+            string uploadPath = Path.Combine(_env.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
 
-            if (!Directory.Exists(uploadFolder))
-                Directory.CreateDirectory(uploadFolder);
-
-            // Lưu file hợp đồng
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(attachmentFile.FileName)}";
-            var filePath = Path.Combine(uploadFolder, fileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            // Lưu file đính kèm (hợp đồng)
+            if (attachmentFile != null)
             {
-                await attachmentFile.CopyToAsync(stream);
+                string fileName = $"{quotationId}_contract_{Path.GetFileName(attachmentFile.FileName)}";
+                string filePath = Path.Combine(uploadPath, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await attachmentFile.CopyToAsync(stream);
+                }
+                quotation.AttachmentFile = $"uploads/{fileName}";
             }
 
-            // Lưu file hình ảnh
-            var imageName = $"{Guid.NewGuid()}{Path.GetExtension(attachmentImage.FileName)}";
-            var imagePath = Path.Combine(uploadFolder, imageName);
-            using (var stream = new FileStream(imagePath, FileMode.Create))
+            // Lưu file hình ảnh (hóa đơn)
+            if (attachmentImage != null)
             {
-                await attachmentImage.CopyToAsync(stream);
+                string imageName = $"{quotationId}_image_{Path.GetFileName(attachmentImage.FileName)}";
+                string imagePath = Path.Combine(uploadPath, imageName);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await attachmentImage.CopyToAsync(stream);
+                }
+                quotation.AttachmentImage = $"uploads/{imageName}";
             }
 
-            // Tạo DTO kết quả trả về (đường dẫn tương đối)
-            var result = new QuotationDTO
+            // Lưu cập nhật vào database
+            _unitOfWork.QuotationRepository.Update(quotation);
+            await _unitOfWork.SaveAsync();
+
+            // Trả về DTO
+            return new QuotationDTO
             {
-                AttachmentFile = $"uploads/{fileName}",
-                AttachmentImage = $"uploads/{imageName}"
+                QuotationId = quotation.QuotationId,
+                UserId = quotation.UserId,
+                VehicleId = quotation.VehicleId,
+                QuotationDate = quotation.QuotationDate,
+                BasePrice = quotation.BasePrice,
+                Discount = quotation.Discount,
+                FinalPrice = quotation.FinalPrice,
+                AttachmentFile = quotation.AttachmentFile,
+                AttachmentImage = quotation.AttachmentImage,
+                Status = quotation.Status
             };
-
-            return result;
         }
         public async Task<QuotationDTO> GetQuotationByIdAsync(int id)
         {
