@@ -20,7 +20,7 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
-        [HttpPost("CreateQuotation")]
+        [HttpPost]
         public async Task<IActionResult> CreateQuotation([FromBody] QuotationDTO dto)
         {
             var quotations = await _saleManagement.CreateQuotationAsync(dto);
@@ -65,6 +65,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<QuotationDTO>.OkResponse(quotation, "Cập nhật báo giá thành công"));
         }
 
+        [Authorize(Roles = "dealer")]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFiles(int id, IFormFile attachmentFile, IFormFile attachmentImage)
         {
