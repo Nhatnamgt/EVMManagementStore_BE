@@ -65,6 +65,14 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<QuotationDTO>.OkResponse(quotation, "Cập nhật báo giá thành công"));
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadFiles(IFormFile attachmentFile, IFormFile attachmentImage)
+        {
+            var upload = await _saleManagement.UploadFiles(attachmentFile, attachmentImage);
+            return Ok(ApiResponse<QuotationDTO>.OkResponse(upload, "Upload báo giá thành công"));
+        }
+
+
         [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuotation(int id)

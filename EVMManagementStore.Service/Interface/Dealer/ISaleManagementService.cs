@@ -1,4 +1,6 @@
 ﻿using EVMManagementStore.Service.DTO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ namespace EVMManagementStore.Service.Interface.Dealer
     public interface ISaleManagementService
     {
         // Quotaion
+        Task<QuotationDTO> UploadFiles(IFormFile attachmentFile, IFormFile attachmentImage);
         Task<List<QuotationDTO>> GetAllQuotationsAsync();
         Task<QuotationDTO> GetQuotationByIdAsync(int id);
         Task<QuotationDTO> CreateQuotationAsync(QuotationDTO quotationDTO);
