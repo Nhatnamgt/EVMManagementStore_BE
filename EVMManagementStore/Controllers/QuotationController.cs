@@ -20,14 +20,6 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
-        [HttpPost]
-        public async Task<IActionResult> CreateQuotation([FromBody] QuotationDTO dto)
-        {
-            var quotations = await _saleManagement.CreateQuotationAsync(dto);
-            return Ok(ApiResponse<QuotationDTO>.OkResponse(quotations, "Tạo báo giá thành công"));
-        }
-
-        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetQuotation()
         {
@@ -49,6 +41,14 @@ namespace EVMManagementStore.Controllers
                 return NotFound(ApiResponse<string>.NotFoundResponse("Không tìm thấy báo giá với ID đã cho"));
             }
             return Ok(ApiResponse<QuotationDTO>.OkResponse(quotations, "Lấy thông tin báo giá thành công"));
+        }
+
+        [Authorize(Roles = "dealer")]
+        [HttpPost]
+        public async Task<IActionResult> CreateQuotation([FromBody] QuotationDTO dto)
+        {
+            var quotations = await _saleManagement.CreateQuotationAsync(dto);
+            return Ok(ApiResponse<QuotationDTO>.OkResponse(quotations, "Tạo báo giá thành công"));
         }
 
         [Authorize(Roles = "dealer")]
