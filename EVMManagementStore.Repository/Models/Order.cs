@@ -19,6 +19,10 @@ public partial class Order
 
     public string DeliveryAddress { get; set; }
 
+    public string AttachmentImage { get; set; }
+
+    public string AttachmentFile { get; set; }
+
     public string Status { get; set; }
 
     public decimal TotalAmount { get; set; }

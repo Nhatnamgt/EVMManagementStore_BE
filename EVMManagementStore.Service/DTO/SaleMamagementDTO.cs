@@ -41,7 +41,12 @@ namespace EVMManagementStore.Service.DTO
 
         public DateTime? OrderDate { get; set; }
 
-        public string DeliveryAddress { get; set; }     
+        public string DeliveryAddress { get; set; }
+       
+        public string AttachmentImage { get; set; }
+      
+        public string AttachmentFile { get; set; }
+     
         public string Status { get; set; }
 
         public decimal TotalAmount { get; set; }
@@ -73,6 +78,8 @@ namespace EVMManagementStore.Service.DTO
         public string Cccd { get; set; }
 
         public string ContractImage { get; set; }
+
+        public string ContractFile { get; set; }
     }
 
 
@@ -85,6 +92,8 @@ namespace EVMManagementStore.Service.DTO
         public int VehicleId { get; set; }
 
         public int Quantity { get; set; }
+     
+        public string Color { get; set; }
 
         public DateTime? OrderDate { get; set; }
 

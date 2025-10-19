@@ -29,6 +29,8 @@ public partial class SalesContract
 
     public string Cccd { get; set; }
 
+    public string ContractFile { get; set; }
+
     public string ContractImage { get; set; }
 
     public virtual Order Order { get; set; }
