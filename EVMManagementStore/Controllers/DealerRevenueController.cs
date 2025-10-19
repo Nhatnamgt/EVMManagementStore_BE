@@ -17,7 +17,7 @@ namespace EVMManagementStore.Controllers
             _dealerRevenueService = dealerRevenueService;
         }
 
-              [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetDealerRevenue()
         {
