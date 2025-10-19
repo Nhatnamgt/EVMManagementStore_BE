@@ -481,13 +481,13 @@ namespace EVMManagementStore.Service.Service.Dealer
                 ContractDate = salecontract.ContractDate ?? DateTime.UtcNow,
                 Terms = salecontract.Terms,
                 SignedByDealer = salecontract.SignedByDealer,
-                CustomerName = salesContractDTO.CustomerName,
-                Phone = salesContractDTO.Phone,
-                Email = salesContractDTO.Email,
-                PaymentMethod = salesContractDTO.PaymentMethod,
-                Address = salesContractDTO.Address,
-                Cccd = salesContractDTO.Cccd,
-                ContractImage = salesContractDTO.ContractImage
+                CustomerName = salecontract.CustomerName,
+                Phone = salecontract.Phone,
+                Email = salecontract.Email,
+                PaymentMethod = salecontract.PaymentMethod,
+                Address = salecontract.Address,
+                Cccd = salecontract.Cccd,
+                ContractImage = salecontract.ContractImage
 
             };
         }
