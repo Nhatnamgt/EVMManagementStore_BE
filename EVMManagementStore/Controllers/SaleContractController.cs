@@ -17,6 +17,7 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
+
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {
