@@ -34,7 +34,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = q.VehicleId,
                 QuotationDate = q.QuotationDate,
                 BasePrice = q.BasePrice,
-                Discount = q.Discount,
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
                 AttachmentImage = q.AttachmentImage,    
@@ -83,7 +82,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = quotation.VehicleId,
                 QuotationDate = quotation.QuotationDate,
                 BasePrice = quotation.BasePrice,
-                Discount = quotation.Discount,
                 FinalPrice = quotation.FinalPrice,
                 AttachmentFile = quotation.AttachmentFile,
                 AttachmentImage = quotation.AttachmentImage,
@@ -103,7 +101,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = q.VehicleId,
                 QuotationDate = q.QuotationDate,
                 BasePrice = q.BasePrice,
-                Discount = q.Discount,
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
                 AttachmentImage = q.AttachmentImage,
@@ -121,12 +118,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = quotationDTO.VehicleId,
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
                 BasePrice = quotationDTO.BasePrice,
-                Discount = quotationDTO.Discount,
                 Status = string.IsNullOrEmpty(quotationDTO.Status) ? "Pending" : quotationDTO.Status
             };
-
-            decimal discountValue = quotation.Discount ?? 0;
-            quotation.FinalPrice = quotation.BasePrice - (quotation.BasePrice * discountValue);
 
             await _unitOfWork.QuotationRepository.AddAsync(quotation);
             await _unitOfWork.SaveAsync();
@@ -138,7 +131,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = quotation.VehicleId,
                 QuotationDate = quotation.QuotationDate,
                 BasePrice = quotation.BasePrice,
-                Discount = quotation.Discount,
                 FinalPrice = quotation.FinalPrice,
                 Status = quotation.Status
             };
@@ -151,9 +143,7 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             q.BasePrice = dto.BasePrice;
             q.QuotationDate = dto.QuotationDate;    
-            q.Discount = dto.Discount;
             q.Status = dto.Status;   
-            q.FinalPrice = q.BasePrice - (q.BasePrice * (q.Discount ?? 0));
 
             _unitOfWork.QuotationRepository.Update(q);
             await _unitOfWork.SaveAsync();
@@ -165,7 +155,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = q.VehicleId,
                 QuotationDate = q.QuotationDate,
                 BasePrice = q.BasePrice,
-                Discount = q.Discount,
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
                 AttachmentImage = q.AttachmentImage,
@@ -228,32 +217,36 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DeliveryAddress = order.DeliveryAddress,
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
+                PromotionCode = order.PromotionCode,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount 
             };
         }
         public async Task<List<OrderDTO>> GetAllOrdersAsync()
-        {
-            var orders = await _unitOfWork.OrderRepository.GetAllAsync();
+        {          
+            var orders = await _unitOfWork.OrderRepository.GetAllIncludeAsync(p => p.Quotation);
+
             return orders.Select(o => new OrderDTO
-            {
-                OrderId = o.OrderId,
-                QuotationId = o.QuotationId,
-                UserId = o.UserId,
-                VehicleId = o.VehicleId,
-                OrderDate = o.OrderDate,
-                DeliveryAddress = o.DeliveryAddress,
-                AttachmentFile = o.AttachmentFile,
-                AttachmentImage = o.AttachmentImage,
-                Status = o.Status,
-                TotalAmount = o.TotalAmount
+                             {
+                                 OrderId = o.OrderId,
+                                 QuotationId = o.QuotationId,
+                                 UserId = o.UserId,
+                                 VehicleId = o.VehicleId,
+                                 OrderDate = o.OrderDate,
+                                 DeliveryAddress = o.DeliveryAddress,
+                                 AttachmentFile = o.AttachmentFile,
+                                 AttachmentImage = o.AttachmentImage,
+                                 PromotionCode = o.PromotionCode,
+                                 PromotionOptionName = o.PromotionCode,
+                                 Status = o.Status,
+                                 TotalAmount = o.Quotation != null ? o.Quotation.FinalPrice : 0
             }).ToList();
         }
         public async Task<OrderDTO> GetOrderByIdAsync(int id)
         {
-            var order = await _unitOfWork.OrderRepository.GetByIdAsync(id);
-            if (order == null)
-                throw new KeyNotFoundException($"OrderId {id} not found.");
+            var order = (await _unitOfWork.OrderRepository.FindIncludeAsync(p => p.OrderId == id, p => p.Quotation)).FirstOrDefault();
+
+            if (order == null) return null;
 
             return new OrderDTO
             {
@@ -265,24 +258,17 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DeliveryAddress = order.DeliveryAddress,
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
+                PromotionCode = order.PromotionCode,
+                PromotionOptionName = order.PromotionCode,   
                 Status = order.Status,
-                TotalAmount = order.TotalAmount
+                TotalAmount = order.Quotation != null ? order.Quotation.FinalPrice : 0
             };
         }
+
         public async Task<OrderDTO> CreateOrderAsync(OrderDTO orderDTO)
         {
-            if (orderDTO == null)
-                throw new ArgumentNullException(nameof(orderDTO));
-
-            decimal totalAmount = orderDTO.TotalAmount;
-            if (orderDTO.QuotationId.HasValue)
-            {
-                var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId.Value);
-                if (quotation == null)
-                    throw new KeyNotFoundException($"QuotationId {orderDTO.QuotationId.Value} not found.");
-
-                totalAmount = quotation.FinalPrice;
-            }
+            var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId); 
+            if (quotation == null) return null;
 
             var order = new Order
             {
@@ -291,8 +277,9 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = orderDTO.VehicleId,
                 OrderDate = orderDTO.OrderDate ?? DateTime.UtcNow,
                 DeliveryAddress = orderDTO.DeliveryAddress,
+                PromotionCode = orderDTO.PromotionCode,
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
-                TotalAmount = totalAmount
+                TotalAmount = quotation.FinalPrice
             };
 
             await _unitOfWork.OrderRepository.AddAsync(order);
@@ -306,6 +293,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
                 DeliveryAddress = order.DeliveryAddress,
+                PromotionCode = order.PromotionCode,
+                PromotionOptionName = order.PromotionCode,  
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
@@ -313,13 +302,15 @@ namespace EVMManagementStore.Service.Service.Dealer
         public async Task<OrderDTO> UpdateOrderAsync(int id, OrderDTO dto)
         {
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(id);
-            if (order == null)
-                throw new KeyNotFoundException($"OrderId {id} not found.");
-          
-            order.OrderDate = dto.OrderDate;    
-            order.DeliveryAddress = dto.DeliveryAddress;   
-            order.Status = dto.Status;
-            order.TotalAmount = dto.TotalAmount;
+            if (order == null) return null;
+
+            var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(dto.QuotationId);
+            if (quotation == null) return null; 
+
+            order.OrderDate = dto.OrderDate ?? order.OrderDate;
+            order.DeliveryAddress = dto.DeliveryAddress;
+            order.PromotionCode = dto.PromotionCode;
+            order.TotalAmount = quotation.FinalPrice;
 
             _unitOfWork.OrderRepository.Update(order);
             await _unitOfWork.SaveAsync();
@@ -334,10 +325,13 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DeliveryAddress = order.DeliveryAddress,
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
+                PromotionCode = order.PromotionCode,
+                PromotionOptionName = order.PromotionCode, 
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
         }
+
         public async Task<bool> DeleteOrderAsync(int id)
         {
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(id);
@@ -424,8 +418,7 @@ namespace EVMManagementStore.Service.Service.Dealer
         public async Task<DealerOrderDTO> UpdateDealerOrderAsync(int id, DealerOrderDTO dto)
         {
             var order = await _unitOfWork.DealerOrderRepository.GetByIdAsync(id);
-            if (order == null)
-                throw new KeyNotFoundException($"DealerOrderId {id} not found.");
+            if (order == null) return null;
 
             order.Quantity = dto.Quantity;
             order.Status = dto.Status;
@@ -499,15 +492,12 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new SalesContractDTO
             {
                 SalesContractId = salecontract.SalesContractId,
+                UserId = salecontract.UserId,   
                 OrderId = salecontract.OrderId,
                 ContractDate = salecontract.ContractDate,
                 Terms = salecontract.Terms,
                 SignedByDealer = salecontract.SignedByDealer,
-                CustomerName = salecontract.CustomerName,
-                Phone = salecontract.Phone,
-                Email = salecontract.Email,
                 PaymentMethod = salecontract.PaymentMethod,
-                Address = salecontract.Address,
                 Cccd = salecontract.Cccd,
                 ContractFile = salecontract.ContractFile, 
                 ContractImage = salecontract.ContractImage
@@ -519,15 +509,12 @@ namespace EVMManagementStore.Service.Service.Dealer
             return saleContracts.Select(s => new SalesContractDTO
             {
                 SalesContractId = s.SalesContractId,
+                UserId = s.UserId,
                 OrderId = s.OrderId,
                 ContractDate = s.ContractDate,
                 Terms = s.Terms,
                 SignedByDealer = s.SignedByDealer,
-                CustomerName = s.CustomerName,
-                Phone = s.Phone,
-                Email = s.Email,
                 PaymentMethod = s.PaymentMethod,
-                Address = s.Address,
                 Cccd = s.Cccd,
                 ContractFile = s.ContractFile,
                 ContractImage = s.ContractImage
@@ -542,15 +529,12 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new SalesContractDTO
             {
                 SalesContractId = c.SalesContractId,
+                UserId = c.UserId,
                 OrderId = c.OrderId,
                 ContractDate = c.ContractDate,
                 Terms = c.Terms,
                 SignedByDealer = c.SignedByDealer,
-                CustomerName = c.CustomerName,
-                Phone = c.Phone,
-                Email = c.Email,
                 PaymentMethod = c.PaymentMethod,
-                Address = c.Address,
                 Cccd = c.Cccd,
                 ContractFile = c.ContractFile,
                 ContractImage = c.ContractImage
@@ -563,15 +547,12 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             var salecontract = new SalesContract
             {
+                UserId = salesContractDTO.UserId,
                 OrderId = salesContractDTO.OrderId,
                 ContractDate = salesContractDTO.ContractDate ?? DateTime.UtcNow,
                 Terms = salesContractDTO.Terms,
                 SignedByDealer = salesContractDTO.SignedByDealer,
-                CustomerName = salesContractDTO.CustomerName,
-                Phone = salesContractDTO.Phone,
-                Email = salesContractDTO.Email,
                 PaymentMethod = salesContractDTO.PaymentMethod,
-                Address = salesContractDTO.Address,
                 Cccd = salesContractDTO.Cccd,
             };
 
@@ -581,15 +562,12 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new SalesContractDTO
             {
                 SalesContractId = salecontract.SalesContractId,
+                UserId = salecontract.UserId,
                 OrderId = salecontract.OrderId,
                 ContractDate = salecontract.ContractDate ?? DateTime.UtcNow,
                 Terms = salecontract.Terms,
                 SignedByDealer = salecontract.SignedByDealer,
-                CustomerName = salecontract.CustomerName,
-                Phone = salecontract.Phone,
-                Email = salecontract.Email,
                 PaymentMethod = salecontract.PaymentMethod,
-                Address = salecontract.Address,
                 Cccd = salecontract.Cccd,
             };
         }
@@ -601,11 +579,7 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             c.Terms = dto.Terms;
             c.SignedByDealer = dto.SignedByDealer;
-            c.CustomerName = c.CustomerName;
-            c.Phone = dto.Phone;
-            c.Email = dto.Email;
             c.PaymentMethod = dto.PaymentMethod;
-            c.Address = dto.Address;
             c.Cccd = dto.Cccd;
 
             _unitOfWork.SalesContractRepository.Update(c);
@@ -614,15 +588,12 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new SalesContractDTO
             {
                 SalesContractId = c.SalesContractId,
+                UserId = c.UserId,
                 OrderId = c.OrderId,
                 ContractDate = c.ContractDate,
                 Terms = c.Terms,
                 SignedByDealer = c.SignedByDealer,
-                CustomerName = c.CustomerName,
-                Phone = c.Phone,
-                Email = c.Email,
                 PaymentMethod = c.PaymentMethod,
-                Address = c.Address,
                 Cccd = c.Cccd,
                 ContractFile = c.ContractFile,
                 ContractImage = c.ContractImage

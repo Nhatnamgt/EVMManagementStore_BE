@@ -9,17 +9,17 @@ public partial class Promotion
 {
     public int PromotionId { get; set; }
 
-    public string Name { get; set; }
+    public int UserId { get; set; }
 
-    public decimal? DiscountPercent { get; set; }
+    public string PromotionCode { get; set; }
+
+    public string OptionName { get; set; }
+
+    public decimal? OptionValue { get; set; }
 
     public DateOnly? StartDate { get; set; }
 
     public DateOnly? EndDate { get; set; }
-
-    public int UserId { get; set; }
-
-    public virtual ICollection<PromotionOption> PromotionOptions { get; set; } = new List<PromotionOption>();
 
     public virtual User User { get; set; }
 }

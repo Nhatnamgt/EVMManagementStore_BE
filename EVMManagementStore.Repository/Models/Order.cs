@@ -25,6 +25,8 @@ public partial class Order
 
     public string Status { get; set; }
 
+    public string PromotionCode { get; set; }
+
     public decimal TotalAmount { get; set; }
 
     public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();

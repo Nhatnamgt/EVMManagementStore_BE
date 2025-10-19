@@ -17,14 +17,7 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
-        [HttpPost]
-        public async Task<IActionResult> CteateSaleContract([FromBody] SalesContractDTO dto)
-        {
-            var salecontract = await _saleManagement.CteateSaleContractAsync(dto);
-            return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Tạo hợp đồng bán hàng thành công"));
-        }
 
-        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {
@@ -46,6 +39,14 @@ namespace EVMManagementStore.Controllers
                 return NotFound(ApiResponse<string>.NotFoundResponse("Không tìm thấy hợp đồng bán hàng với ID đã cho"));
             }
             return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Lấy thông tin hợp đồng bán hàng thành công"));
+        }
+
+        [Authorize(Roles = "dealer")]
+        [HttpPost]
+        public async Task<IActionResult> CteateSaleContract([FromBody] SalesContractDTO dto)
+        {
+            var salecontract = await _saleManagement.CteateSaleContractAsync(dto);
+            return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Tạo hợp đồng bán hàng thành công"));
         }
 
         [Authorize(Roles = "dealer")]

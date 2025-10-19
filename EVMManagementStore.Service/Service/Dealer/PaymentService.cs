@@ -81,9 +81,12 @@ namespace EVMManagementStore.Service.Service.Dealer
             var payment = await _unitOfWork.PaymentRepository.GetByIdAsync(id);
             if (payment == null) return null;
 
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(paymentDto.OrderId);
+            if (order == null)
+                throw new KeyNotFoundException($"OrderId {paymentDto.OrderId} not found.");
+
             payment.OrderId = paymentDto.OrderId;
             payment.PaymentDate = paymentDto.PaymentDate;
-            payment.Amount = paymentDto.Amount;
             payment.Method = paymentDto.Method;
             payment.Status = paymentDto.Status;
 
@@ -95,7 +98,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentId = payment.PaymentId,
                 OrderId = payment.OrderId,
                 PaymentDate = payment.PaymentDate,
-                Amount = payment.Amount,
                 Method = payment.Method,
                 Status = payment.Status
             };

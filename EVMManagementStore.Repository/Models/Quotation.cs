@@ -17,8 +17,6 @@ public partial class Quotation
 
     public decimal BasePrice { get; set; }
 
-    public decimal? Discount { get; set; }
-
     public decimal FinalPrice { get; set; }
 
     public string AttachmentImage { get; set; }

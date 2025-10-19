@@ -19,9 +19,8 @@ namespace EVMManagementStore.Service.DTO
 
         public decimal BasePrice { get; set; }
 
-        public decimal? Discount { get; set; }
-
         public decimal FinalPrice { get; set; }
+
         public string AttachmentImage { get; set; }
 
         public string AttachmentFile { get; set; }
@@ -49,6 +48,10 @@ namespace EVMManagementStore.Service.DTO
      
         public string Status { get; set; }
 
+        public string PromotionCode { get; set; }
+
+        public string PromotionOptionName { get; set; }
+
         public decimal TotalAmount { get; set; }
     }
 
@@ -59,21 +62,15 @@ namespace EVMManagementStore.Service.DTO
 
         public int OrderId { get; set; }
 
+        public int UserId { get; set; }
+
         public DateTime? ContractDate { get; set; }
 
         public string Terms { get; set; }
 
-        public string SignedByDealer { get; set; }
-
-        public string CustomerName { get; set; }
-
-        public string Phone { get; set; }
-
-        public string Email { get; set; }
+        public string SignedByDealer { get; set; }      
 
         public string PaymentMethod { get; set; }
-
-        public string Address { get; set; }
 
         public string Cccd { get; set; }
 

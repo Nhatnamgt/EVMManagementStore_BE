@@ -37,5 +37,7 @@ public partial class User
 
     public virtual Role Role { get; set; }
 
+    public virtual ICollection<SalesContract> SalesContracts { get; set; } = new List<SalesContract>();
+
     public virtual ICollection<TestDriveAppointment> TestDriveAppointments { get; set; } = new List<TestDriveAppointment>();
 }

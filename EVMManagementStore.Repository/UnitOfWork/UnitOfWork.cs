@@ -17,7 +17,6 @@ namespace EVMManagementStore.Repository.UnitOfWork
         private GenericRepository<Order> _orderRepository = null!;
         private GenericRepository<Payment> _paymentRepository = null!;
         private GenericRepository<Promotion> _promotionRepository = null!;
-        private GenericRepository<PromotionOption> _promotionoptionRepository = null!;
         private GenericRepository<Quotation> _quotiationRepository = null!;
         private GenericRepository<Report> _reportRepository = null!;
         private GenericRepository<Role> _roleRepository = null!;
@@ -37,7 +36,6 @@ namespace EVMManagementStore.Repository.UnitOfWork
         public GenericRepository<Order> OrderRepository => _orderRepository ??= new GenericRepository<Order>(_context);
         public GenericRepository<Payment> PaymentRepository => _paymentRepository ??= new GenericRepository<Payment>(_context);
         public GenericRepository<Promotion> PromotionRepository => _promotionRepository ??= new GenericRepository<Promotion>(_context);
-        public GenericRepository<PromotionOption> PromotionOptionRepository => _promotionoptionRepository ??= new GenericRepository<PromotionOption>(_context);
         public GenericRepository<Quotation> QuotationRepository => _quotiationRepository ??= new GenericRepository<Quotation>(_context);
         public GenericRepository<Report> ReportRepository => _reportRepository ??= new GenericRepository<Report>(_context);
         public GenericRepository<Role> RoleRepository => _roleRepository ??= new GenericRepository<Role>(_context);

@@ -16,15 +16,7 @@ namespace EVMManagementStore.Controllers
             _saleManagement = saleManagement;
         }
 
-        [Authorize(Roles = "dealer")]
-        [HttpPost]
-        public async Task<IActionResult> CreateDealerOrder([FromBody] DealerOrderDTO dto)
-        {
-            var create = await _saleManagement.CreateDealerOrderAsync(dto);
-            return Ok(ApiResponse<DealerOrderDTO>.OkResponse(create, "Đặt xe từ hãng thành công"));
-        }
-
-        [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet]
         public async Task<IActionResult> GeDealerOrder()
         {
@@ -36,7 +28,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<DealerOrderDTO>>.OkResponse(dealerorder.ToList(), "Lấy danh sách Đặt xe từ hãng thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDealerOrderById(int id)
         {
@@ -48,7 +40,15 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<DealerOrderDTO>.OkResponse(dealerorder, "Lấy thông tin Đặt xe từ hãng thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
+        [HttpPost]
+        public async Task<IActionResult> CreateDealerOrder([FromBody] DealerOrderDTO dto)
+        {
+            var create = await _saleManagement.CreateDealerOrderAsync(dto);
+            return Ok(ApiResponse<DealerOrderDTO>.OkResponse(create, "Đặt xe từ hãng thành công"));
+        }
+
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDealerOrder(int id, [FromBody] DealerOrderDTO dto)
         {
@@ -62,7 +62,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<DealerOrderDTO>.OkResponse(dealerorder, "Cập nhật Đặt xe từ hãng thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDealerOrder(int id)
         {
