@@ -15,7 +15,6 @@ namespace EVMManagementStore.Repository.UnitOfWork
         GenericRepository<Order> OrderRepository { get; }
         GenericRepository<Payment> PaymentRepository { get; }
         GenericRepository<Promotion> PromotionRepository { get; }
-        GenericRepository<PromotionOption> PromotionOptionRepository { get; }
         GenericRepository<Quotation> QuotationRepository { get; }
         GenericRepository<Report> ReportRepository { get; }
         GenericRepository<Role> RoleRepository { get; }

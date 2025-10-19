@@ -16,15 +16,7 @@ namespace EVMManagementStore.Controllers
             _saleManagement = saleManagement;
         }
 
-    //    [Authorize(Roles = "dealer")]
-        [HttpPost]
-        public async Task<IActionResult> CteateSaleContract([FromBody] SalesContractDTO dto)
-        {
-            var salecontract = await _saleManagement.CteateSaleContractAsync(dto);
-            return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Tạo hợp đồng bán hàng thành công"));
-        }
-
-    //    [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {
@@ -36,7 +28,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<SalesContractDTO>>.OkResponse(salecontract.ToList(), "Lấy danh sách hợp đồng bán hàng thành công"));
         }
 
-    //    [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSaleContractById(int id)
         {
@@ -48,7 +40,15 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Lấy thông tin hợp đồng bán hàng thành công"));
         }
 
-  //      [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
+        [HttpPost]
+        public async Task<IActionResult> CteateSaleContract([FromBody] SalesContractDTO dto)
+        {
+            var salecontract = await _saleManagement.CteateSaleContractAsync(dto);
+            return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Tạo hợp đồng bán hàng thành công"));
+        }
+
+        [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSaleContract(int id, [FromBody] SalesContractDTO dto)
         {
@@ -62,7 +62,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontract, "Cập nhật hợp đồng bán hàng thành công"));
         }
 
-     //   [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFiles(int id, IFormFile attachmentFile, IFormFile attachmentImage)
         {
@@ -70,7 +70,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<SalesContractDTO>.OkResponse(salecontractupload, "Upload hợp đồng thành công"));
         }
 
-     //   [Authorize(Roles = "dealer")]
+        [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSaleContract(int id)
         {

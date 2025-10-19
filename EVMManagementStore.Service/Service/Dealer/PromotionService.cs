@@ -24,8 +24,9 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 PromotionId = p.PromotionId,
                 UserId = p.UserId,
-                Name = p.Name,
-                DiscountPercent = p.DiscountPercent,
+                PromotionCode = p.PromotionCode,
+                OptionName = p.OptionName,
+                OptionValue = p.OptionValue,
                 StartDate = p.StartDate,
                 EndDate = p.EndDate
             }).ToList();
@@ -39,8 +40,9 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 PromotionId = promotion.PromotionId,
                 UserId = promotion.UserId,
-                Name = promotion.Name,
-                DiscountPercent = promotion.DiscountPercent,
+                PromotionCode = promotion.PromotionCode,
+                OptionName = promotion.OptionName,
+                OptionValue = promotion.OptionValue,
                 StartDate = promotion.StartDate,
                 EndDate = promotion.EndDate
             };
@@ -50,9 +52,11 @@ namespace EVMManagementStore.Service.Service.Dealer
         {
             var promotion = new Promotion
             {
+                PromotionId = promotionDto.PromotionId,
                 UserId = promotionDto.UserId,
-                Name = promotionDto.Name,
-                DiscountPercent = promotionDto.DiscountPercent,
+                PromotionCode = promotionDto.PromotionCode,
+                OptionName = promotionDto.OptionName,
+                OptionValue = promotionDto.OptionValue,
                 StartDate = promotionDto.StartDate,
                 EndDate = promotionDto.EndDate
             };
@@ -69,8 +73,9 @@ namespace EVMManagementStore.Service.Service.Dealer
             if (promotion == null) return null;
 
             promotion.UserId = promotionDto.UserId;
-            promotion.Name = promotionDto.Name;
-            promotion.DiscountPercent = promotionDto.DiscountPercent;
+            promotion.PromotionCode = promotionDto.PromotionCode;
+            promotion.OptionName = promotionDto.OptionName;
+            promotion.OptionValue = promotionDto.OptionValue;   
             promotion.StartDate = promotionDto.StartDate;
             promotion.EndDate = promotionDto.EndDate;
 
