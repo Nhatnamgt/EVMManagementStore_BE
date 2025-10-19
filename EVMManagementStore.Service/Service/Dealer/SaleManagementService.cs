@@ -4,6 +4,7 @@ using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,17 +43,14 @@ namespace EVMManagementStore.Service.Service.Dealer
         }
         public async Task<QuotationDTO> UploadFiles(int quotationId, IFormFile attachmentFile, IFormFile attachmentImage)
         {
-            // Lấy quotation
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(quotationId);
             if (quotation == null)
                 throw new Exception("Quotation not found");
 
-            // Tạo thư mục uploads nếu chưa có
             string uploadPath = Path.Combine(_env.WebRootPath, "uploads");
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);
 
-            // Lưu file đính kèm (hợp đồng)
             if (attachmentFile != null)
             {
                 string fileName = $"{quotationId}_contract_{Path.GetFileName(attachmentFile.FileName)}";
@@ -64,7 +62,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 quotation.AttachmentFile = $"uploads/{fileName}";
             }
 
-            // Lưu file hình ảnh (hóa đơn)
             if (attachmentImage != null)
             {
                 string imageName = $"{quotationId}_image_{Path.GetFileName(attachmentImage.FileName)}";
@@ -76,11 +73,9 @@ namespace EVMManagementStore.Service.Service.Dealer
                 quotation.AttachmentImage = $"uploads/{imageName}";
             }
 
-            // Lưu cập nhật vào database
             _unitOfWork.QuotationRepository.Update(quotation);
             await _unitOfWork.SaveAsync();
 
-            // Trả về DTO
             return new QuotationDTO
             {
                 QuotationId = quotation.QuotationId,
@@ -127,8 +122,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
                 BasePrice = quotationDTO.BasePrice,
                 Discount = quotationDTO.Discount,
-                AttachmentFile = quotationDTO.AttachmentFile,   
-                AttachmentImage = quotationDTO.AttachmentImage, 
                 Status = string.IsNullOrEmpty(quotationDTO.Status) ? "Pending" : quotationDTO.Status
             };
 
@@ -147,8 +140,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 BasePrice = quotation.BasePrice,
                 Discount = quotation.Discount,
                 FinalPrice = quotation.FinalPrice,
-                AttachmentFile = quotation.AttachmentFile,
-                AttachmentImage = quotation.AttachmentImage,
                 Status = quotation.Status
             };
         }
@@ -159,10 +150,9 @@ namespace EVMManagementStore.Service.Service.Dealer
                 throw new KeyNotFoundException($"QuotationId {id} not found.");
 
             q.BasePrice = dto.BasePrice;
+            q.QuotationDate = dto.QuotationDate;    
             q.Discount = dto.Discount;
-            q.Status = dto.Status;
-            q.AttachmentFile = dto.AttachmentFile;
-            q.AttachmentImage = dto.AttachmentImage;    
+            q.Status = dto.Status;   
             q.FinalPrice = q.BasePrice - (q.BasePrice * (q.Discount ?? 0));
 
             _unitOfWork.QuotationRepository.Update(q);
@@ -193,6 +183,55 @@ namespace EVMManagementStore.Service.Service.Dealer
         }
 
         //=======================================================Order===========================================================
+        public async Task<OrderDTO> UploadFilesOrder(int orderid, IFormFile attachmentFile, IFormFile attachmentImage)
+        {
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderid);
+            if (order == null)
+                throw new Exception("Order not found");
+
+            string uploadPath = Path.Combine(_env.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
+
+            if (attachmentFile != null)
+            {
+                string fileName = $"{orderid}_contract_{Path.GetFileName(attachmentFile.FileName)}";
+                string filePath = Path.Combine(uploadPath, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await attachmentFile.CopyToAsync(stream);
+                }
+                order.AttachmentFile = $"uploads/{fileName}";
+            }
+
+            if (attachmentImage != null)
+            {
+                string imageName = $"{orderid}_image_{Path.GetFileName(attachmentImage.FileName)}";
+                string imagePath = Path.Combine(uploadPath, imageName);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await attachmentImage.CopyToAsync(stream);
+                }
+                order.AttachmentImage = $"uploads/{imageName}";
+            }
+
+            _unitOfWork.OrderRepository.Update(order);
+            await _unitOfWork.SaveAsync();
+
+            return new OrderDTO
+            {
+                OrderId = order.OrderId,
+                QuotationId = order.QuotationId,
+                UserId = order.UserId,
+                VehicleId = order.VehicleId,
+                OrderDate = order.OrderDate,
+                DeliveryAddress = order.DeliveryAddress,
+                AttachmentFile = order.AttachmentFile,
+                AttachmentImage = order.AttachmentImage,
+                Status = order.Status,
+                TotalAmount = order.TotalAmount 
+            };
+        }
         public async Task<List<OrderDTO>> GetAllOrdersAsync()
         {
             var orders = await _unitOfWork.OrderRepository.GetAllAsync();
@@ -203,7 +242,9 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = o.UserId,
                 VehicleId = o.VehicleId,
                 OrderDate = o.OrderDate,
-                DeliveryAddress = o.DeliveryAddress,    
+                DeliveryAddress = o.DeliveryAddress,
+                AttachmentFile = o.AttachmentFile,
+                AttachmentImage = o.AttachmentImage,
                 Status = o.Status,
                 TotalAmount = o.TotalAmount
             }).ToList();
@@ -222,6 +263,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
                 DeliveryAddress = order.DeliveryAddress,
+                AttachmentFile = order.AttachmentFile,
+                AttachmentImage = order.AttachmentImage,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
@@ -289,6 +332,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
                 DeliveryAddress = order.DeliveryAddress,
+                AttachmentFile = order.AttachmentFile,
+                AttachmentImage = order.AttachmentImage,
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
@@ -314,6 +359,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = d.VehicleId,
                 Quantity = d.Quantity,
                 OrderDate = d.OrderDate,
+                Color = d.Color,    
                 Status = d.Status,
                 PaymentStatus = d.PaymentStatus,
                 TotalAmount = d.TotalAmount
@@ -332,6 +378,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = order.VehicleId,
                 Quantity = order.Quantity,
                 OrderDate = order.OrderDate,
+                Color = order.Color,    
                 Status = order.Status,
                 PaymentStatus = order.PaymentStatus,
                 TotalAmount = order.TotalAmount
@@ -351,6 +398,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = dealerorderDTO.UserId,
                 VehicleId = dealerorderDTO.VehicleId,
                 Quantity = dealerorderDTO.Quantity,
+                Color = dealerorderDTO.Color,       
                 OrderDate = dealerorderDTO.OrderDate ?? DateTime.UtcNow,
                 Status = string.IsNullOrEmpty(dealerorderDTO.Status) ? "Pending" : dealerorderDTO.Status,
                 PaymentStatus = string.IsNullOrEmpty(dealerorderDTO.PaymentStatus) ? "Unpaid" : dealerorderDTO.PaymentStatus,
@@ -367,6 +415,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = dealerOrder.VehicleId,
                 Quantity = dealerOrder.Quantity,
                 OrderDate = dealerOrder.OrderDate,
+                Color = dealerOrder.Color,      
                 Status = dealerOrder.Status,
                 PaymentStatus = dealerOrder.PaymentStatus,
                 TotalAmount = dealerOrder.TotalAmount
@@ -380,8 +429,10 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             order.Quantity = dto.Quantity;
             order.Status = dto.Status;
+            order.Color = dto.Color;    
             order.PaymentStatus = dto.PaymentStatus;
             order.TotalAmount = dto.TotalAmount;
+            order.OrderDate = dto.OrderDate;    
 
             _unitOfWork.DealerOrderRepository.Update(order);
             await _unitOfWork.SaveAsync();
@@ -393,6 +444,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = order.VehicleId,
                 Quantity = order.Quantity,
                 OrderDate = order.OrderDate,
+                Color = order.Color,    
                 Status = order.Status,
                 PaymentStatus = order.PaymentStatus,
                 TotalAmount = order.TotalAmount
@@ -409,7 +461,58 @@ namespace EVMManagementStore.Service.Service.Dealer
         }
 
         //=======================================================SaleContract===========================================================
+        public async Task<SalesContractDTO> UploadFilesSaleContract(int salecontractid, IFormFile attachmentFile, IFormFile attachmentImage)
+        {
+            var salecontract = await _unitOfWork.SalesContractRepository.GetByIdAsync(salecontractid);
+            if (salecontract == null)
+                throw new Exception("Order not found");
 
+            string uploadPath = Path.Combine(_env.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
+
+            if (attachmentFile != null)
+            {
+                string fileName = $"{salecontractid}_contract_{Path.GetFileName(attachmentFile.FileName)}";
+                string filePath = Path.Combine(uploadPath, fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await attachmentFile.CopyToAsync(stream);
+                }
+                salecontract.ContractFile = $"uploads/{fileName}";
+            }
+
+            if (attachmentImage != null)
+            {
+                string imageName = $"{salecontractid}_image_{Path.GetFileName(attachmentImage.FileName)}";
+                string imagePath = Path.Combine(uploadPath, imageName);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await attachmentImage.CopyToAsync(stream);
+                }
+                salecontract.ContractImage = $"uploads/{imageName}";
+            }
+
+            _unitOfWork.SalesContractRepository.Update(salecontract);
+            await _unitOfWork.SaveAsync();
+
+            return new SalesContractDTO
+            {
+                SalesContractId = salecontract.SalesContractId,
+                OrderId = salecontract.OrderId,
+                ContractDate = salecontract.ContractDate,
+                Terms = salecontract.Terms,
+                SignedByDealer = salecontract.SignedByDealer,
+                CustomerName = salecontract.CustomerName,
+                Phone = salecontract.Phone,
+                Email = salecontract.Email,
+                PaymentMethod = salecontract.PaymentMethod,
+                Address = salecontract.Address,
+                Cccd = salecontract.Cccd,
+                ContractFile = salecontract.ContractFile, 
+                ContractImage = salecontract.ContractImage
+            };
+        }
         public async Task<List<SalesContractDTO>> GetAllSaleContractsAsync()
         {
             var saleContracts = await _unitOfWork.SalesContractRepository.GetAllAsync();
@@ -426,6 +529,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentMethod = s.PaymentMethod,
                 Address = s.Address,
                 Cccd = s.Cccd,
+                ContractFile = s.ContractFile,
                 ContractImage = s.ContractImage
             }).ToList();
         }
@@ -448,6 +552,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentMethod = c.PaymentMethod,
                 Address = c.Address,
                 Cccd = c.Cccd,
+                ContractFile = c.ContractFile,
                 ContractImage = c.ContractImage
             };
         }
@@ -468,7 +573,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentMethod = salesContractDTO.PaymentMethod,
                 Address = salesContractDTO.Address,
                 Cccd = salesContractDTO.Cccd,
-                ContractImage = salesContractDTO.ContractImage
             };
 
             await _unitOfWork.SalesContractRepository.AddAsync(salecontract);
@@ -487,8 +591,6 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentMethod = salecontract.PaymentMethod,
                 Address = salecontract.Address,
                 Cccd = salecontract.Cccd,
-                ContractImage = salecontract.ContractImage
-
             };
         }
         public async Task<SalesContractDTO> UpdateSaleContractAsync(int id, SalesContractDTO dto)
@@ -505,7 +607,6 @@ namespace EVMManagementStore.Service.Service.Dealer
             c.PaymentMethod = dto.PaymentMethod;
             c.Address = dto.Address;
             c.Cccd = dto.Cccd;
-            c.ContractImage = dto.ContractImage;
 
             _unitOfWork.SalesContractRepository.Update(c);
             await _unitOfWork.SaveAsync();
@@ -523,6 +624,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentMethod = c.PaymentMethod,
                 Address = c.Address,
                 Cccd = c.Cccd,
+                ContractFile = c.ContractFile,
                 ContractImage = c.ContractImage
             };
         }
@@ -534,6 +636,6 @@ namespace EVMManagementStore.Service.Service.Dealer
             await _unitOfWork.SalesContractRepository.RemoveAsync(saleContract);
             await _unitOfWork.SaveAsync();
             return true;
-        }
+        }            
     }
 }

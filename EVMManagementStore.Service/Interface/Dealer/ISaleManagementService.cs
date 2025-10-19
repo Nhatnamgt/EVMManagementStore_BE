@@ -20,6 +20,7 @@ namespace EVMManagementStore.Service.Interface.Dealer
         Task<bool> DeleteQuotationAsync(int id);
 
         // Order
+        Task<OrderDTO> UploadFilesOrder(int orderid, IFormFile attachmentFile, IFormFile attachmentImage);
         Task<List<OrderDTO>> GetAllOrdersAsync();
         Task<OrderDTO> GetOrderByIdAsync(int id);
         Task<OrderDTO> UpdateOrderAsync(int id, OrderDTO dto);
@@ -34,6 +35,7 @@ namespace EVMManagementStore.Service.Interface.Dealer
         Task<bool> DeleteDealerOrderAsync(int id);
 
         // SaleContract
+        Task<SalesContractDTO> UploadFilesSaleContract(int salecontractid, IFormFile attachmentFile, IFormFile attachmentImage);
         Task<List<SalesContractDTO>> GetAllSaleContractsAsync();
         Task<SalesContractDTO> GetSaleContractByIdAsync(int id);
         Task<SalesContractDTO> CteateSaleContractAsync(SalesContractDTO salesContractDTO);

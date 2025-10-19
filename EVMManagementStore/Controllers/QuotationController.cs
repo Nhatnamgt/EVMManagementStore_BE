@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
             _saleManagement = saleManagement;
         }
 
-        [Authorize(Roles = "dealer")]
+      //  [Authorize(Roles = "dealer")]
         [HttpGet]
         public async Task<IActionResult> GetQuotation()
         {
@@ -31,7 +31,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<QuotationDTO>>.OkResponse(quotations.ToList(), "Lấy danh sách báo giá thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+   //     [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetQuotationById(int id)
         {
@@ -43,7 +43,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<QuotationDTO>.OkResponse(quotations, "Lấy thông tin báo giá thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+     //   [Authorize(Roles = "dealer")]
         [HttpPost]
         public async Task<IActionResult> CreateQuotation([FromBody] QuotationDTO dto)
         {
@@ -51,7 +51,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<QuotationDTO>.OkResponse(quotations, "Tạo báo giá thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+    //    [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateQuotation(int id, [FromBody] QuotationDTO dto)
         {
@@ -65,7 +65,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<QuotationDTO>.OkResponse(quotation, "Cập nhật báo giá thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
+  //      [Authorize(Roles = "dealer")]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFiles(int id, IFormFile attachmentFile, IFormFile attachmentImage)
         {
@@ -74,7 +74,7 @@ namespace EVMManagementStore.Controllers
         }
 
 
-        [Authorize(Roles = "dealer")]
+    //    [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuotation(int id)
         {
