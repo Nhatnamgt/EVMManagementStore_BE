@@ -90,6 +90,22 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
+    "Method": "CreateDealerOrder",
+    "RelativePath": "api/DealerOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.DealerOrderDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
     "Method": "GetDealerOrderById",
     "RelativePath": "api/DealerOrder/{id}",
     "HttpMethod": "GET",
@@ -136,22 +152,6 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EVMManagementStore.Controllers.DealerOrderController",
-    "Method": "CreateDealerOrder",
-    "RelativePath": "api/DealerOrder/CreateDealerOrder",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.DealerOrderDTO",
         "IsRequired": true
       }
     ],
@@ -283,6 +283,69 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EVMManagementStore.Controllers.InventoryController",
+    "Method": "GetAll",
+    "RelativePath": "api/Inventory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.InventoryController",
+    "Method": "GetByVehicleId",
+    "RelativePath": "api/Inventory/{vehicleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vehicleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.InventoryController",
+    "Method": "UpdateQuantity",
+    "RelativePath": "api/Inventory/{vehicleId}/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "vehicleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "quantity",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.InventoryController",
+    "Method": "Dispatch",
+    "RelativePath": "api/Inventory/dispatch",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "EVMManagementStore.Service.DTO.DispatchRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EVMManagementStore.Controllers.OrderController",
     "Method": "GetOrder",
     "RelativePath": "api/Order",
@@ -290,6 +353,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/Order",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.OrderDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -347,16 +426,26 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.OrderController",
-    "Method": "CreateOrder",
-    "RelativePath": "api/Order/CreateOrder",
+    "Method": "UploadFiles",
+    "RelativePath": "api/Order/upload",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.OrderDTO",
-        "IsRequired": true
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "attachmentFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "attachmentImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -531,6 +620,22 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.QuotationController",
+    "Method": "CreateQuotation",
+    "RelativePath": "api/Quotation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.QuotationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.QuotationController",
     "Method": "GetQuotationById",
     "RelativePath": "api/Quotation/{id}",
     "HttpMethod": "GET",
@@ -584,16 +689,26 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.QuotationController",
-    "Method": "CreateQuotation",
-    "RelativePath": "api/Quotation/CreateQuotation",
+    "Method": "UploadFiles",
+    "RelativePath": "api/Quotation/upload",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.QuotationDTO",
-        "IsRequired": true
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "attachmentFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "attachmentImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -689,6 +804,22 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
+    "Method": "CteateSaleContract",
+    "RelativePath": "api/SaleContract",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.SalesContractDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
     "Method": "GetSaleContractById",
     "RelativePath": "api/SaleContract/{id}",
     "HttpMethod": "GET",
@@ -742,16 +873,26 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.SaleContractController",
-    "Method": "CteateSaleContract",
-    "RelativePath": "api/SaleContract/CreateSaleContract",
+    "Method": "UploadFiles",
+    "RelativePath": "api/SaleContract/upload",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "dto",
-        "Type": "EVMManagementStore.Service.DTO.SalesContractDTO",
-        "IsRequired": true
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "attachmentFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "attachmentImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
