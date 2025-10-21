@@ -25,22 +25,6 @@ namespace EVMManagementStore.Service.Service.Dealer
         }
 
         //=======================================================Quotation===========================================================
-        public async Task<List<QuotationDTO>> GetAllQuotationsAsync()
-        {
-            var quotations = await _unitOfWork.QuotationRepository.GetAllAsync();
-            return quotations.Select(q => new QuotationDTO
-            {
-                QuotationId = q.QuotationId,
-                UserId = q.UserId,
-                VehicleId = q.VehicleId,
-                QuotationDate = q.QuotationDate,
-                BasePrice = q.BasePrice,
-                FinalPrice = q.FinalPrice,
-                AttachmentFile = q.AttachmentFile,
-                AttachmentImage = q.AttachmentImage,    
-                Status = q.Status
-            }).ToList();
-        }
         public async Task<QuotationDTO> UploadFiles(int quotationId, IFormFile attachmentFile, IFormFile attachmentImage)
         {
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(quotationId);
@@ -89,6 +73,23 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Status = quotation.Status
             };
         }
+        public async Task<List<QuotationDTO>> GetAllQuotationsAsync()
+        {
+            var quotations = await _unitOfWork.QuotationRepository.GetAllAsync();
+            return quotations.Select(q => new QuotationDTO
+            {
+                QuotationId = q.QuotationId,
+                UserId = q.UserId,
+                VehicleId = q.VehicleId,
+                QuotationDate = q.QuotationDate,
+                BasePrice = q.BasePrice,
+                FinalPrice = q.FinalPrice,
+                AttachmentFile = q.AttachmentFile,
+                AttachmentImage = q.AttachmentImage,    
+                Status = q.Status
+            }).ToList();
+        }
+     
         public async Task<QuotationDTO> GetQuotationByIdAsync(int id)
         {
             var q = await _unitOfWork.QuotationRepository.GetByIdAsync(id);

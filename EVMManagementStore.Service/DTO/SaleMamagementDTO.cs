@@ -24,6 +24,8 @@ namespace EVMManagementStore.Service.DTO
         public string AttachmentImage { get; set; }
 
         public string AttachmentFile { get; set; }
+        public string PromotionCode { get; set; }
+        public string PromotionOptionName { get; set; }
 
         public string Status { get; set; }
 
