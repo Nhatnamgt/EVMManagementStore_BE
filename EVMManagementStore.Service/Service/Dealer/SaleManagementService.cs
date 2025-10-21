@@ -5,6 +5,7 @@ using EVMManagementStore.Service.Interface.Dealer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -174,6 +175,7 @@ namespace EVMManagementStore.Service.Service.Dealer
         //=======================================================Order===========================================================
         public async Task<OrderDTO> UploadFilesOrder(int orderid, IFormFile attachmentFile, IFormFile attachmentImage)
         {
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderid);
             if (order == null)
                 throw new Exception("Order not found");
@@ -207,6 +209,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             _unitOfWork.OrderRepository.Update(order);
             await _unitOfWork.SaveAsync();
 
+            var promo = promotions.FirstOrDefault(p => p.PromotionCode == order.PromotionCode);
             return new OrderDTO
             {
                 OrderId = order.OrderId,
@@ -218,35 +221,42 @@ namespace EVMManagementStore.Service.Service.Dealer
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
                 PromotionCode = order.PromotionCode,
+                PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
-                TotalAmount = order.TotalAmount 
+                TotalAmount = order.TotalAmount
             };
         }
         public async Task<List<OrderDTO>> GetAllOrdersAsync()
-        {          
+        {
             var orders = await _unitOfWork.OrderRepository.GetAllIncludeAsync(p => p.Quotation);
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
 
-            return orders.Select(o => new OrderDTO
-                             {
-                                 OrderId = o.OrderId,
-                                 QuotationId = o.QuotationId,
-                                 UserId = o.UserId,
-                                 VehicleId = o.VehicleId,
-                                 OrderDate = o.OrderDate,
-                                 DeliveryAddress = o.DeliveryAddress,
-                                 AttachmentFile = o.AttachmentFile,
-                                 AttachmentImage = o.AttachmentImage,
-                                 PromotionCode = o.PromotionCode,
-                                 PromotionOptionName = o.PromotionCode,
-                                 Status = o.Status,
-                                 TotalAmount = o.Quotation != null ? o.Quotation.FinalPrice : 0
+            return orders.Select(o =>
+            {
+                var promo = promotions.FirstOrDefault(p => p.PromotionCode == o.PromotionCode);
+                return new OrderDTO
+                {
+                    OrderId = o.OrderId,
+                    QuotationId = o.QuotationId,
+                    UserId = o.UserId,
+                    VehicleId = o.VehicleId,
+                    OrderDate = o.OrderDate,
+                    DeliveryAddress = o.DeliveryAddress,
+                    AttachmentFile = o.AttachmentFile,
+                    AttachmentImage = o.AttachmentImage,
+                    PromotionCode = o.PromotionCode,
+                    PromotionOptionName = promo?.OptionName, 
+                    Status = o.Status,
+                    TotalAmount = o.Quotation != null ? o.Quotation.FinalPrice : 0
+                };
             }).ToList();
         }
         public async Task<OrderDTO> GetOrderByIdAsync(int id)
         {
             var order = (await _unitOfWork.OrderRepository.FindIncludeAsync(p => p.OrderId == id, p => p.Quotation)).FirstOrDefault();
-
             if (order == null) return null;
+
+            var promo = (await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == order.PromotionCode)).FirstOrDefault();
 
             return new OrderDTO
             {
@@ -259,7 +269,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
                 PromotionCode = order.PromotionCode,
-                PromotionOptionName = order.PromotionCode,   
+                PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
                 TotalAmount = order.Quotation != null ? order.Quotation.FinalPrice : 0
             };
@@ -267,8 +277,17 @@ namespace EVMManagementStore.Service.Service.Dealer
 
         public async Task<OrderDTO> CreateOrderAsync(OrderDTO orderDTO)
         {
-            var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId); 
+            var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId);
             if (quotation == null) return null;
+
+            string promotionName = null;
+            if (!string.IsNullOrEmpty(orderDTO.PromotionCode))
+            {
+                var promo = await _unitOfWork.PromotionRepository
+                    .FindAsync(p => p.PromotionCode == orderDTO.PromotionCode);
+
+                promotionName = promo?.FirstOrDefault()?.OptionName;
+            }
 
             var order = new Order
             {
@@ -294,18 +313,28 @@ namespace EVMManagementStore.Service.Service.Dealer
                 OrderDate = order.OrderDate,
                 DeliveryAddress = order.DeliveryAddress,
                 PromotionCode = order.PromotionCode,
-                PromotionOptionName = order.PromotionCode,  
+                PromotionOptionName = promotionName, 
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
         }
+
         public async Task<OrderDTO> UpdateOrderAsync(int id, OrderDTO dto)
         {
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(id);
             if (order == null) return null;
 
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(dto.QuotationId);
-            if (quotation == null) return null; 
+            if (quotation == null) return null;
+
+            string promotionName = null;
+            if (!string.IsNullOrEmpty(dto.PromotionCode))
+            {
+                var promo = await _unitOfWork.PromotionRepository
+                    .FindAsync(p => p.PromotionCode == dto.PromotionCode);
+
+                promotionName = promo?.FirstOrDefault()?.OptionName;
+            }
 
             order.OrderDate = dto.OrderDate ?? order.OrderDate;
             order.DeliveryAddress = dto.DeliveryAddress;
@@ -323,10 +352,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
                 DeliveryAddress = order.DeliveryAddress,
-                AttachmentFile = order.AttachmentFile,
-                AttachmentImage = order.AttachmentImage,
                 PromotionCode = order.PromotionCode,
-                PromotionOptionName = order.PromotionCode, 
+                PromotionOptionName = promotionName, 
                 Status = order.Status,
                 TotalAmount = order.TotalAmount
             };
