@@ -120,6 +120,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = quotationDTO.VehicleId,
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
                 BasePrice = quotationDTO.BasePrice,
+                FinalPrice = quotationDTO.FinalPrice,   
                 Status = string.IsNullOrEmpty(quotationDTO.Status) ? "Pending" : quotationDTO.Status
             };
 
@@ -146,6 +147,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             q.BasePrice = dto.BasePrice;
             q.QuotationDate = dto.QuotationDate;    
             q.Status = dto.Status;   
+            q.FinalPrice = dto.FinalPrice;  
 
             _unitOfWork.QuotationRepository.Update(q);
             await _unitOfWork.SaveAsync();
