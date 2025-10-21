@@ -62,7 +62,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<OrderDTO>.OkResponse(order, "Tạo đơn hàng thành công"));
         }
 
-        //       [Authorize(Roles = "dealer")]
+               [Authorize(Roles = "dealer")]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFiles(int id, IFormFile attachmentFile, IFormFile attachmentImage)
         {
