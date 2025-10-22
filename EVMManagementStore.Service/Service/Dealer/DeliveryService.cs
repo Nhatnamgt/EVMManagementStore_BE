@@ -24,6 +24,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             return deliveries.Select(d => new DeliveryDTO
             {
                 DeliveryId = d.DeliveryId,
+                UserId = d.UserId,  
                 OrderId = d.OrderId,
                 VehicleId = d.VehicleId,
                 DeliveryDate = d.DeliveryDate,
@@ -40,6 +41,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new DeliveryDTO
             {
                 DeliveryId = delivery.DeliveryId,
+                UserId = delivery.UserId,
                 OrderId = delivery.OrderId,
                 VehicleId = delivery.VehicleId,
                 DeliveryDate = delivery.DeliveryDate,
@@ -53,6 +55,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             var delivery = new Delivery
             {
                 OrderId = deliveryDto.OrderId,
+                UserId = deliveryDto.UserId,        
                 VehicleId = deliveryDto.VehicleId,
                 DeliveryDate = deliveryDto.DeliveryDate,
                 DeliveryStatus = deliveryDto.DeliveryStatus,
@@ -72,6 +75,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             if (delivery == null) return null;
 
             delivery.OrderId = deliveryDto.OrderId;
+            delivery.UserId = deliveryDto.UserId;   
             delivery.VehicleId = deliveryDto.VehicleId;
             delivery.DeliveryDate = deliveryDto.DeliveryDate;
             delivery.DeliveryStatus = deliveryDto.DeliveryStatus;

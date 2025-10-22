@@ -46,7 +46,7 @@ public partial class EVMManagementStoreContext : DbContext
     {
         modelBuilder.Entity<DealerOrder>(entity =>
         {
-            entity.HasKey(e => e.DealerOrderId).HasName("PK__DealerOr__EA38DC3E72FFF6FF");
+            entity.HasKey(e => e.DealerOrderId).HasName("PK__DealerOr__EA38DC3E5807C5A5");
 
             entity.Property(e => e.DealerOrderId).HasColumnName("dealer_order_id");
             entity.Property(e => e.Color)
@@ -56,6 +56,7 @@ public partial class EVMManagementStoreContext : DbContext
                 .HasDefaultValueSql("(NULL)")
                 .HasColumnType("datetime")
                 .HasColumnName("order_date");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.PaymentStatus)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -72,6 +73,11 @@ public partial class EVMManagementStoreContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
 
+            entity.HasOne(d => d.Order).WithMany(p => p.DealerOrders)
+                .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DealerOrd__order__534D60F1");
+
             entity.HasOne(d => d.User).WithMany(p => p.DealerOrders)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -80,12 +86,12 @@ public partial class EVMManagementStoreContext : DbContext
             entity.HasOne(d => d.Vehicle).WithMany(p => p.DealerOrders)
                 .HasForeignKey(d => d.VehicleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DealerOrd__vehic__534D60F1");
+                .HasConstraintName("FK__DealerOrd__vehic__5441852A");
         });
 
         modelBuilder.Entity<Delivery>(entity =>
         {
-            entity.HasKey(e => e.DeliveryId).HasName("PK__Deliveri__1C5CF4F5EC5B9E2F");
+            entity.HasKey(e => e.DeliveryId).HasName("PK__Deliveri__1C5CF4F5B3D832C4");
 
             entity.Property(e => e.DeliveryId).HasColumnName("delivery_id");
             entity.Property(e => e.DeliveryDate)
@@ -98,22 +104,28 @@ public partial class EVMManagementStoreContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("notes");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
 
             entity.HasOne(d => d.Order).WithMany(p => p.Deliveries)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Deliverie__order__5629CD9C");
+                .HasConstraintName("FK__Deliverie__order__571DF1D5");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Deliveries)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Deliverie__user___5812160E");
 
             entity.HasOne(d => d.Vehicle).WithMany(p => p.Deliveries)
                 .HasForeignKey(d => d.VehicleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Deliverie__vehic__571DF1D5");
+                .HasConstraintName("FK__Deliverie__vehic__59063A47");
         });
 
         modelBuilder.Entity<Inventory>(entity =>
         {
-            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__B59ACC495B464526");
+            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__B59ACC4912AEE6E8");
 
             entity.ToTable("Inventory");
 
@@ -129,7 +141,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__4659622932A608FC");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__46596229A0F2F5AD");
 
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.AttachmentFile)
@@ -183,7 +195,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__ED1FC9EAD925AAF9");
+            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__ED1FC9EA6F0F96DB");
 
             entity.Property(e => e.PaymentId).HasColumnName("payment_id");
             entity.Property(e => e.Amount)
@@ -207,12 +219,12 @@ public partial class EVMManagementStoreContext : DbContext
             entity.HasOne(d => d.Order).WithMany(p => p.Payments)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Payments__order___5BE2A6F2");
+                .HasConstraintName("FK__Payments__order___5DCAEF64");
         });
 
         modelBuilder.Entity<Promotion>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__2CB9556B6F618F8F");
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__2CB9556B2264A20B");
 
             entity.Property(e => e.PromotionId).HasColumnName("promotion_id");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
@@ -233,12 +245,12 @@ public partial class EVMManagementStoreContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Promotions)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Promotion__user___5EBF139D");
+                .HasConstraintName("FK__Promotion__user___60A75C0F");
         });
 
         modelBuilder.Entity<Quotation>(entity =>
         {
-            entity.HasKey(e => e.QuotationId).HasName("PK__Quotatio__7841D7DB48D58EA0");
+            entity.HasKey(e => e.QuotationId).HasName("PK__Quotatio__7841D7DB2277282B");
 
             entity.Property(e => e.QuotationId).HasColumnName("quotation_id");
             entity.Property(e => e.AttachmentFile)
@@ -284,7 +296,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__779B7C587910E59D");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__779B7C5876C7D8B3");
 
             entity.Property(e => e.ReportId).HasColumnName("report_id");
             entity.Property(e => e.Content).HasColumnName("content");
@@ -300,16 +312,16 @@ public partial class EVMManagementStoreContext : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.Reports)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK__Reports__order_i__6754599E");
+                .HasConstraintName("FK__Reports__order_i__693CA210");
 
             entity.HasOne(d => d.User).WithMany(p => p.Reports)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Reports__user_id__66603565");
+                .HasConstraintName("FK__Reports__user_id__68487DD7");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CCCA3222B6");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC148A7B7A");
 
             entity.ToTable("Role");
 
@@ -322,7 +334,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<SalesContract>(entity =>
         {
-            entity.HasKey(e => e.SalesContractId).HasName("PK__SalesCon__21824A8DC7FF33F4");
+            entity.HasKey(e => e.SalesContractId).HasName("PK__SalesCon__21824A8D3C3C4066");
 
             entity.Property(e => e.SalesContractId).HasColumnName("sales_contract_id");
             entity.Property(e => e.Cccd)
@@ -353,17 +365,17 @@ public partial class EVMManagementStoreContext : DbContext
             entity.HasOne(d => d.Order).WithMany(p => p.SalesContracts)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SalesCont__order__628FA481");
+                .HasConstraintName("FK__SalesCont__order__6477ECF3");
 
             entity.HasOne(d => d.User).WithMany(p => p.SalesContracts)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__SalesCont__user___6383C8BA");
+                .HasConstraintName("FK__SalesCont__user___656C112C");
         });
 
         modelBuilder.Entity<TestDriveAppointment>(entity =>
         {
-            entity.HasKey(e => e.AppointmentId).HasName("PK__TestDriv__A50828FC182F22BC");
+            entity.HasKey(e => e.AppointmentId).HasName("PK__TestDriv__A50828FC18209B04");
 
             entity.Property(e => e.AppointmentId).HasColumnName("appointment_id");
             entity.Property(e => e.Address)
@@ -386,21 +398,21 @@ public partial class EVMManagementStoreContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.TestDriveAppointments)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__TestDrive__user___6B24EA82");
+                .HasConstraintName("FK__TestDrive__user___6D0D32F4");
 
             entity.HasOne(d => d.Vehicle).WithMany(p => p.TestDriveAppointments)
                 .HasForeignKey(d => d.VehicleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__TestDrive__vehic__6C190EBB");
+                .HasConstraintName("FK__TestDrive__vehic__6E01572D");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370FFC7E0C8B");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370F2730E00D");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__AB6E61642B7034FA").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__AB6E6164809F60C1").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC572C41FB861").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC5727DAF826A").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Address)
@@ -437,7 +449,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Vehicle>(entity =>
         {
-            entity.HasKey(e => e.VehicleId).HasName("PK__Vehicles__F2947BC1A2A760EA");
+            entity.HasKey(e => e.VehicleId).HasName("PK__Vehicles__F2947BC1389BBC36");
 
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
             entity.Property(e => e.Color)

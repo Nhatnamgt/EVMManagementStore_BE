@@ -429,6 +429,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 DealerOrderId = d.DealerOrderId,
                 UserId = d.UserId,
+                OrderId = d.OrderId,    
                 VehicleId = d.VehicleId,
                 Quantity = d.Quantity,
                 OrderDate = d.OrderDate,
@@ -448,6 +449,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 DealerOrderId = order.DealerOrderId,
                 UserId = order.UserId,
+                OrderId = order.OrderId,
                 VehicleId = order.VehicleId,
                 Quantity = order.Quantity,
                 OrderDate = order.OrderDate,
@@ -470,6 +472,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 UserId = dealerorderDTO.UserId,
                 VehicleId = dealerorderDTO.VehicleId,
+                OrderId = dealerorderDTO.OrderId,   
                 Quantity = dealerorderDTO.Quantity,
                 Color = dealerorderDTO.Color,       
                 OrderDate = dealerorderDTO.OrderDate ?? DateTime.UtcNow,
@@ -486,6 +489,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DealerOrderId = dealerOrder.DealerOrderId,
                 UserId = dealerOrder.UserId,
                 VehicleId = dealerOrder.VehicleId,
+                OrderId = dealerOrder.OrderId,
                 Quantity = dealerOrder.Quantity,
                 OrderDate = dealerOrder.OrderDate,
                 Color = dealerOrder.Color,      
@@ -514,6 +518,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DealerOrderId = order.DealerOrderId,
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
+                OrderId = order.OrderId,    
                 Quantity = order.Quantity,
                 OrderDate = order.OrderDate,
                 Color = order.Color,    

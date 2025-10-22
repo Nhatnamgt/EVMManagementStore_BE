@@ -33,6 +33,8 @@ public partial class Order
 
     public decimal FinalPrice { get; set; }
 
+    public virtual ICollection<DealerOrder> DealerOrders { get; set; } = new List<DealerOrder>();
+
     public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();

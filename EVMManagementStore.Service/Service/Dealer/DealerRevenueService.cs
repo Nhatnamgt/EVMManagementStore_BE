@@ -16,13 +16,15 @@ namespace EVMManagementStore.Service.Service.Dealer
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<List<RevenueDTO>> GetAllDealersRevenueAsync()
         {
             var orders = await _unitOfWork.OrderRepository.GetAllIncludeAsync(o => o.User);
 
-            var approvedOrders = orders.Where(o => o.Status != null && o.Status.ToUpper() == "APPROVED");
+            var approvedOrders = orders
+                .Where(o => o.Status != null && o.Status.ToUpper() == "APPROVED");
 
-            var groupedRevenue = orders
+            var groupedRevenue = approvedOrders
                 .GroupBy(o => new { o.UserId, o.User.Username })
                 .Select(g => new RevenueDTO
                 {
@@ -39,21 +41,24 @@ namespace EVMManagementStore.Service.Service.Dealer
 
         public async Task<RevenueDTO> GetRevenueByDealerAsync(int dealerId)
         {
-            var orders = await _unitOfWork.OrderRepository.FindIncludeAsync(o => o.UserId == dealerId && o.Status != null && o.Status.ToUpper() == "APPROVED", o => o.User);
+            var approvedOrders = await _unitOfWork.OrderRepository.FindIncludeAsync(
+                o => o.UserId == dealerId && o.Status != null && o.Status.ToUpper() == "APPROVED",
+                o => o.User
+            );
 
-            if (orders == null || !orders.Any())
-                return null;
+            if (approvedOrders == null || !approvedOrders.Any()) return null;
 
-            var dealer = orders.First().User;
+            var dealer = approvedOrders.First().User;
 
             return new RevenueDTO
             {
                 SalespersonName = dealer.Username,
-                TotalOrders = orders.Count(),
-                TotalSales = orders.Sum(o => o.FinalPrice),
-                FirstOrderDate = orders.Min(o => o.OrderDate ?? DateTime.MinValue),
-                LastOrderDate = orders.Max(o => o.OrderDate ?? DateTime.MinValue)
+                TotalOrders = approvedOrders.Count(),
+                TotalSales = approvedOrders.Sum(o => o.FinalPrice),
+                FirstOrderDate = approvedOrders.Min(o => o.OrderDate ?? DateTime.MinValue),
+                LastOrderDate = approvedOrders.Max(o => o.OrderDate ?? DateTime.MinValue)
             };
         }
     }
+
 }

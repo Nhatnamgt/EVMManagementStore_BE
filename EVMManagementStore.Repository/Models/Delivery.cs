@@ -11,6 +11,8 @@ public partial class Delivery
 
     public int OrderId { get; set; }
 
+    public int UserId { get; set; }
+
     public int VehicleId { get; set; }
 
     public DateTime? DeliveryDate { get; set; }
@@ -20,6 +22,8 @@ public partial class Delivery
     public string Notes { get; set; }
 
     public virtual Order Order { get; set; }
+
+    public virtual User User { get; set; }
 
     public virtual Vehicle Vehicle { get; set; }
 }
