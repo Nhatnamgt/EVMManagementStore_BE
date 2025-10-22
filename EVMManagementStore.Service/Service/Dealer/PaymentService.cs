@@ -26,7 +26,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentId = p.PaymentId,
                 OrderId = p.OrderId,
                 PaymentDate = p.PaymentDate,
-                Amount = p.Order != null ? p.Order.TotalAmount : 0,
+                Amount = p.Order != null ? p.Order.FinalPrice : 0,
                 Method = p.Method,
                 Status = p.Status
             }).ToList();
@@ -42,7 +42,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PaymentId = payment.PaymentId,
                 OrderId = payment.OrderId,
                 PaymentDate = payment.PaymentDate,
-                Amount = payment.Order != null ? payment.Order.TotalAmount : 0,
+                Amount = payment.Order != null ? payment.Order.FinalPrice : 0,
                 Method = payment.Method,
                 Status = payment.Status
             };
@@ -56,7 +56,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 OrderId = paymentDto.OrderId,
                 PaymentDate = paymentDto.PaymentDate,
-                Amount = order.TotalAmount,
+                Amount = order.FinalPrice,
                 Method = paymentDto.Method,
                 Status = paymentDto.Status
             };

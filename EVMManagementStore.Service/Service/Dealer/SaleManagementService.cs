@@ -68,6 +68,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = quotation.UserId,
                 VehicleId = quotation.VehicleId,
                 QuotationDate = quotation.QuotationDate,
+                Color = quotation.Color,    
                 BasePrice = quotation.BasePrice,
                 FinalPrice = quotation.FinalPrice,
                 AttachmentFile = quotation.AttachmentFile,
@@ -91,6 +92,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                     UserId = q.UserId,
                     VehicleId = q.VehicleId,
                     QuotationDate = q.QuotationDate,
+                    Color = q.Color,    
                     BasePrice = q.BasePrice,
                     FinalPrice = q.FinalPrice,
                     AttachmentFile = q.AttachmentFile,
@@ -117,6 +119,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = q.UserId,
                 VehicleId = q.VehicleId,
                 QuotationDate = q.QuotationDate,
+                Color = q.Color,    
                 BasePrice = q.BasePrice,
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
@@ -139,6 +142,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = quotationDTO.UserId,
                 VehicleId = quotationDTO.VehicleId,
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
+                Color = quotationDTO.Color, 
                 BasePrice = quotationDTO.BasePrice,
                 FinalPrice = quotationDTO.FinalPrice,
                 PromotionCode = quotationDTO.PromotionCode,
@@ -154,6 +158,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = quotation.UserId,
                 VehicleId = quotation.VehicleId,
                 QuotationDate = quotation.QuotationDate,
+                Color = quotation.Color,    
                 BasePrice = quotation.BasePrice,
                 FinalPrice = quotation.FinalPrice,
                 PromotionCode = quotation.PromotionCode,
@@ -171,6 +176,7 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             q.BasePrice = dto.BasePrice;
             q.QuotationDate = dto.QuotationDate;
+            q.Color = dto.Color;    
             q.FinalPrice = dto.FinalPrice;  
             q.PromotionCode = dto.PromotionCode;
             q.Status = dto.Status;
@@ -184,6 +190,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = q.UserId,
                 VehicleId = q.VehicleId,
                 QuotationDate = q.QuotationDate,
+                Color = q.Color,    
                 BasePrice = q.BasePrice,
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
@@ -249,13 +256,15 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                Color = order.Color,    
                 DeliveryAddress = order.DeliveryAddress,
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
                 PromotionCode = order.PromotionCode,
                 PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
-                TotalAmount = order.TotalAmount
+                QuotationPrice = order.FinalPrice,
+                FinalPrice = order.Quotation != null ? order.Quotation.FinalPrice : 0
             };
         }
         public async Task<List<OrderDTO>> GetAllOrdersAsync()
@@ -273,13 +282,15 @@ namespace EVMManagementStore.Service.Service.Dealer
                     UserId = o.UserId,
                     VehicleId = o.VehicleId,
                     OrderDate = o.OrderDate,
+                    Color = o.Color,    
                     DeliveryAddress = o.DeliveryAddress,
                     AttachmentFile = o.AttachmentFile,
                     AttachmentImage = o.AttachmentImage,
                     PromotionCode = o.Quotation.PromotionCode,
                     PromotionOptionName = promo?.OptionName, 
                     Status = o.Status,
-                    TotalAmount = o.Quotation != null ? o.Quotation.FinalPrice : 0
+                    QuotationPrice = o.FinalPrice,
+                    FinalPrice = o.Quotation != null ? o.Quotation.FinalPrice : 0
                 };
             }).ToList();
         }
@@ -297,13 +308,15 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                Color = order.Color,    
                 DeliveryAddress = order.DeliveryAddress,
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
                 PromotionCode = order.Quotation.PromotionCode,
                 PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
-                TotalAmount = order.Quotation != null ? order.Quotation.FinalPrice : 0
+                QuotationPrice = order.FinalPrice,   
+                FinalPrice = order.Quotation != null ? order.Quotation.FinalPrice : 0
             };
         }
 
@@ -326,10 +339,12 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = orderDTO.UserId,
                 VehicleId = orderDTO.VehicleId,
                 OrderDate = orderDTO.OrderDate ?? DateTime.UtcNow,
+                Color = orderDTO.Color, 
                 DeliveryAddress = orderDTO.DeliveryAddress,
                 PromotionCode = quotation.PromotionCode,
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
-                TotalAmount = quotation.FinalPrice
+                QuotationPrice = quotation.BasePrice,   
+                FinalPrice = quotation.FinalPrice
             };
 
             await _unitOfWork.OrderRepository.AddAsync(order);
@@ -342,11 +357,13 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                Color = order.Color,    
                 DeliveryAddress = order.DeliveryAddress,
                 PromotionCode = order.PromotionCode,
                 PromotionOptionName = promotionName, 
                 Status = order.Status,
-                TotalAmount = order.TotalAmount
+                QuotationPrice  = order.QuotationPrice, 
+                FinalPrice = order.FinalPrice
             };
         }
 
@@ -366,9 +383,13 @@ namespace EVMManagementStore.Service.Service.Dealer
             }
 
             order.OrderDate = dto.OrderDate ?? order.OrderDate;
+            order.Color = dto.Color;
             order.DeliveryAddress = dto.DeliveryAddress;
+            order.Status = dto.Status;   
             order.PromotionCode =  quotation.PromotionCode;
-            order.TotalAmount = quotation.FinalPrice;
+            order.QuotationPrice = quotation.BasePrice;
+            order.FinalPrice = quotation.FinalPrice;
+           
 
             _unitOfWork.OrderRepository.Update(order);
             await _unitOfWork.SaveAsync();
@@ -380,11 +401,13 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
+                Color = order.Color,        
                 DeliveryAddress = order.DeliveryAddress,
                 PromotionCode = order.PromotionCode,
                 PromotionOptionName = promotionName, 
                 Status = order.Status,
-                TotalAmount = order.TotalAmount
+                QuotationPrice = order.QuotationPrice, 
+                FinalPrice = order.FinalPrice
             };
         }
 

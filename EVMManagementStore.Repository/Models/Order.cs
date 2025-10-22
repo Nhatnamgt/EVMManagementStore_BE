@@ -15,6 +15,8 @@ public partial class Order
 
     public int VehicleId { get; set; }
 
+    public string Color { get; set; }
+
     public DateTime? OrderDate { get; set; }
 
     public string DeliveryAddress { get; set; }
@@ -27,7 +29,9 @@ public partial class Order
 
     public string PromotionCode { get; set; }
 
-    public decimal TotalAmount { get; set; }
+    public decimal QuotationPrice { get; set; }
+
+    public decimal FinalPrice { get; set; }
 
     public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
 

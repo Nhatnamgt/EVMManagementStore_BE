@@ -13,6 +13,8 @@ public partial class Quotation
 
     public int VehicleId { get; set; }
 
+    public string Color { get; set; }
+
     public DateTime? QuotationDate { get; set; }
 
     public decimal BasePrice { get; set; }

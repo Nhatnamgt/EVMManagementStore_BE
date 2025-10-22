@@ -17,6 +17,8 @@ namespace EVMManagementStore.Service.DTO
 
         public DateTime? QuotationDate { get; set; }
 
+        public string Color { get; set; }
+
         public decimal BasePrice { get; set; }
 
         public decimal FinalPrice { get; set; }
@@ -24,7 +26,9 @@ namespace EVMManagementStore.Service.DTO
         public string AttachmentImage { get; set; }
 
         public string AttachmentFile { get; set; }
+        
         public string PromotionCode { get; set; }
+        
         public string PromotionOptionName { get; set; }
 
         public string Status { get; set; }
@@ -40,6 +44,8 @@ namespace EVMManagementStore.Service.DTO
 
         public int VehicleId { get; set; }
 
+        public string Color { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
         public string DeliveryAddress { get; set; }
@@ -54,7 +60,9 @@ namespace EVMManagementStore.Service.DTO
 
         public string PromotionOptionName { get; set; }
 
-        public decimal TotalAmount { get; set; }
+        public decimal QuotationPrice { get; set; }
+
+        public decimal FinalPrice { get; set; }
     }
 
 

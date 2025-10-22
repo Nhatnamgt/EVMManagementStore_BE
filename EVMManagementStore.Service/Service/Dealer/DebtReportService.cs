@@ -29,7 +29,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                           select new DebtReportDTO
                           {
                               CustomerOrDealerName = u.FullName ?? u.CompanyName ?? "Unknown",
-                              TotalOrderAmount = o.TotalAmount,
+                              TotalOrderAmount = o.FinalPrice,
                               TotalPaid = paymentGroup.Sum(x => x.Amount)
                           })
                           .GroupBy(x => x.CustomerOrDealerName)
