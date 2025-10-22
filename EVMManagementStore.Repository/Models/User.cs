@@ -27,6 +27,8 @@ public partial class User
 
     public virtual ICollection<DealerOrder> DealerOrders { get; set; } = new List<DealerOrder>();
 
+    public virtual ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Promotion> Promotions { get; set; } = new List<Promotion>();

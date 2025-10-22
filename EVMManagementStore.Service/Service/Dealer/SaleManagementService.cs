@@ -263,8 +263,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PromotionCode = order.PromotionCode,
                 PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
-                QuotationPrice = order.FinalPrice,
-                FinalPrice = order.Quotation != null ? order.Quotation.FinalPrice : 0
+                QuotationPrice = order.Quotation != null ? order.Quotation.FinalPrice : 0,
+                FinalPrice = order.FinalPrice,
             };
         }
         public async Task<List<OrderDTO>> GetAllOrdersAsync()
@@ -289,8 +289,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                     PromotionCode = o.Quotation.PromotionCode,
                     PromotionOptionName = promo?.OptionName, 
                     Status = o.Status,
-                    QuotationPrice = o.FinalPrice,
-                    FinalPrice = o.Quotation != null ? o.Quotation.FinalPrice : 0
+                    QuotationPrice = o.Quotation != null ? o.Quotation.FinalPrice : 0,
+                    FinalPrice = o.FinalPrice,
                 };
             }).ToList();
         }
@@ -315,8 +315,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PromotionCode = order.Quotation.PromotionCode,
                 PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
-                QuotationPrice = order.FinalPrice,   
-                FinalPrice = order.Quotation != null ? order.Quotation.FinalPrice : 0
+                QuotationPrice = order.Quotation != null ? order.Quotation.FinalPrice : 0,
+                FinalPrice = order.FinalPrice,
             };
         }
 
@@ -343,8 +343,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DeliveryAddress = orderDTO.DeliveryAddress,
                 PromotionCode = quotation.PromotionCode,
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
-                QuotationPrice = quotation.BasePrice,   
-                FinalPrice = quotation.FinalPrice
+                QuotationPrice = quotation.FinalPrice,
+                FinalPrice = orderDTO.FinalPrice
             };
 
             await _unitOfWork.OrderRepository.AddAsync(order);
@@ -387,8 +387,8 @@ namespace EVMManagementStore.Service.Service.Dealer
             order.DeliveryAddress = dto.DeliveryAddress;
             order.Status = dto.Status;   
             order.PromotionCode =  quotation.PromotionCode;
-            order.QuotationPrice = quotation.BasePrice;
-            order.FinalPrice = quotation.FinalPrice;
+            order.QuotationPrice = quotation.FinalPrice;
+            order.FinalPrice = dto.FinalPrice;
            
 
             _unitOfWork.OrderRepository.Update(order);
@@ -429,6 +429,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 DealerOrderId = d.DealerOrderId,
                 UserId = d.UserId,
+                OrderId = d.OrderId,    
                 VehicleId = d.VehicleId,
                 Quantity = d.Quantity,
                 OrderDate = d.OrderDate,
@@ -448,6 +449,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 DealerOrderId = order.DealerOrderId,
                 UserId = order.UserId,
+                OrderId = order.OrderId,
                 VehicleId = order.VehicleId,
                 Quantity = order.Quantity,
                 OrderDate = order.OrderDate,
@@ -470,6 +472,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 UserId = dealerorderDTO.UserId,
                 VehicleId = dealerorderDTO.VehicleId,
+                OrderId = dealerorderDTO.OrderId,   
                 Quantity = dealerorderDTO.Quantity,
                 Color = dealerorderDTO.Color,       
                 OrderDate = dealerorderDTO.OrderDate ?? DateTime.UtcNow,
@@ -486,6 +489,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DealerOrderId = dealerOrder.DealerOrderId,
                 UserId = dealerOrder.UserId,
                 VehicleId = dealerOrder.VehicleId,
+                OrderId = dealerOrder.OrderId,
                 Quantity = dealerOrder.Quantity,
                 OrderDate = dealerOrder.OrderDate,
                 Color = dealerOrder.Color,      
@@ -514,6 +518,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DealerOrderId = order.DealerOrderId,
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
+                OrderId = order.OrderId,    
                 Quantity = order.Quantity,
                 OrderDate = order.OrderDate,
                 Color = order.Color,    
