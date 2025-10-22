@@ -23,6 +23,8 @@ public partial class Quotation
 
     public string AttachmentFile { get; set; }
 
+    public string PromotionCode { get; set; }
+
     public string Status { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();

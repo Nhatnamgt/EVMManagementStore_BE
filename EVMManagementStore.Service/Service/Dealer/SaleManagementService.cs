@@ -28,8 +28,7 @@ namespace EVMManagementStore.Service.Service.Dealer
         public async Task<QuotationDTO> UploadFiles(int quotationId, IFormFile attachmentFile, IFormFile attachmentImage)
         {
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(quotationId);
-            if (quotation == null)
-                throw new Exception("Quotation not found");
+            if (quotation == null) throw new Exception("Quotation not found");
 
             string uploadPath = Path.Combine(_env.WebRootPath, "uploads");
             if (!Directory.Exists(uploadPath))
@@ -60,6 +59,9 @@ namespace EVMManagementStore.Service.Service.Dealer
             _unitOfWork.QuotationRepository.Update(quotation);
             await _unitOfWork.SaveAsync();
 
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+            var promo = promotions.FirstOrDefault(p => p.PromotionCode == quotation.PromotionCode);
+
             return new QuotationDTO
             {
                 QuotationId = quotation.QuotationId,
@@ -70,23 +72,33 @@ namespace EVMManagementStore.Service.Service.Dealer
                 FinalPrice = quotation.FinalPrice,
                 AttachmentFile = quotation.AttachmentFile,
                 AttachmentImage = quotation.AttachmentImage,
+                PromotionCode = quotation.PromotionCode,
+                PromotionOptionName = promo?.OptionName,
                 Status = quotation.Status
             };
         }
         public async Task<List<QuotationDTO>> GetAllQuotationsAsync()
         {
             var quotations = await _unitOfWork.QuotationRepository.GetAllAsync();
-            return quotations.Select(q => new QuotationDTO
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+
+            return quotations.Select(q => 
             {
-                QuotationId = q.QuotationId,
-                UserId = q.UserId,
-                VehicleId = q.VehicleId,
-                QuotationDate = q.QuotationDate,
-                BasePrice = q.BasePrice,
-                FinalPrice = q.FinalPrice,
-                AttachmentFile = q.AttachmentFile,
-                AttachmentImage = q.AttachmentImage,    
-                Status = q.Status
+                var promo = promotions.FirstOrDefault(p => p.PromotionCode == q.PromotionCode);
+                return new QuotationDTO
+                {
+                    QuotationId = q.QuotationId,
+                    UserId = q.UserId,
+                    VehicleId = q.VehicleId,
+                    QuotationDate = q.QuotationDate,
+                    BasePrice = q.BasePrice,
+                    FinalPrice = q.FinalPrice,
+                    AttachmentFile = q.AttachmentFile,
+                    AttachmentImage = q.AttachmentImage,
+                    PromotionCode = q.PromotionCode,
+                    PromotionOptionName = promo?.OptionName,
+                    Status = q.Status
+                };
             }).ToList();
         }
      
@@ -95,6 +107,9 @@ namespace EVMManagementStore.Service.Service.Dealer
             var q = await _unitOfWork.QuotationRepository.GetByIdAsync(id);
             if (q == null)
                 throw new KeyNotFoundException($"QuotationId {id} not found.");
+
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+            var promo = promotions.FirstOrDefault(p => p.PromotionCode == q.PromotionCode);
 
             return new QuotationDTO
             {
@@ -106,6 +121,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
                 AttachmentImage = q.AttachmentImage,
+                PromotionCode = q.PromotionCode,
+                PromotionOptionName = promo?.OptionName,
                 Status = q.Status
             };
         }
@@ -114,13 +131,17 @@ namespace EVMManagementStore.Service.Service.Dealer
             if (quotationDTO == null)
                 throw new ArgumentNullException(nameof(quotationDTO));
 
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+            var promo = promotions.FirstOrDefault(p => p.PromotionCode == quotationDTO.PromotionCode);
+           
             var quotation = new Quotation
             {
                 UserId = quotationDTO.UserId,
                 VehicleId = quotationDTO.VehicleId,
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
                 BasePrice = quotationDTO.BasePrice,
-                FinalPrice = quotationDTO.FinalPrice,   
+                FinalPrice = quotationDTO.FinalPrice,
+                PromotionCode = quotationDTO.PromotionCode,
                 Status = string.IsNullOrEmpty(quotationDTO.Status) ? "Pending" : quotationDTO.Status
             };
 
@@ -135,19 +156,24 @@ namespace EVMManagementStore.Service.Service.Dealer
                 QuotationDate = quotation.QuotationDate,
                 BasePrice = quotation.BasePrice,
                 FinalPrice = quotation.FinalPrice,
+                PromotionCode = quotation.PromotionCode,
+                PromotionOptionName = promo?.OptionName,
                 Status = quotation.Status
             };
         }
         public async Task<QuotationDTO> UpdateQuotationAsync(int id, QuotationDTO dto)
         {
             var q = await _unitOfWork.QuotationRepository.GetByIdAsync(id);
-            if (q == null)
-                throw new KeyNotFoundException($"QuotationId {id} not found.");
+            if (q == null)  throw new KeyNotFoundException($"QuotationId {id} not found.");
+
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+            var promo = promotions.FirstOrDefault(p => p.PromotionCode == dto.PromotionCode);
 
             q.BasePrice = dto.BasePrice;
-            q.QuotationDate = dto.QuotationDate;    
-            q.Status = dto.Status;   
+            q.QuotationDate = dto.QuotationDate;
             q.FinalPrice = dto.FinalPrice;  
+            q.PromotionCode = dto.PromotionCode;
+            q.Status = dto.Status;
 
             _unitOfWork.QuotationRepository.Update(q);
             await _unitOfWork.SaveAsync();
@@ -162,6 +188,8 @@ namespace EVMManagementStore.Service.Service.Dealer
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
                 AttachmentImage = q.AttachmentImage,
+                PromotionCode = q.PromotionCode,
+                PromotionOptionName = promo?.OptionName,
                 Status = q.Status
             };
         }
@@ -179,6 +207,7 @@ namespace EVMManagementStore.Service.Service.Dealer
         public async Task<OrderDTO> UploadFilesOrder(int orderid, IFormFile attachmentFile, IFormFile attachmentImage)
         {
             var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+          
             var order = await _unitOfWork.OrderRepository.GetByIdAsync(orderid);
             if (order == null)
                 throw new Exception("Order not found");
@@ -247,7 +276,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                     DeliveryAddress = o.DeliveryAddress,
                     AttachmentFile = o.AttachmentFile,
                     AttachmentImage = o.AttachmentImage,
-                    PromotionCode = o.PromotionCode,
+                    PromotionCode = o.Quotation.PromotionCode,
                     PromotionOptionName = promo?.OptionName, 
                     Status = o.Status,
                     TotalAmount = o.Quotation != null ? o.Quotation.FinalPrice : 0
@@ -271,7 +300,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 DeliveryAddress = order.DeliveryAddress,
                 AttachmentFile = order.AttachmentFile,
                 AttachmentImage = order.AttachmentImage,
-                PromotionCode = order.PromotionCode,
+                PromotionCode = order.Quotation.PromotionCode,
                 PromotionOptionName = promo?.OptionName,
                 Status = order.Status,
                 TotalAmount = order.Quotation != null ? order.Quotation.FinalPrice : 0
@@ -286,8 +315,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             string promotionName = null;
             if (!string.IsNullOrEmpty(orderDTO.PromotionCode))
             {
-                var promo = await _unitOfWork.PromotionRepository
-                    .FindAsync(p => p.PromotionCode == orderDTO.PromotionCode);
+                var promo = await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == orderDTO.PromotionCode);
 
                 promotionName = promo?.FirstOrDefault()?.OptionName;
             }
@@ -299,7 +327,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 VehicleId = orderDTO.VehicleId,
                 OrderDate = orderDTO.OrderDate ?? DateTime.UtcNow,
                 DeliveryAddress = orderDTO.DeliveryAddress,
-                PromotionCode = orderDTO.PromotionCode,
+                PromotionCode = quotation.PromotionCode,
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
                 TotalAmount = quotation.FinalPrice
             };
@@ -333,15 +361,13 @@ namespace EVMManagementStore.Service.Service.Dealer
             string promotionName = null;
             if (!string.IsNullOrEmpty(dto.PromotionCode))
             {
-                var promo = await _unitOfWork.PromotionRepository
-                    .FindAsync(p => p.PromotionCode == dto.PromotionCode);
-
+                var promo = await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == dto.PromotionCode);
                 promotionName = promo?.FirstOrDefault()?.OptionName;
             }
 
             order.OrderDate = dto.OrderDate ?? order.OrderDate;
             order.DeliveryAddress = dto.DeliveryAddress;
-            order.PromotionCode = dto.PromotionCode;
+            order.PromotionCode =  quotation.PromotionCode;
             order.TotalAmount = quotation.FinalPrice;
 
             _unitOfWork.OrderRepository.Update(order);
