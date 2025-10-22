@@ -23,7 +23,10 @@ namespace EVMManagementStore.Service.Service.Dealer
             var payments = await _unitOfWork.PaymentRepository.GetAllAsync();
             var users = await _unitOfWork.UserRepository.GetAllAsync();
 
-            var report = (from o in orders
+            var confirmedOrders = orders
+                .Where(o => o.Status != null && o.Status.ToUpper() == "CONFIRMED");
+
+            var report = (from o in confirmedOrders
                           join u in users on o.UserId equals u.UserId
                           join p in payments on o.OrderId equals p.OrderId into paymentGroup
                           select new DebtReportDTO
@@ -43,21 +46,23 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             return report;
         }
+
         public async Task<List<DebtReportDTO>> GetDealerDebtReportAsync()
         {
             var dealerOrders = await _unitOfWork.DealerOrderRepository.GetAllAsync();
             var users = await _unitOfWork.UserRepository.GetAllAsync();
 
-            // Nếu có Payment riêng cho Dealer thì dùng thêm
-            // var dealerPayments = await _unitOfWork.PaymentRepository.GetAllAsync();
+            // Lọc đơn CONFIRMED
+            var confirmedDealerOrders = dealerOrders
+                .Where(d => d.Status != null && d.Status.ToUpper() == "CONFIRMED");
 
-            var report = (from d in dealerOrders
+            var report = (from d in confirmedDealerOrders
                           join u in users on d.UserId equals u.UserId
                           select new DebtReportDTO
                           {
                               CustomerOrDealerName = u.CompanyName ?? u.FullName ?? "Unknown",
                               TotalOrderAmount = d.TotalAmount,
-                              TotalPaid = 0 // Nếu chưa có bảng Payment riêng cho Dealer
+                              TotalPaid = 0 
                           })
                           .GroupBy(x => x.CustomerOrDealerName)
                           .Select(g => new DebtReportDTO
@@ -70,6 +75,6 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             return report;
         }
-
     }
+
 }
