@@ -15,7 +15,7 @@ namespace EVMManagementStore.Controllers
         {
             _loginService = loginService;
         }
-        //12345
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {

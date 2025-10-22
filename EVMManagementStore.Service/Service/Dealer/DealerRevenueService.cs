@@ -20,13 +20,15 @@ namespace EVMManagementStore.Service.Service.Dealer
         {
             var orders = await _unitOfWork.OrderRepository.GetAllIncludeAsync(o => o.User);
 
+            var approvedOrders = orders.Where(o => o.Status != null && o.Status.ToUpper() == "APPROVED");
+
             var groupedRevenue = orders
                 .GroupBy(o => new { o.UserId, o.User.Username })
                 .Select(g => new RevenueDTO
                 {
                     SalespersonName = g.Key.Username,
                     TotalOrders = g.Count(),
-                    TotalSales = g.Sum(o => o.TotalAmount),
+                    TotalSales = g.Sum(o => o.FinalPrice),
                     FirstOrderDate = g.Min(o => o.OrderDate ?? DateTime.MinValue),
                     LastOrderDate = g.Max(o => o.OrderDate ?? DateTime.MinValue)
                 })
@@ -37,7 +39,7 @@ namespace EVMManagementStore.Service.Service.Dealer
 
         public async Task<RevenueDTO> GetRevenueByDealerAsync(int dealerId)
         {
-            var orders = await _unitOfWork.OrderRepository.FindIncludeAsync(o => o.UserId == dealerId, o => o.User);
+            var orders = await _unitOfWork.OrderRepository.FindIncludeAsync(o => o.UserId == dealerId && o.Status != null && o.Status.ToUpper() == "APPROVED", o => o.User);
 
             if (orders == null || !orders.Any())
                 return null;
@@ -48,7 +50,7 @@ namespace EVMManagementStore.Service.Service.Dealer
             {
                 SalespersonName = dealer.Username,
                 TotalOrders = orders.Count(),
-                TotalSales = orders.Sum(o => o.TotalAmount),
+                TotalSales = orders.Sum(o => o.FinalPrice),
                 FirstOrderDate = orders.Min(o => o.OrderDate ?? DateTime.MinValue),
                 LastOrderDate = orders.Max(o => o.OrderDate ?? DateTime.MinValue)
             };
