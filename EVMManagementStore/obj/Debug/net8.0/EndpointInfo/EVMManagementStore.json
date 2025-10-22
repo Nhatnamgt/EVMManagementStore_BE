@@ -140,7 +140,17 @@
         }
       }
     },
-    "/api/DealerOrder/CreateDealerOrder": {
+    "/api/DealerOrder": {
+      "get": {
+        "tags": [
+          "DealerOrder"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "DealerOrder"
@@ -164,18 +174,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/DealerOrder": {
-      "get": {
-        "tags": [
-          "DealerOrder"
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -451,7 +449,128 @@
         }
       }
     },
-    "/api/Order/CreateOrder": {
+    "/api/Inventory": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Inventory/{vehicleId}": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Inventory/{vehicleId}/update": {
+      "put": {
+        "tags": [
+          "Inventory"
+        ],
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Inventory/dispatch": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Order"
@@ -475,18 +594,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Order": {
-      "get": {
-        "tags": [
-          "Order"
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -571,6 +678,55 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Order/upload": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attachmentFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "attachmentImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "attachmentFile": {
+                  "style": "form"
+                },
+                "attachmentImage": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -828,7 +984,17 @@
         }
       }
     },
-    "/api/Quotation/CreateQuotation": {
+    "/api/Quotation": {
+      "get": {
+        "tags": [
+          "Quotation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Quotation"
@@ -852,18 +1018,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Quotation": {
-      "get": {
-        "tags": [
-          "Quotation"
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -948,6 +1102,55 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Quotation/upload": {
+      "post": {
+        "tags": [
+          "Quotation"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attachmentFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "attachmentImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "attachmentFile": {
+                  "style": "form"
+                },
+                "attachmentImage": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -1080,7 +1283,17 @@
         }
       }
     },
-    "/api/SaleContract/CreateSaleContract": {
+    "/api/SaleContract": {
+      "get": {
+        "tags": [
+          "SaleContract"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "post": {
         "tags": [
           "SaleContract"
@@ -1104,18 +1317,6 @@
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/SaleContract": {
-      "get": {
-        "tags": [
-          "SaleContract"
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1200,6 +1401,55 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SaleContract/upload": {
+      "post": {
+        "tags": [
+          "SaleContract"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attachmentFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "attachmentImage": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "attachmentFile": {
+                  "style": "form"
+                },
+                "attachmentImage": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -1342,10 +1592,100 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Vehicle"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/Vehicle/{id}": {
       "get": {
+        "tags": [
+          "Vehicle"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vehicle"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
         "tags": [
           "Vehicle"
         ],
@@ -1397,7 +1737,7 @@
         }
       }
     },
-    "/api/Vehicle/Sreach": {
+    "/api/Vehicle/Search": {
       "get": {
         "tags": [
           "Vehicle"
@@ -1482,6 +1822,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "color": {
+            "type": "string",
+            "nullable": true
+          },
           "orderDate": {
             "type": "string",
             "format": "date-time",
@@ -1533,6 +1877,24 @@
         },
         "additionalProperties": false
       },
+      "DispatchRequest": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dealerId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "required": [
           "email",
@@ -1579,7 +1941,27 @@
             "format": "date-time",
             "nullable": true
           },
+          "deliveryAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachmentImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachmentFile": {
+            "type": "string",
+            "nullable": true
+          },
           "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "promotionCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "promotionOptionName": {
             "type": "string",
             "nullable": true
           },
@@ -1632,11 +2014,15 @@
             "type": "integer",
             "format": "int32"
           },
-          "name": {
+          "promotionCode": {
             "type": "string",
             "nullable": true
           },
-          "discountPercent": {
+          "optionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "optionValue": {
             "type": "number",
             "format": "double",
             "nullable": true
@@ -1678,14 +2064,17 @@
             "type": "number",
             "format": "double"
           },
-          "discount": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
           "finalPrice": {
             "type": "number",
             "format": "double"
+          },
+          "attachmentImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachmentFile": {
+            "type": "string",
+            "nullable": true
           },
           "status": {
             "type": "string",
@@ -1751,6 +2140,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "contractDate": {
             "type": "string",
             "format": "date-time",
@@ -1761,6 +2154,22 @@
             "nullable": true
           },
           "signedByDealer": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "cccd": {
+            "type": "string",
+            "nullable": true
+          },
+          "contractImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "contractFile": {
             "type": "string",
             "nullable": true
           }
@@ -1799,6 +2208,64 @@
             "nullable": true
           },
           "vehicleName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VehicleDTO": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "color": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "distance": {
+            "type": "string",
+            "nullable": true
+          },
+          "timecharging": {
+            "type": "string",
+            "nullable": true
+          },
+          "speed": {
+            "type": "string",
+            "nullable": true
+          },
+          "image1": {
+            "type": "string",
+            "nullable": true
+          },
+          "image2": {
+            "type": "string",
+            "nullable": true
+          },
+          "image3": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
             "type": "string",
             "nullable": true
           }

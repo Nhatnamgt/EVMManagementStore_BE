@@ -5,7 +5,9 @@ using EVMManagementStore.Repository.UnitOfWork;
 
 
 using EVMManagementStore.Service.Interface.Dealer;
+using EVMManagementStore.Service.Interface.EVM;
 using EVMManagementStore.Service.Service.Dealer;
+using EVMManagementStore.Service.Service.EVM;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
