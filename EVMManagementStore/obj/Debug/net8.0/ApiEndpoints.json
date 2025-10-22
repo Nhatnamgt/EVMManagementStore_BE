@@ -988,9 +988,62 @@
   },
   {
     "ContainingType": "EVMManagementStore.Controllers.VehicleController",
+    "Method": "CreateVehicle",
+    "RelativePath": "api/Vehicle",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.VehicleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
     "Method": "GetVehicleById",
     "RelativePath": "api/Vehicle/{id}",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
+    "Method": "UpdateVehicle",
+    "RelativePath": "api/Vehicle/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "EVMManagementStore.Service.DTO.VehicleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EVMManagementStore.Controllers.VehicleController",
+    "Method": "DeleteVehicle",
+    "RelativePath": "api/Vehicle/{id}",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -1026,7 +1079,7 @@
   {
     "ContainingType": "EVMManagementStore.Controllers.VehicleController",
     "Method": "Search",
-    "RelativePath": "api/Vehicle/Sreach",
+    "RelativePath": "api/Vehicle/Search",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

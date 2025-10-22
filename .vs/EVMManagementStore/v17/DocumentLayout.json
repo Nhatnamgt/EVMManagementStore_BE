@@ -3,28 +3,48 @@
   "WorkspaceRootPath": "E:\\GitHub\\EVMManagementStore_BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore\\controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\interface\\evm\\ievmvehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\interface\\evm\\ievmvehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\service\\evm\\inventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\service\\evm\\inventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\service\\evm\\evmvehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\service\\evm\\evmvehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\service\\dealer\\vehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\service\\dealer\\vehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\interface\\dealer\\ivehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\interface\\dealer\\ivehicleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\interface\\evm\\iinventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\interface\\evm\\iinventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\dto\\inventorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\dto\\inventorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\dto\\vehicledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\dto\\vehicledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore\\controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\controllers\\vehiclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\service\\evm\\inventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\service\\evm\\inventoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D442C7E4-80B1-484E-A885-07D6E1C90702}|EVMManagementStore\\EVMManagementStore.csproj|solutionrelative:evmmanagementstore\\controllers\\inventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\dto\\inventorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|solutionrelative:evmmanagementstore.service\\dto\\inventorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B774D356-477A-458E-B89A-DDD2362B2724}|EVMManagementStore.Service\\EVMManagementStore.Service.csproj|e:\\github\\evmmanagementstore_be\\evmmanagementstore.service\\service\\dealer\\salemanagementservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,11 +58,11 @@
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 256,
+      "VerticalTabListWidth": 100,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,33 +74,98 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IVehicleService.cs",
+              "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Interface\\Dealer\\IVehicleService.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\Interface\\Dealer\\IVehicleService.cs",
+              "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Interface\\Dealer\\IVehicleService.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\Interface\\Dealer\\IVehicleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:19:30.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VehicleService.cs",
+              "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\VehicleService.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\Service\\Dealer\\VehicleService.cs",
+              "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\VehicleService.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\Service\\Dealer\\VehicleService.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:19:02.654Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EVMVehicleService.cs",
+              "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\EVM\\EVMVehicleService.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\Service\\EVM\\EVMVehicleService.cs",
+              "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\EVM\\EVMVehicleService.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\Service\\EVM\\EVMVehicleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:02:08.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "IEVMVehicleService.cs",
+              "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Interface\\EVM\\IEVMVehicleService.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\Interface\\EVM\\IEVMVehicleService.cs",
+              "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Interface\\EVM\\IEVMVehicleService.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\Interface\\EVM\\IEVMVehicleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:01:46.381Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "VehicleDTO.cs",
+              "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\DTO\\VehicleDTO.cs",
+              "RelativeDocumentMoniker": "EVMManagementStore.Service\\DTO\\VehicleDTO.cs",
+              "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\DTO\\VehicleDTO.cs",
+              "RelativeToolTip": "EVMManagementStore.Service\\DTO\\VehicleDTO.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAiwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:01:28.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "InventoryController.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore\\Controllers\\InventoryController.cs",
               "RelativeDocumentMoniker": "EVMManagementStore\\Controllers\\InventoryController.cs",
               "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore\\Controllers\\InventoryController.cs",
               "RelativeToolTip": "EVMManagementStore\\Controllers\\InventoryController.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAkwBQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-20T13:38:14.659Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "InventoryService.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\EVM\\InventoryService.cs",
               "RelativeDocumentMoniker": "EVMManagementStore.Service\\Service\\EVM\\InventoryService.cs",
               "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\EVM\\InventoryService.cs",
               "RelativeToolTip": "EVMManagementStore.Service\\Service\\EVM\\InventoryService.cs",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAAAB4AAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAAAHQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-20T13:37:03.53Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "IInventoryService.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Interface\\EVM\\IInventoryService.cs",
               "RelativeDocumentMoniker": "EVMManagementStore.Service\\Interface\\EVM\\IInventoryService.cs",
@@ -93,7 +178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "InventoryDTO.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\DTO\\InventoryDTO.cs",
               "RelativeDocumentMoniker": "EVMManagementStore.Service\\DTO\\InventoryDTO.cs",
@@ -101,38 +186,37 @@
               "RelativeToolTip": "EVMManagementStore.Service\\DTO\\InventoryDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-20T13:34:59.165Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-20T13:34:59.165Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore\\Program.cs",
               "RelativeDocumentMoniker": "EVMManagementStore\\Program.cs",
               "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore\\Program.cs",
               "RelativeToolTip": "EVMManagementStore\\Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACgAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-20T13:20:07.552Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "VehicleController.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore\\Controllers\\VehicleController.cs",
               "RelativeDocumentMoniker": "EVMManagementStore\\Controllers\\VehicleController.cs",
               "ToolTip": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore\\Controllers\\VehicleController.cs",
               "RelativeToolTip": "EVMManagementStore\\Controllers\\VehicleController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-20T13:19:57.103Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "SaleMamagementDTO.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\DTO\\SaleMamagementDTO.cs",
               "RelativeDocumentMoniker": "EVMManagementStore.Service\\DTO\\SaleMamagementDTO.cs",
@@ -144,7 +228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "SaleManagementService.cs",
               "DocumentMoniker": "E:\\GitHub\\EVMManagementStore_BE\\EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
               "RelativeDocumentMoniker": "EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
@@ -152,8 +236,7 @@
               "RelativeToolTip": "EVMManagementStore.Service\\Service\\Dealer\\SaleManagementService.cs",
               "ViewState": "AgIAAGEBAAAAAAAAAAAkwHYBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T13:23:21.383Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T13:23:21.383Z"
             }
           ]
         }
