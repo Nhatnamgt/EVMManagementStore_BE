@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
 
              [Authorize(Roles = "dealer")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllTestDriveAppointments()
         {
             var appointments = await _testDriveAppointmentService.GetTestDriveAppointmenAsync();
             return Ok(ApiResponse<List<TestDriveAppointmentDTO>>.OkResponse(appointments, "Lấy danh sách lịch hẹn thành công"));
@@ -27,7 +27,7 @@ namespace EVMManagementStore.Controllers
 
              [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetTestDriveAppointmentById(int id)
         {
             var appointment = await _testDriveAppointmentService.GetTestDriveAppointmentByIdAsync(id);
             if (appointment == null)
@@ -38,7 +38,7 @@ namespace EVMManagementStore.Controllers
 
              [Authorize(Roles = "dealer")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] TestDriveAppointmentDTO dto)
+        public async Task<IActionResult> CreateTestDriveAppointment([FromBody] TestDriveAppointmentDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -49,7 +49,7 @@ namespace EVMManagementStore.Controllers
 
            [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] TestDriveAppointmentDTO dto)
+        public async Task<IActionResult> UpdateTestDriveAppointment(int id, [FromBody] TestDriveAppointmentDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -63,7 +63,7 @@ namespace EVMManagementStore.Controllers
 
            [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteTestDriveAppointment(int id)
         {
             var success = await _testDriveAppointmentService.DeleteTestDriveAppointmentAsync(id);
             if (!success)

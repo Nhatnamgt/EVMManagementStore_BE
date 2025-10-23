@@ -21,7 +21,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet]
-        public async Task<IActionResult> GetQuotation()
+        public async Task<IActionResult> GetAllQuotations()
         {
             var quotations = await _saleManagement.GetAllQuotationsAsync();
             if (quotations == null || !quotations.Any())

@@ -18,7 +18,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet]
-        public async Task<IActionResult> GetOrder()
+        public async Task<IActionResult> GetAllOrders()
         {
             var order = await _saleManagement.GetAllOrdersAsync();
             if (order == null || !order.Any())
@@ -41,6 +41,14 @@ namespace EVMManagementStore.Controllers
         }
 
         [Authorize(Roles = "dealer")]
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderDTO dto)
+        {
+            var order = await _saleManagement.CreateOrderAsync(dto);
+            return Ok(ApiResponse<OrderDTO>.OkResponse(order, "Tạo đơn hàng thành công"));
+        }
+
+        [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderDTO dto)
         {
@@ -54,14 +62,6 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<OrderDTO>.OkResponse(order, "Cập nhật đơn hàng thành công"));
         }
 
-        [Authorize(Roles = "dealer")]
-        [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody] OrderDTO dto)
-        {
-            var order = await _saleManagement.CreateOrderAsync(dto);
-            return Ok(ApiResponse<OrderDTO>.OkResponse(order, "Tạo đơn hàng thành công"));
-        }
-        
         [Authorize(Roles = "dealer")]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadFiles(int id, IFormFile attachmentFile, IFormFile attachmentImage)

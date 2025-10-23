@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllCustomers()
         {
             var customers = await _customerService.GetAllCustomersAsync();
             return Ok(ApiResponse<List<CustomerDTO>>.OkResponse(customers, "Lấy danh sách khách hàng thành công"));
@@ -27,7 +27,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetCustomerById(int id)
         {
             var customer = await _customerService.GetCustomersByIdAsync(id);
             if (customer == null)
@@ -38,7 +38,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CustomerDTO dto)
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -49,7 +49,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] CustomerDTO dto)
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));

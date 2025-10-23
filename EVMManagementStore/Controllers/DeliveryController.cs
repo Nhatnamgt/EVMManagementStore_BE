@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
 
             [Authorize(Roles = "dealer")]
             [HttpGet]
-            public async Task<IActionResult> GetAll()
+            public async Task<IActionResult> GetAllDeliveries()
             {
                 var appointments = await _deliveryService.GetAllDeliveriesAsync();
                 return Ok(ApiResponse<List<DeliveryDTO>>.OkResponse(appointments, "Lấy danh sách Theo dõi tình trạng giao xe thành công"));
@@ -27,7 +27,7 @@ namespace EVMManagementStore.Controllers
 
             [Authorize(Roles = "dealer")]
             [HttpGet("{id}")]
-            public async Task<IActionResult> GetById(int id)
+            public async Task<IActionResult> GetDeliveryById(int id)
             {
                 var appointment = await _deliveryService.GetDeliveryByIdAsync(id);
                 if (appointment == null)
@@ -38,7 +38,7 @@ namespace EVMManagementStore.Controllers
 
             [Authorize(Roles = "dealer")]
             [HttpPost]
-            public async Task<IActionResult> Create([FromBody] DeliveryDTO dto)
+            public async Task<IActionResult> CreateDelivery([FromBody] DeliveryDTO dto)
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -49,7 +49,7 @@ namespace EVMManagementStore.Controllers
 
             [Authorize(Roles = "dealer")]
             [HttpPut("{id}")]
-            public async Task<IActionResult> Update(int id, [FromBody] DeliveryDTO dto)
+            public async Task<IActionResult> UpdateDelivery(int id, [FromBody] DeliveryDTO dto)
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -63,7 +63,7 @@ namespace EVMManagementStore.Controllers
 
             [Authorize(Roles = "dealer")]
             [HttpDelete("{id}")]
-            public async Task<IActionResult> Delete(int id)
+            public async Task<IActionResult> DeleteDelivery(int id)
             {
                 var success = await _deliveryService.DeleteDeliveryAsync(id);
                 if (!success)

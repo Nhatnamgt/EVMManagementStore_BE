@@ -18,7 +18,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet]
-        public async Task<IActionResult> GeDealerOrder()
+        public async Task<IActionResult> GetAllDealerOrders()
         {
             var dealerorder = await _saleManagement.GetAllDealerOrdersAsync();
             if (dealerorder == null || !dealerorder.Any())

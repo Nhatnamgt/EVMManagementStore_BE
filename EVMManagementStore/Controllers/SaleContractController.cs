@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
         [Authorize(Roles = "dealer")]
 
         [HttpGet]
-        public async Task<IActionResult> GetVehicle()
+        public async Task<IActionResult> GetAllSaleContracts()
         {
             var salecontract = await _saleManagement.GetAllSaleContractsAsync();
             if (salecontract == null || !salecontract.Any())
