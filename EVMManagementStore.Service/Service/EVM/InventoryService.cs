@@ -18,7 +18,6 @@ namespace EVMManagementStore.Service.Service.EVM
             _unitOfWork = unitOfWork;
         }
 
-        // ✅ Lấy toàn bộ kho + thông tin xe
         public async Task<IEnumerable<InventoryDTO>> GetAllInventoriesAsync()
         {
             var inventories = await _unitOfWork.InventoryRepository
@@ -36,7 +35,6 @@ namespace EVMManagementStore.Service.Service.EVM
             }).ToList();
         }
 
-        // ✅ Lấy kho theo VehicleId
         public async Task<InventoryDTO?> GetInventoryByVehicleIdAsync(int vehicleId)
         {
             var inventory = await _unitOfWork.InventoryRepository
@@ -57,7 +55,6 @@ namespace EVMManagementStore.Service.Service.EVM
             };
         }
 
-        // ✅ Cập nhật số lượng xe trong kho
         public async Task<InventoryDTO> UpdateInventoryAsync(int vehicleId, int quantity)
         {
             var inventory = (await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == vehicleId)).FirstOrDefault();
@@ -66,7 +63,7 @@ namespace EVMManagementStore.Service.Service.EVM
 
             inventory.Quantity = quantity;
 
-            // cập nhật trạng thái xe theo số lượng
+
             var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
             if (vehicle != null)
             {
@@ -89,7 +86,6 @@ namespace EVMManagementStore.Service.Service.EVM
             };
         }
 
-        // ✅ Dispatch (xuất xe cho đại lý)
         public async Task<bool> DispatchVehicleAsync(DispatchRequest request)
         {
             var inventory = (await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == request.VehicleId)).FirstOrDefault();
@@ -100,7 +96,6 @@ namespace EVMManagementStore.Service.Service.EVM
 
             inventory.Quantity -= request.Quantity;
 
-            // cập nhật trạng thái xe
             var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(request.VehicleId);
             if (vehicle != null)
             {

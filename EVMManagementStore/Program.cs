@@ -39,7 +39,9 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IDealerRevenueService, DealerRevenueService>();
 builder.Services.AddScoped<IDebtReportService, DebtReportService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
-
+builder.Services.AddScoped<IEVMVehicleService, EVMVehicleService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IUserManagementService, UserManagementService>();
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -94,25 +96,32 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
     };
 });
-builder.Services.AddAuthorization();
+
+var builder = WebApplication.CreateBuilder(args);
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Cho phép app lắng nghe trên port Render quy định
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://*:{port}");
+
+// Middleware
 if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseHttpsRedirection();
+}
+else
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
 app.UseAuthentication();
-
 app.UseAuthorization();
-
-app.UseStaticFiles();
-
 app.MapControllers();
 
 app.Run();
+
