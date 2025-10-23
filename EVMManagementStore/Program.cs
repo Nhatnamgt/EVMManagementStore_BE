@@ -97,19 +97,22 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var portStr = Environment.GetEnvironmentVariable("PORT");
+var port = string.IsNullOrEmpty(portStr) ? 8080 : int.Parse(portStr);
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(int.Parse(port)); // Chỉ HTTP, Render sẽ proxy HTTPS
+    options.ListenAnyIP(port); // Listen trên tất cả IP và port Render cung cấp
 });
 
 var app = builder.Build();
 
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.UseHttpsRedirection(); 
+    app.UseHttpsRedirection(); // chỉ redirect HTTPS khi dev
 }
 
+// Swagger cả production
 app.UseSwagger();
 app.UseSwaggerUI();
 
