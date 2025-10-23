@@ -27,6 +27,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PromotionCode = p.PromotionCode,
                 OptionName = p.OptionName,
                 OptionValue = p.OptionValue,
+                Stock = p.Stock,        
                 StartDate = p.StartDate,
                 EndDate = p.EndDate
             }).ToList();
@@ -43,6 +44,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PromotionCode = promotion.PromotionCode,
                 OptionName = promotion.OptionName,
                 OptionValue = promotion.OptionValue,
+                Stock = promotion.Stock,
                 StartDate = promotion.StartDate,
                 EndDate = promotion.EndDate
             };
@@ -57,6 +59,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 PromotionCode = promotionDto.PromotionCode,
                 OptionName = promotionDto.OptionName,
                 OptionValue = promotionDto.OptionValue,
+                Stock = promotionDto.Stock,
                 StartDate = promotionDto.StartDate,
                 EndDate = promotionDto.EndDate
             };
@@ -75,7 +78,8 @@ namespace EVMManagementStore.Service.Service.Dealer
             promotion.UserId = promotionDto.UserId;
             promotion.PromotionCode = promotionDto.PromotionCode;
             promotion.OptionName = promotionDto.OptionName;
-            promotion.OptionValue = promotionDto.OptionValue;   
+            promotion.OptionValue = promotionDto.OptionValue;
+            promotion.Stock = promotionDto.Stock;   
             promotion.StartDate = promotionDto.StartDate;
             promotion.EndDate = promotionDto.EndDate;
 

@@ -136,7 +136,9 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
             var promo = promotions.FirstOrDefault(p => p.PromotionCode == quotationDTO.PromotionCode);
-           
+            if (promo.Stock <= 0) throw new Exception("Promotion out of stock.");
+            promo.Stock -= 1; _unitOfWork.PromotionRepository.Update(promo);
+
             var quotation = new Quotation
             {
                 UserId = quotationDTO.UserId,
@@ -172,7 +174,26 @@ namespace EVMManagementStore.Service.Service.Dealer
             if (q == null)  throw new KeyNotFoundException($"QuotationId {id} not found.");
 
             var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
-            var promo = promotions.FirstOrDefault(p => p.PromotionCode == dto.PromotionCode);
+            var oldPromo = promotions.FirstOrDefault(p => p.PromotionCode == q.PromotionCode);
+            var newPromo = promotions.FirstOrDefault(p => p.PromotionCode == dto.PromotionCode);
+
+            if (q.PromotionCode != dto.PromotionCode)
+            {
+                if (oldPromo != null)
+                {
+                    oldPromo.Stock += 1;
+                    _unitOfWork.PromotionRepository.Update(oldPromo);
+                }
+
+                if (newPromo != null)
+                {
+                    if (newPromo.Stock <= 0)
+                        throw new Exception("Promotion out of stock.");
+
+                    newPromo.Stock -= 1;
+                    _unitOfWork.PromotionRepository.Update(newPromo);
+                }
+            }
 
             q.BasePrice = dto.BasePrice;
             q.QuotationDate = dto.QuotationDate;
@@ -196,7 +217,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 AttachmentFile = q.AttachmentFile,
                 AttachmentImage = q.AttachmentImage,
                 PromotionCode = q.PromotionCode,
-                PromotionOptionName = promo?.OptionName,
+                PromotionOptionName = newPromo?.OptionName ?? oldPromo?.OptionName,
                 Status = q.Status
             };
         }
@@ -325,13 +346,25 @@ namespace EVMManagementStore.Service.Service.Dealer
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(orderDTO.QuotationId);
             if (quotation == null) return null;
 
+            Promotion promo = null;
             string promotionName = null;
             if (!string.IsNullOrEmpty(orderDTO.PromotionCode))
             {
-                var promo = await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == orderDTO.PromotionCode);
+                promo = (await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == orderDTO.PromotionCode))
+                    .FirstOrDefault();
 
-                promotionName = promo?.FirstOrDefault()?.OptionName;
+                if (promo == null)
+                    throw new Exception("Promotion not found.");
+
+                if (promo.Stock <= 0)
+                    throw new Exception("Promotion out of stock.");
+
+                promo.Stock -= 1;
+                _unitOfWork.PromotionRepository.Update(promo);
+
+                promotionName = promo.OptionName;
             }
+
 
             var order = new Order
             {
@@ -375,11 +408,26 @@ namespace EVMManagementStore.Service.Service.Dealer
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(dto.QuotationId);
             if (quotation == null) return null;
 
-            string promotionName = null;
-            if (!string.IsNullOrEmpty(dto.PromotionCode))
+            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
+            var oldPromo = promotions.FirstOrDefault(p => p.PromotionCode == order.PromotionCode);
+            var newPromo = promotions.FirstOrDefault(p => p.PromotionCode == dto.PromotionCode);
+
+            if (order.PromotionCode != dto.PromotionCode)
             {
-                var promo = await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == dto.PromotionCode);
-                promotionName = promo?.FirstOrDefault()?.OptionName;
+                if (oldPromo != null)
+                {
+                    oldPromo.Stock += 1;
+                    _unitOfWork.PromotionRepository.Update(oldPromo);
+                }
+
+                if (newPromo != null)
+                {
+                    if (newPromo.Stock <= 0)
+                        throw new Exception("Promotion out of stock.");
+
+                    newPromo.Stock -= 1;
+                    _unitOfWork.PromotionRepository.Update(newPromo);
+                }
             }
 
             order.OrderDate = dto.OrderDate ?? order.OrderDate;
@@ -404,7 +452,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Color = order.Color,        
                 DeliveryAddress = order.DeliveryAddress,
                 PromotionCode = order.PromotionCode,
-                PromotionOptionName = promotionName, 
+                PromotionOptionName = newPromo?.OptionName ?? oldPromo?.OptionName,
                 Status = order.Status,
                 QuotationPrice = order.QuotationPrice, 
                 FinalPrice = order.FinalPrice

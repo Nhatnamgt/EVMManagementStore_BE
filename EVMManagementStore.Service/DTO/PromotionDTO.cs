@@ -19,6 +19,8 @@ namespace EVMManagementStore.Service.DTO
 
         public decimal? OptionValue { get; set; }
 
+        public int Stock { get; set; }
+
         public DateOnly? StartDate { get; set; }
 
         public DateOnly? EndDate { get; set; }
