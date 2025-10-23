@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: evmmanagementstore-be
+    env: dotnet
+    plan: free
+    buildCommand: dotnet publish EVMManagementStore/EVMManagementStore.csproj -c Release
+    startCommand: dotnet EVMManagementStore/bin/Release/net8.0/EVMManagementStore.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: PORT
+        value: 8080
