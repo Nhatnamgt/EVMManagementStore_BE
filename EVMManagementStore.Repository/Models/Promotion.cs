@@ -13,6 +13,8 @@ public partial class Promotion
 
     public string PromotionCode { get; set; }
 
+    public int Stock { get; set; }
+
     public string OptionName { get; set; }
 
     public decimal? OptionValue { get; set; }

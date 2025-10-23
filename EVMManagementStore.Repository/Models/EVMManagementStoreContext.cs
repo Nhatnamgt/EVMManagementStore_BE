@@ -46,7 +46,7 @@ public partial class EVMManagementStoreContext : DbContext
     {
         modelBuilder.Entity<DealerOrder>(entity =>
         {
-            entity.HasKey(e => e.DealerOrderId).HasName("PK__DealerOr__EA38DC3E5807C5A5");
+            entity.HasKey(e => e.DealerOrderId).HasName("PK__DealerOr__EA38DC3E77CC7D4E");
 
             entity.Property(e => e.DealerOrderId).HasColumnName("dealer_order_id");
             entity.Property(e => e.Color)
@@ -91,7 +91,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Delivery>(entity =>
         {
-            entity.HasKey(e => e.DeliveryId).HasName("PK__Deliveri__1C5CF4F5B3D832C4");
+            entity.HasKey(e => e.DeliveryId).HasName("PK__Deliveri__1C5CF4F5EE11352D");
 
             entity.Property(e => e.DeliveryId).HasColumnName("delivery_id");
             entity.Property(e => e.DeliveryDate)
@@ -125,7 +125,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Inventory>(entity =>
         {
-            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__B59ACC4912AEE6E8");
+            entity.HasKey(e => e.InventoryId).HasName("PK__Inventor__B59ACC4964E7DE05");
 
             entity.ToTable("Inventory");
 
@@ -141,7 +141,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__46596229A0F2F5AD");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__4659622947E21DA1");
 
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.AttachmentFile)
@@ -195,7 +195,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__ED1FC9EA6F0F96DB");
+            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__ED1FC9EAD6AE8771");
 
             entity.Property(e => e.PaymentId).HasColumnName("payment_id");
             entity.Property(e => e.Amount)
@@ -224,7 +224,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Promotion>(entity =>
         {
-            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__2CB9556B2264A20B");
+            entity.HasKey(e => e.PromotionId).HasName("PK__Promotio__2CB9556BAC453D38");
 
             entity.Property(e => e.PromotionId).HasColumnName("promotion_id");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
@@ -240,6 +240,7 @@ public partial class EVMManagementStoreContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("promotion_code");
             entity.Property(e => e.StartDate).HasColumnName("start_date");
+            entity.Property(e => e.Stock).HasColumnName("stock");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Promotions)
@@ -250,7 +251,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Quotation>(entity =>
         {
-            entity.HasKey(e => e.QuotationId).HasName("PK__Quotatio__7841D7DB2277282B");
+            entity.HasKey(e => e.QuotationId).HasName("PK__Quotatio__7841D7DB81943ACD");
 
             entity.Property(e => e.QuotationId).HasColumnName("quotation_id");
             entity.Property(e => e.AttachmentFile)
@@ -296,7 +297,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__779B7C5876C7D8B3");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__779B7C58EF7F9F50");
 
             entity.Property(e => e.ReportId).HasColumnName("report_id");
             entity.Property(e => e.Content).HasColumnName("content");
@@ -321,7 +322,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC148A7B7A");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CCCEFEF1D3");
 
             entity.ToTable("Role");
 
@@ -334,7 +335,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<SalesContract>(entity =>
         {
-            entity.HasKey(e => e.SalesContractId).HasName("PK__SalesCon__21824A8D3C3C4066");
+            entity.HasKey(e => e.SalesContractId).HasName("PK__SalesCon__21824A8D3C39A67B");
 
             entity.Property(e => e.SalesContractId).HasColumnName("sales_contract_id");
             entity.Property(e => e.Cccd)
@@ -375,7 +376,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<TestDriveAppointment>(entity =>
         {
-            entity.HasKey(e => e.AppointmentId).HasName("PK__TestDriv__A50828FC18209B04");
+            entity.HasKey(e => e.AppointmentId).HasName("PK__TestDriv__A50828FCFDD6C3BC");
 
             entity.Property(e => e.AppointmentId).HasColumnName("appointment_id");
             entity.Property(e => e.Address)
@@ -408,11 +409,11 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370F2730E00D");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__B9BE370F9D5D6AEE");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__AB6E6164809F60C1").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__AB6E61644A339465").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC5727DAF826A").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Users__F3DBC572B141ED87").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Address)
@@ -449,7 +450,7 @@ public partial class EVMManagementStoreContext : DbContext
 
         modelBuilder.Entity<Vehicle>(entity =>
         {
-            entity.HasKey(e => e.VehicleId).HasName("PK__Vehicles__F2947BC1389BBC36");
+            entity.HasKey(e => e.VehicleId).HasName("PK__Vehicles__F2947BC130CC088B");
 
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
             entity.Property(e => e.Color)
