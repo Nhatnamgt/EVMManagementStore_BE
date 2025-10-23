@@ -1,9 +1,7 @@
 services:
   - type: web
     name: evmmanagementstore
-    env: dotnet
+    env: docker
     plan: free
     region: singapore
-    buildCommand: dotnet publish EVMManagementStore/EVMManagementStore.csproj -c Release -o out
-    startCommand: dotnet out/EVMManagementStore.dll
     autoDeploy: true
