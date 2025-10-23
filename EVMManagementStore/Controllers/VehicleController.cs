@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
         }
         [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet]
-        public async Task<IActionResult> GetVehicle()
+        public async Task<IActionResult> GetAllVehicles()
         {
             var vehicles = await _vehicleService.GetAllVehicle();
             if (vehicles == null || !vehicles.Any())
@@ -42,7 +42,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet("CompareCar")]
-        public async Task<IActionResult> Compare(int vehicleId1, int vehicleId2)
+        public async Task<IActionResult> CompareVehicles(int vehicleId1, int vehicleId2)
         {
             var comparison = await _vehicleService.CompareVehicles(vehicleId1, vehicleId2);
             if (comparison == null)
@@ -54,7 +54,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet("Sreach")]
-        public async Task<IActionResult> Search(string search)
+        public async Task<IActionResult> SearchVehicle(string search)
         {
             var searchs = await _vehicleService.SearchVehicle(search);
             if (searchs == null)

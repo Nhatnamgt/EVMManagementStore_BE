@@ -19,7 +19,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllPayments()
         {
             var appointments = await _paymentService.GetAllPaymentsAsync();
             return Ok(ApiResponse<List<PaymentDTO>>.OkResponse(appointments, "Lấy danh sách quản lí Thanh toán thành công"));
@@ -27,7 +27,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetPaymentById(int id)
         {
             var appointment = await _paymentService.GetPaymentsByIdAsync(id);
             if (appointment == null)
@@ -38,7 +38,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PaymentDTO dto)
+        public async Task<IActionResult> CreatePayment([FromBody] PaymentDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -49,7 +49,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] PaymentDTO dto)
+        public async Task<IActionResult> UpdatePayment(int id, [FromBody] PaymentDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -63,7 +63,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeletePayment(int id)
         {
             var success = await _paymentService.DeletePaymentAsync(id);
             if (!success)

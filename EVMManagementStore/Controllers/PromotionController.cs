@@ -20,7 +20,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpGet]
-        public async Task<IActionResult> GetVehicle()
+        public async Task<IActionResult> GetAllPromotions()
         {
             var promotion = await _promotionService.GetAllPromotionsAsync();
             if (promotion == null || !promotion.Any())
@@ -31,7 +31,7 @@ namespace EVMManagementStore.Controllers
         }
         [Authorize(Roles = "dealer")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetVehicleById(int id)
+        public async Task<IActionResult> GetPromotionById(int id)
         {
             var promotion = await _promotionService.GetPromotionByIdAsync(id);
             if (promotion == null)
@@ -42,7 +42,7 @@ namespace EVMManagementStore.Controllers
         }
         [Authorize(Roles = "dealer")]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PromotionDTO dto)
+        public async Task<IActionResult> CreatePromotion([FromBody] PromotionDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -53,7 +53,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] PromotionDTO dto)
+        public async Task<IActionResult> UpdatePromotion(int id, [FromBody] PromotionDTO dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Dữ liệu không hợp lệ"));
@@ -67,7 +67,7 @@ namespace EVMManagementStore.Controllers
 
         [Authorize(Roles = "dealer")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeletePromotion(int id)
         {
             var success = await _promotionService.DeletePromotionAsync(id);
             if (!success)
