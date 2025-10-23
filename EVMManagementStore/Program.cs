@@ -101,7 +101,7 @@ var portStr = Environment.GetEnvironmentVariable("PORT");
 var port = string.IsNullOrEmpty(portStr) ? 8080 : int.Parse(portStr);
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(port); // Listen trên tất cả IP và port Render cung cấp
+    options.ListenAnyIP(port); // Lắng nghe trên mọi IP và port Render cấp
 });
 
 var app = builder.Build();
@@ -109,12 +109,17 @@ var app = builder.Build();
 // Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.UseHttpsRedirection(); // chỉ redirect HTTPS khi dev
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseHttpsRedirection(); // chỉ bật khi dev
 }
-
-// Swagger cả production
-app.UseSwagger();
-app.UseSwaggerUI();
+else
+{
+    // Bật Swagger cả production để dễ test
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    // KHÔNG cần UseHttpsRedirection ở Render vì Render tự xử lý HTTPS rồi
+}
 
 app.UseAuthentication();
 app.UseAuthorization();
