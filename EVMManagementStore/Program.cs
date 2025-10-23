@@ -98,31 +98,24 @@ builder.Services.AddAuthentication(options =>
 });
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(int.Parse(port));
+    options.ListenAnyIP(int.Parse(port)); // Chỉ HTTP, Render sẽ proxy HTTPS
 });
-
-builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseHttpsRedirection(); 
 }
 
-app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.UseStaticFiles();
-
 app.MapControllers();
 
 app.Run();
