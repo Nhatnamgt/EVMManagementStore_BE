@@ -97,33 +97,31 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-var portStr = Environment.GetEnvironmentVariable("PORT");
-var port = string.IsNullOrEmpty(portStr) ? 8080 : int.Parse(portStr);
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(port); // Lắng nghe trên mọi IP và port Render cấp
-});
+var builder = WebApplication.CreateBuilder(args);
+
 
 var app = builder.Build();
 
-// Middleware pipeline
+// Cho phép app lắng nghe trên port Render quy định
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://*:{port}");
+
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseHttpsRedirection(); // chỉ bật khi dev
+    app.UseHttpsRedirection();
 }
 else
 {
-    // Bật Swagger cả production để dễ test
     app.UseSwagger();
     app.UseSwaggerUI();
-    // KHÔNG cần UseHttpsRedirection ở Render vì Render tự xử lý HTTPS rồi
 }
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseStaticFiles();
 app.MapControllers();
 
 app.Run();
+
