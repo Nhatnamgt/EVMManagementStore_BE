@@ -2,10 +2,10 @@
 using EVMManagementStore.Repository.UnitOfWork;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.EVM;
-using BCrypt.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BCrypt.Net;
 
 namespace EVMManagementStore.Service.Service.EVM
 {
@@ -31,7 +31,8 @@ namespace EVMManagementStore.Service.Service.EVM
                 FullName = u.FullName,
                 Phone = u.Phone,
                 Address = u.Address,
-                CompanyName = u.CompanyName
+                CompanyName = u.CompanyName,
+                Password = null 
             }).ToList();
         }
 
@@ -49,7 +50,8 @@ namespace EVMManagementStore.Service.Service.EVM
                 FullName = user.FullName,
                 Phone = user.Phone,
                 Address = user.Address,
-                CompanyName = user.CompanyName
+                CompanyName = user.CompanyName,
+                Password = null
             };
         }
 
@@ -75,8 +77,7 @@ namespace EVMManagementStore.Service.Service.EVM
             await _unitOfWork.SaveAsync();
 
             dto.UserId = newUser.UserId;
-            dto.Password = null; 
-
+            dto.Password = null;
             return dto;
         }
 
@@ -85,11 +86,23 @@ namespace EVMManagementStore.Service.Service.EVM
             var existing = await _unitOfWork.UserRepository.GetByIdAsync(id);
             if (existing == null) return null;
 
+            existing.Username = dto.Username;
+            existing.Email = dto.Email;
+            existing.FullName = dto.FullName;
+            existing.Phone = dto.Phone;
+            existing.Address = dto.Address;
+            existing.CompanyName = dto.CompanyName;
             existing.RoleId = dto.RoleId;
+
+            if (!string.IsNullOrWhiteSpace(dto.Password))
+            {
+                existing.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            }
 
             _unitOfWork.UserRepository.Update(existing);
             await _unitOfWork.SaveAsync();
 
+            dto.Password = null;
             return dto;
         }
 
