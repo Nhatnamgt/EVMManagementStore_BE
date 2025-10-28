@@ -82,6 +82,14 @@ namespace EVMManagementStore.Service.Service.EVM
 
             await _unitOfWork.VehicleRepository.AddAsync(newVehicle);
             await _unitOfWork.SaveAsync();
+            
+            var newInventory = new Inventory
+            {
+                VehicleId = newVehicle.VehicleId,
+                Quantity = 0
+            };
+            await _unitOfWork.InventoryRepository.AddAsync(newInventory);
+            await _unitOfWork.SaveAsync();
 
             vehicleDto.VehicleId = newVehicle.VehicleId;
             return vehicleDto;
