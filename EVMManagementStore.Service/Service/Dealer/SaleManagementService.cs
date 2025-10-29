@@ -134,20 +134,38 @@ namespace EVMManagementStore.Service.Service.Dealer
             if (quotationDTO == null)
                 throw new ArgumentNullException(nameof(quotationDTO));
 
-            var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
-            var promo = promotions.FirstOrDefault(p => p.PromotionCode == quotationDTO.PromotionCode);
-            if (promo.Stock <= 0) throw new Exception("Promotion out of stock.");
-            promo.Stock -= 1; _unitOfWork.PromotionRepository.Update(promo);
+            Promotion promo = null;
+            string promotionName = null;
+
+            if (!string.IsNullOrEmpty(quotationDTO.PromotionCode))
+            {
+                promo = (await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == quotationDTO.PromotionCode))
+                    .FirstOrDefault();
+
+                if (promo != null)
+                {
+                    if (promo.Stock > 0)
+                    {
+                        promo.Stock -= 1;
+                        _unitOfWork.PromotionRepository.Update(promo);
+                        promotionName = promo.OptionName;
+                    }
+                    else
+                    {
+                        promo = null;
+                    }
+                }
+            }
 
             var quotation = new Quotation
             {
                 UserId = quotationDTO.UserId,
                 VehicleId = quotationDTO.VehicleId,
                 QuotationDate = quotationDTO.QuotationDate ?? DateTime.UtcNow,
-                Color = quotationDTO.Color, 
+                Color = quotationDTO.Color,
                 BasePrice = quotationDTO.BasePrice,
                 FinalPrice = quotationDTO.FinalPrice,
-                PromotionCode = quotationDTO.PromotionCode,
+                PromotionCode = promo?.PromotionCode, 
                 Status = string.IsNullOrEmpty(quotationDTO.Status) ? "Pending" : quotationDTO.Status
             };
 
@@ -160,18 +178,19 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = quotation.UserId,
                 VehicleId = quotation.VehicleId,
                 QuotationDate = quotation.QuotationDate,
-                Color = quotation.Color,    
+                Color = quotation.Color,
                 BasePrice = quotation.BasePrice,
                 FinalPrice = quotation.FinalPrice,
                 PromotionCode = quotation.PromotionCode,
-                PromotionOptionName = promo?.OptionName,
+                PromotionOptionName = promotionName,
                 Status = quotation.Status
             };
         }
+
         public async Task<QuotationDTO> UpdateQuotationAsync(int id, QuotationDTO dto)
         {
             var q = await _unitOfWork.QuotationRepository.GetByIdAsync(id);
-            if (q == null)  throw new KeyNotFoundException($"QuotationId {id} not found.");
+            if (q == null) throw new KeyNotFoundException($"QuotationId {id} not found.");
 
             var promotions = await _unitOfWork.PromotionRepository.GetAllAsync();
             var oldPromo = promotions.FirstOrDefault(p => p.PromotionCode == q.PromotionCode);
@@ -179,27 +198,37 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             if (q.PromotionCode != dto.PromotionCode)
             {
+
                 if (oldPromo != null)
                 {
                     oldPromo.Stock += 1;
                     _unitOfWork.PromotionRepository.Update(oldPromo);
                 }
 
+
                 if (newPromo != null)
                 {
-                    if (newPromo.Stock <= 0)
-                        throw new Exception("Promotion out of stock.");
-
-                    newPromo.Stock -= 1;
-                    _unitOfWork.PromotionRepository.Update(newPromo);
+                    if (newPromo.Stock > 0)
+                    {
+                        newPromo.Stock -= 1;
+                        _unitOfWork.PromotionRepository.Update(newPromo);
+                    }
+                    else
+                    {
+                        newPromo = null;
+                    }
+                }
+                else
+                {
+                    newPromo = null;
                 }
             }
 
             q.BasePrice = dto.BasePrice;
-            q.QuotationDate = dto.QuotationDate;
-            q.Color = dto.Color;    
-            q.FinalPrice = dto.FinalPrice;  
-            q.PromotionCode = dto.PromotionCode;
+            q.QuotationDate = dto.QuotationDate ?? q.QuotationDate;
+            q.Color = dto.Color;
+            q.FinalPrice = dto.FinalPrice;
+            q.PromotionCode = newPromo?.PromotionCode;
             q.Status = dto.Status;
 
             _unitOfWork.QuotationRepository.Update(q);
@@ -211,7 +240,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = q.UserId,
                 VehicleId = q.VehicleId,
                 QuotationDate = q.QuotationDate,
-                Color = q.Color,    
+                Color = q.Color,
                 BasePrice = q.BasePrice,
                 FinalPrice = q.FinalPrice,
                 AttachmentFile = q.AttachmentFile,
@@ -221,6 +250,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Status = q.Status
             };
         }
+
         public async Task<bool> DeleteQuotationAsync(int id)
         {
             var quotation = await _unitOfWork.QuotationRepository.GetByIdAsync(id);
@@ -348,23 +378,29 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             Promotion promo = null;
             string promotionName = null;
+
+        
             if (!string.IsNullOrEmpty(orderDTO.PromotionCode))
             {
                 promo = (await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == orderDTO.PromotionCode))
                     .FirstOrDefault();
 
-                if (promo == null)
-                    throw new Exception("Promotion not found.");
-
-                if (promo.Stock <= 0)
-                    throw new Exception("Promotion out of stock.");
-
-                promo.Stock -= 1;
-                _unitOfWork.PromotionRepository.Update(promo);
-
-                promotionName = promo.OptionName;
+                if (promo != null)
+                {
+                    if (promo.Stock <= 0)
+                    {
+                      
+                        promo = null;
+                    }
+                    else
+                    {
+                        promo.Stock -= 1;
+                        _unitOfWork.PromotionRepository.Update(promo);
+                        promotionName = promo.OptionName;
+                    }
+                }
+            
             }
-
 
             var order = new Order
             {
@@ -372,9 +408,9 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = orderDTO.UserId,
                 VehicleId = orderDTO.VehicleId,
                 OrderDate = orderDTO.OrderDate ?? DateTime.UtcNow,
-                Color = orderDTO.Color, 
+                Color = orderDTO.Color,
                 DeliveryAddress = orderDTO.DeliveryAddress,
-                PromotionCode = quotation.PromotionCode,
+                PromotionCode = promo?.PromotionCode, // chỉ lưu nếu có
                 Status = string.IsNullOrEmpty(orderDTO.Status) ? "Pending" : orderDTO.Status,
                 QuotationPrice = quotation.FinalPrice,
                 FinalPrice = orderDTO.FinalPrice
@@ -390,15 +426,16 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
-                Color = order.Color,    
+                Color = order.Color,
                 DeliveryAddress = order.DeliveryAddress,
                 PromotionCode = order.PromotionCode,
-                PromotionOptionName = promotionName, 
+                PromotionOptionName = promotionName,
                 Status = order.Status,
-                QuotationPrice  = order.QuotationPrice, 
+                QuotationPrice = order.QuotationPrice,
                 FinalPrice = order.FinalPrice
             };
         }
+
 
         public async Task<OrderDTO> UpdateOrderAsync(int id, OrderDTO dto)
         {
@@ -412,32 +449,43 @@ namespace EVMManagementStore.Service.Service.Dealer
             var oldPromo = promotions.FirstOrDefault(p => p.PromotionCode == order.PromotionCode);
             var newPromo = promotions.FirstOrDefault(p => p.PromotionCode == dto.PromotionCode);
 
+
             if (order.PromotionCode != dto.PromotionCode)
             {
+
                 if (oldPromo != null)
                 {
                     oldPromo.Stock += 1;
                     _unitOfWork.PromotionRepository.Update(oldPromo);
                 }
 
+
                 if (newPromo != null)
                 {
-                    if (newPromo.Stock <= 0)
-                        throw new Exception("Promotion out of stock.");
-
-                    newPromo.Stock -= 1;
-                    _unitOfWork.PromotionRepository.Update(newPromo);
+                    if (newPromo.Stock > 0)
+                    {
+                        newPromo.Stock -= 1;
+                        _unitOfWork.PromotionRepository.Update(newPromo);
+                    }
+                    else
+                    {
+ 
+                        newPromo = null;
+                    }
+                }
+                else
+                {
+                    newPromo = null;
                 }
             }
 
             order.OrderDate = dto.OrderDate ?? order.OrderDate;
             order.Color = dto.Color;
             order.DeliveryAddress = dto.DeliveryAddress;
-            order.Status = dto.Status;   
-            order.PromotionCode =  quotation.PromotionCode;
+            order.Status = dto.Status;
+            order.PromotionCode = newPromo?.PromotionCode; 
             order.QuotationPrice = quotation.FinalPrice;
             order.FinalPrice = dto.FinalPrice;
-           
 
             _unitOfWork.OrderRepository.Update(order);
             await _unitOfWork.SaveAsync();
@@ -449,15 +497,16 @@ namespace EVMManagementStore.Service.Service.Dealer
                 UserId = order.UserId,
                 VehicleId = order.VehicleId,
                 OrderDate = order.OrderDate,
-                Color = order.Color,        
+                Color = order.Color,
                 DeliveryAddress = order.DeliveryAddress,
                 PromotionCode = order.PromotionCode,
                 PromotionOptionName = newPromo?.OptionName ?? oldPromo?.OptionName,
                 Status = order.Status,
-                QuotationPrice = order.QuotationPrice, 
+                QuotationPrice = order.QuotationPrice,
                 FinalPrice = order.FinalPrice
             };
         }
+
 
         public async Task<bool> DeleteOrderAsync(int id)
         {
