@@ -120,6 +120,18 @@ else
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+  
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=tcp:your-sqlserver-host,1433;Initial Catalog=EVMManagementStore;Persist Security Info=False;User ID=your_user;Password=your_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+  "JwtSettings": {
+    "SecretKey": "DmV6JWIMD0p2vFYKY9D19shQNQEGCAz1",
+    "Issuer": "https://evmmanagementstore-be.onrender.com",
+    "Audience": "https://evmmanagementstore-fe.onrender.com"
+  }
+  
 */
 
 builder.Services.AddAuthorization();
