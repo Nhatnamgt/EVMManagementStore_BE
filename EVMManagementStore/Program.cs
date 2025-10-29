@@ -1,13 +1,7 @@
 ﻿using EVMManagementStore.Repository.Models;
 using EVMManagementStore.Repository.UnitOfWork;
-
-
-
-
 using EVMManagementStore.Service.Interface.Dealer;
-using EVMManagementStore.Service.Interface.EVM;
 using EVMManagementStore.Service.Service.Dealer;
-using EVMManagementStore.Service.Service.EVM;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -39,9 +33,7 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IDealerRevenueService, DealerRevenueService>();
 builder.Services.AddScoped<IDebtReportService, DebtReportService>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
-builder.Services.AddScoped<IEVMVehicleService, EVMVehicleService>();
-builder.Services.AddScoped<IInventoryService, InventoryService>();
-builder.Services.AddScoped<IUserManagementService, UserManagementService>();
+
 
 builder.Services.AddDbContext<EVMManagementStoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -96,7 +88,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]))
     };
 });
-
+/*
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -119,9 +111,38 @@ else
     app.UseSwaggerUI();
 }
 
+  
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=tcp:your-sqlserver-host,1433;Initial Catalog=EVMManagementStore;Persist Security Info=False;User ID=your_user;Password=your_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+  "JwtSettings": {
+    "SecretKey": "DmV6JWIMD0p2vFYKY9D19shQNQEGCAz1",
+    "Issuer": "https://evmmanagementstore-be.onrender.com",
+    "Audience": "https://evmmanagementstore-fe.onrender.com"
+  }
+  
+*/
+
+builder.Services.AddAuthorization();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseStaticFiles();
+
 app.MapControllers();
 
 app.Run();
-
