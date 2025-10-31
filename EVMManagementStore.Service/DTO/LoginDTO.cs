@@ -23,5 +23,6 @@ namespace EVMManagementStore.Service.DTO
     {
         public string Token { get; set; }
         public string Role { get; set; }
+        public string Company_name { get; set; }
     }
 }
