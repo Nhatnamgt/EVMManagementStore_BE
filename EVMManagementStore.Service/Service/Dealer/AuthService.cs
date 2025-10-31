@@ -48,7 +48,8 @@ namespace EVMManagementStore.Service.Service.Dealer
             return new LoginResponse
             {
                 Token = token,
-                Role = roleName
+                Role = roleName,
+                Company_name = user.CompanyName 
             };
         }
 
