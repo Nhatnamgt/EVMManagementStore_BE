@@ -5,7 +5,6 @@ using EVMManagementStore.Service.Interface.EVM;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BCrypt.Net;
 
 namespace EVMManagementStore.Service.Service.EVM
 {
@@ -32,7 +31,7 @@ namespace EVMManagementStore.Service.Service.EVM
                 Phone = u.Phone,
                 Address = u.Address,
                 CompanyName = u.CompanyName,
-                Password = null 
+                Password = u.PasswordHash 
             }).ToList();
         }
 
@@ -51,21 +50,17 @@ namespace EVMManagementStore.Service.Service.EVM
                 Phone = user.Phone,
                 Address = user.Address,
                 CompanyName = user.CompanyName,
-                Password = null
+                Password = user.PasswordHash 
             };
         }
 
         public async Task<UserDTO> CreateUserAsync(UserDTO dto)
         {
-            string hashedPassword = string.IsNullOrWhiteSpace(dto.Password)
-                ? null
-                : BCrypt.Net.BCrypt.HashPassword(dto.Password);
-
             var newUser = new User
             {
                 Username = dto.Username,
                 Email = dto.Email,
-                PasswordHash = hashedPassword,
+                PasswordHash = dto.Password, 
                 RoleId = dto.RoleId,
                 FullName = dto.FullName,
                 Phone = dto.Phone,
@@ -77,7 +72,6 @@ namespace EVMManagementStore.Service.Service.EVM
             await _unitOfWork.SaveAsync();
 
             dto.UserId = newUser.UserId;
-            dto.Password = null;
             return dto;
         }
 
@@ -96,13 +90,12 @@ namespace EVMManagementStore.Service.Service.EVM
 
             if (!string.IsNullOrWhiteSpace(dto.Password))
             {
-                existing.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+                existing.PasswordHash = dto.Password; 
             }
 
             _unitOfWork.UserRepository.Update(existing);
             await _unitOfWork.SaveAsync();
 
-            dto.Password = null;
             return dto;
         }
 
