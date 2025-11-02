@@ -42,6 +42,30 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<InventoryDTO>.OkResponse(inventory, "Lấy thông tin tồn kho thành công."));
         }
 
+        // ✅ Thêm mới xe vào kho (chỉ khi xe chưa tồn tại trong inventory)
+        [Authorize(Roles = "admin,evm_staff")]
+        [HttpPost("{vehicleId}/create")]
+        public async Task<IActionResult> CreateInventory(int vehicleId, [FromQuery] int quantity)
+        {
+            if (quantity < 0)
+                return BadRequest(ApiResponse<string>.BadRequestResponse("Số lượng phải lớn hơn hoặc bằng 0."));
+
+            try
+            {
+                var newInventory = await _inventoryService.CreateInventoryAsync(vehicleId, quantity);
+                return Ok(ApiResponse<InventoryDTO>.OkResponse(newInventory, "Thêm xe mới vào kho thành công."));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ApiResponse<string>.NotFoundResponse(ex.Message));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ApiResponse<string>.BadRequestResponse(ex.Message));
+            }
+        }
+
+        // ✅ Cập nhật số lượng xe
         [Authorize(Roles = "admin,evm_staff")]
         [HttpPut("{vehicleId}/update")]
         public async Task<IActionResult> UpdateQuantity(int vehicleId, [FromBody] int quantity)
@@ -49,8 +73,34 @@ namespace EVMManagementStore.Controllers
             if (quantity < 0)
                 return BadRequest(ApiResponse<string>.BadRequestResponse("Số lượng không hợp lệ."));
 
-            var updated = await _inventoryService.UpdateInventoryAsync(vehicleId, quantity);
-            return Ok(ApiResponse<InventoryDTO>.OkResponse(updated, "Cập nhật số lượng tồn kho thành công."));
+            try
+            {
+                var updated = await _inventoryService.UpdateInventoryAsync(vehicleId, quantity);
+                return Ok(ApiResponse<InventoryDTO>.OkResponse(updated, "Cập nhật số lượng tồn kho thành công."));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ApiResponse<string>.NotFoundResponse(ex.Message));
+            }
+        }
+
+        // ✅ Xóa xe ra khỏi kho
+        [Authorize(Roles = "admin,evm_staff")]
+        [HttpDelete("{inventoryId}/delete")]
+        public async Task<IActionResult> DeleteInventory(int inventoryId)
+        {
+            try
+            {
+                var result = await _inventoryService.DeleteInventoryAsync(inventoryId);
+                if (!result)
+                    return NotFound(ApiResponse<string>.NotFoundResponse("Không tìm thấy xe trong kho để xóa."));
+
+                return Ok(ApiResponse<string>.OkResponse("Xóa kho xe thành công."));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ApiResponse<string>.NotFoundResponse(ex.Message));
+            }
         }
 
         [Authorize(Roles = "admin,evm_staff")]
