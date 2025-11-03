@@ -139,12 +139,16 @@ namespace EVMManagementStore.Service.Service.Dealer
 
             if (!string.IsNullOrEmpty(quotationDTO.PromotionCode))
             {
-                promo = (await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == quotationDTO.PromotionCode))
-                    .FirstOrDefault();
+                promo = (await _unitOfWork.PromotionRepository.FindAsync(p => p.PromotionCode == quotationDTO.PromotionCode)).FirstOrDefault();
 
                 if (promo != null)
                 {
-                    if (promo.Stock > 0)
+                    var today = DateOnly.FromDateTime(DateTime.UtcNow.Date);
+                    if (promo.EndDate.HasValue && promo.EndDate.Value < today)
+                    {
+                        promo = null;
+                    }
+                    else if (promo.Stock > 0)
                     {
                         promo.Stock -= 1;
                         _unitOfWork.PromotionRepository.Update(promo);
@@ -208,7 +212,14 @@ namespace EVMManagementStore.Service.Service.Dealer
 
                 if (newPromo != null)
                 {
-                    if (newPromo.Stock > 0)
+                    var today = DateOnly.FromDateTime(DateTime.UtcNow.Date);
+
+                    if(newPromo.EndDate.HasValue && newPromo.EndDate.Value < today)
+                    {                                         
+                           newPromo = null;
+                        
+                    }
+                    else if (newPromo.Stock > 0)
                     {
                         newPromo.Stock -= 1;
                         _unitOfWork.PromotionRepository.Update(newPromo);
@@ -387,7 +398,12 @@ namespace EVMManagementStore.Service.Service.Dealer
 
                 if (promo != null)
                 {
-                    if (promo.Stock <= 0)
+                    var today = DateOnly.FromDateTime(DateTime.UtcNow.Date);
+                    if (promo.EndDate.HasValue && promo.EndDate.Value < today)
+                    {
+                        promo = null;   
+                    }
+                    else if (promo.Stock <= 0)
                     {
                       
                         promo = null;
@@ -451,31 +467,30 @@ namespace EVMManagementStore.Service.Service.Dealer
 
 
             if (order.PromotionCode != dto.PromotionCode)
-            {
-
+            {              
                 if (oldPromo != null)
                 {
                     oldPromo.Stock += 1;
                     _unitOfWork.PromotionRepository.Update(oldPromo);
                 }
 
-
                 if (newPromo != null)
                 {
-                    if (newPromo.Stock > 0)
+                    var today = DateOnly.FromDateTime(DateTime.UtcNow.Date);
+
+                    if (newPromo.EndDate.HasValue && newPromo.EndDate.Value < today)
+                    {
+                        newPromo = null;
+                    }
+                    else if (newPromo.Stock > 0)
                     {
                         newPromo.Stock -= 1;
                         _unitOfWork.PromotionRepository.Update(newPromo);
                     }
                     else
                     {
- 
                         newPromo = null;
                     }
-                }
-                else
-                {
-                    newPromo = null;
                 }
             }
 
