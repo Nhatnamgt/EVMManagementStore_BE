@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EVMManagementStore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+986f9a2573567890691cdba9fbf871fd6da60668")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e56ee04169bdd1ae990b2bf542c6abc2e7cf1ff")]
 [assembly: System.Reflection.AssemblyProductAttribute("EVMManagementStore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EVMManagementStore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
