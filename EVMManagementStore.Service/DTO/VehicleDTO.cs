@@ -19,7 +19,8 @@ namespace EVMManagementStore.Service.DTO
         public string Color { get; set; }
 
         public decimal Price { get; set; }
-
+        public decimal? FinalPrice { get; set; }   
+        public int? DiscountId { get; set; }    
         public string Distance { get; set; }
 
         public string Timecharging { get; set; }
@@ -33,6 +34,8 @@ namespace EVMManagementStore.Service.DTO
         public string Image3 { get; set; }
 
         public string Status { get; set; }
+
+
     }
 
     public class VehicleComparisonDTO

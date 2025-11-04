@@ -25,6 +25,7 @@ namespace EVMManagementStore.Repository.UnitOfWork
         private GenericRepository<Vehicle> _vehicleRepository = null!;
         private GenericRepository<User> _userRepository = null!;
         private GenericRepository<Delivery> _deliveryRepository = null!;
+        private GenericRepository<Discount> _discountRepository = null!;
 
         public UnitOfWork(EVMManagementStoreContext context)
         {
@@ -44,7 +45,7 @@ namespace EVMManagementStore.Repository.UnitOfWork
         public GenericRepository<Vehicle> VehicleRepository => _vehicleRepository ??= new GenericRepository<Vehicle>(_context);
         public GenericRepository<User> UserRepository => _userRepository ??= new GenericRepository<User>(_context);
         public GenericRepository<Delivery> DeliveryRepository => _deliveryRepository ??= new GenericRepository<Delivery>(_context);
-
+        public GenericRepository<Discount> DiscountRepository => _discountRepository ??= new GenericRepository<Discount>(_context);
         public int Save() => _context.SaveChanges();
 
         public async Task<int> SaveAsync() => await _context.SaveChangesAsync();

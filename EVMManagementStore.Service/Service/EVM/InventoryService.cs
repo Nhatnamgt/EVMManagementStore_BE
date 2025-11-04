@@ -17,121 +17,100 @@ namespace EVMManagementStore.Service.Service.EVM
             _unitOfWork = unitOfWork;
         }
 
-        // ✅ Lấy toàn bộ danh sách tồn kho (hiển thị đầy đủ thông tin xe)
         public async Task<IEnumerable<InventoryDTO>> GetAllInventoriesAsync()
         {
             var vehicles = await _unitOfWork.VehicleRepository.GetAllAsync();
             var inventories = await _unitOfWork.InventoryRepository.GetAllAsync();
 
-            // 🔹 Kiểm tra xem có xe nào mới mà chưa có record trong inventory chưa
             foreach (var v in vehicles)
             {
-                var existingInventory = inventories.FirstOrDefault(i => i.VehicleId == v.VehicleId);
-                if (existingInventory == null)
+                if (!inventories.Any(i => i.VehicleId == v.VehicleId))
                 {
-                    var newInventory = new Inventory
+                    await _unitOfWork.InventoryRepository.AddAsync(new Inventory
                     {
                         VehicleId = v.VehicleId,
-                        Quantity = 0 // Mặc định chưa nhập hàng
-                    };
-
-                    await _unitOfWork.InventoryRepository.AddAsync(newInventory);
+                        Quantity = 0
+                    });
                 }
             }
 
-            // 🔹 Lưu lại nếu có thêm mới Inventory
             await _unitOfWork.SaveAsync();
-
-            // Lấy lại danh sách sau khi cập nhật
             inventories = await _unitOfWork.InventoryRepository.GetAllAsync();
 
-            var result = from v in vehicles
-                         join i in inventories on v.VehicleId equals i.VehicleId into vi
-                         from inv in vi.DefaultIfEmpty()
-                         select new InventoryDTO
-                         {
-                             InventoryId = inv?.InventoryId ?? 0,
-                             VehicleId = v.VehicleId,
-                             Type = v.Type,
-                             Model = v.Model,
-                             Version = v.Version,
-                             Color = v.Color,
-                             Price = v.Price,
-                             Distance = v.Distance,
-                             Timecharging = v.Timecharging,
-                             Speed = v.Speed,
-                             Image1 = v.Image1,
-                             Image2 = v.Image2,
-                             Image3 = v.Image3,
-                             Quantity = inv?.Quantity ?? 0,
-                             Status = (inv?.Quantity ?? 0) > 0 ? "Còn hàng" : "Hết hàng"
-                         };
-
-            return result.ToList();
+            return (from v in vehicles
+                    join inv in inventories on v.VehicleId equals inv.VehicleId into vi
+                    from i in vi.DefaultIfEmpty()
+                    select new InventoryDTO
+                    {
+                        InventoryId = i?.InventoryId ?? 0,
+                        VehicleId = v.VehicleId,
+                        Type = v.Type,
+                        Model = v.Model,
+                        Version = v.Version,
+                        Color = v.Color,
+                        Price = v.Price,
+                        FinalPrice = v.FinalPrice ?? v.Price, // ⭐ GIÁ SAU GIẢM
+                        DiscountId = v.DiscountId,           // ⭐ ĐANG ÁP DỤNG GIẢM GIÁ
+                        Distance = v.Distance,
+                        Timecharging = v.Timecharging,
+                        Speed = v.Speed,
+                        Image1 = v.Image1,
+                        Image2 = v.Image2,
+                        Image3 = v.Image3,
+                        Quantity = i?.Quantity ?? 0,
+                        Status = (i?.Quantity ?? 0) > 0 ? "Còn hàng" : "Hết hàng"
+                    }).ToList();
         }
 
-        // ✅ Lấy tồn kho theo VehicleId
         public async Task<InventoryDTO?> GetInventoryByVehicleIdAsync(int vehicleId)
         {
-            var inventory = (await _unitOfWork.InventoryRepository
-                .FindIncludeAsync(i => i.VehicleId == vehicleId, i => i.Vehicle)).FirstOrDefault();
+            var inv = (await _unitOfWork.InventoryRepository.FindIncludeAsync(i => i.VehicleId == vehicleId, i => i.Vehicle))
+                .FirstOrDefault();
 
-            if (inventory == null)
+            if (inv == null)
             {
-                // 🔹 Nếu chưa có tồn kho, tự tạo mới
-                var newInventory = new Inventory
-                {
-                    VehicleId = vehicleId,
-                    Quantity = 0
-                };
-                await _unitOfWork.InventoryRepository.AddAsync(newInventory);
+                inv = new Inventory { VehicleId = vehicleId, Quantity = 0 };
+                await _unitOfWork.InventoryRepository.AddAsync(inv);
                 await _unitOfWork.SaveAsync();
-
-                inventory = newInventory;
             }
 
             var v = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
+
             return new InventoryDTO
             {
-                InventoryId = inventory.InventoryId,
+                InventoryId = inv.InventoryId,
                 VehicleId = v.VehicleId,
                 Type = v.Type,
                 Model = v.Model,
                 Version = v.Version,
                 Color = v.Color,
                 Price = v.Price,
+                FinalPrice = v.FinalPrice ?? v.Price,
+                DiscountId = v.DiscountId,
                 Distance = v.Distance,
                 Timecharging = v.Timecharging,
                 Speed = v.Speed,
                 Image1 = v.Image1,
                 Image2 = v.Image2,
                 Image3 = v.Image3,
-                Quantity = inventory.Quantity,
-                Status = inventory.Quantity > 0 ? "Còn hàng" : "Hết hàng"
+                Quantity = inv.Quantity,
+                Status = inv.Quantity > 0 ? "Còn hàng" : "Hết hàng"
             };
         }
+
         public async Task<InventoryDTO> CreateInventoryAsync(int vehicleId, int quantity)
         {
-            // Check vehicle tồn tại
             var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
             if (vehicle == null)
-                throw new KeyNotFoundException("Không tìm thấy xe để thêm vào kho.");
+                throw new KeyNotFoundException("Không tìm thấy xe.");
 
-            // Check nếu inventory đã tồn tại
-            var existingInv = (await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == vehicleId)).FirstOrDefault();
-            if (existingInv != null)
+            var existing = (await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == vehicleId)).FirstOrDefault();
+            if (existing != null)
                 throw new InvalidOperationException("Xe này đã có trong kho.");
 
-            // Tạo mới inventory
-            var newInventory = new Inventory
-            {
-                VehicleId = vehicleId,
-                Quantity = quantity
-            };
+            var inv = new Inventory { VehicleId = vehicleId, Quantity = quantity };
+            await _unitOfWork.InventoryRepository.AddAsync(inv);
 
-            await _unitOfWork.InventoryRepository.AddAsync(newInventory);
-
-            // Cập nhật status cho vehicle
             vehicle.Status = quantity > 0 ? "Còn hàng" : "Hết hàng";
             _unitOfWork.VehicleRepository.Update(vehicle);
 
@@ -139,63 +118,59 @@ namespace EVMManagementStore.Service.Service.EVM
 
             return new InventoryDTO
             {
-                InventoryId = newInventory.InventoryId,
+                InventoryId = inv.InventoryId,
                 VehicleId = vehicle.VehicleId,
                 Type = vehicle.Type,
                 Model = vehicle.Model,
                 Version = vehicle.Version,
                 Color = vehicle.Color,
                 Price = vehicle.Price,
+                FinalPrice = vehicle.FinalPrice ?? vehicle.Price,
+                DiscountId = vehicle.DiscountId,
                 Distance = vehicle.Distance,
                 Timecharging = vehicle.Timecharging,
                 Speed = vehicle.Speed,
                 Image1 = vehicle.Image1,
                 Image2 = vehicle.Image2,
                 Image3 = vehicle.Image3,
-                Quantity = newInventory.Quantity,
+                Quantity = inv.Quantity,
                 Status = vehicle.Status
             };
         }
 
-
-        // ✅ Cập nhật số lượng tồn kho
         public async Task<InventoryDTO> UpdateInventoryAsync(int vehicleId, int quantity)
         {
-            var inventory = (await _unitOfWork.InventoryRepository
-                .FindAsync(i => i.VehicleId == vehicleId)).FirstOrDefault();
+            var inv = (await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == vehicleId)).FirstOrDefault();
+            if (inv == null)
+                throw new KeyNotFoundException("Không tìm thấy tồn kho.");
 
-            if (inventory == null)
-                throw new KeyNotFoundException("Không tìm thấy kho cho xe này");
-
-            inventory.Quantity = quantity;
-
+            inv.Quantity = quantity;
             var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
-            if (vehicle != null)
-            {
-                vehicle.Status = quantity > 0 ? "Còn hàng" : "Hết hàng";
-                _unitOfWork.VehicleRepository.Update(vehicle);
-            }
 
-            _unitOfWork.InventoryRepository.Update(inventory);
+            vehicle.Status = quantity > 0 ? "Còn hàng" : "Hết hàng";
+            _unitOfWork.VehicleRepository.Update(vehicle);
+            _unitOfWork.InventoryRepository.Update(inv);
             await _unitOfWork.SaveAsync();
 
             return new InventoryDTO
             {
-                InventoryId = inventory.InventoryId,
-                VehicleId = vehicle?.VehicleId ?? 0,
-                Type = vehicle?.Type ?? "",
-                Model = vehicle?.Model ?? "",
-                Version = vehicle?.Version ?? "",
-                Color = vehicle?.Color ?? "",
-                Price = vehicle?.Price ?? 0,
-                Distance = vehicle?.Distance ?? "",
-                Timecharging = vehicle?.Timecharging ?? "",
-                Speed = vehicle?.Speed ?? "",
-                Image1 = vehicle?.Image1 ?? "",
-                Image2 = vehicle?.Image2 ?? "",
-                Image3 = vehicle?.Image3 ?? "",
-                Quantity = inventory.Quantity,
-                Status = vehicle?.Status ?? "Không xác định"
+                InventoryId = inv.InventoryId,
+                VehicleId = vehicle.VehicleId,
+                Type = vehicle.Type,
+                Model = vehicle.Model,
+                Version = vehicle.Version,
+                Color = vehicle.Color,
+                Price = vehicle.Price,
+                FinalPrice = vehicle.FinalPrice ?? vehicle.Price,
+                DiscountId = vehicle.DiscountId,
+                Distance = vehicle.Distance,
+                Timecharging = vehicle.Timecharging,
+                Speed = vehicle.Speed,
+                Image1 = vehicle.Image1,
+                Image2 = vehicle.Image2,
+                Image3 = vehicle.Image3,
+                Quantity = inv.Quantity,
+                Status = vehicle.Status
             };
         }
 

@@ -13,6 +13,7 @@
 
         public int DispatchedQuantity { get; set; }
         public int RemainingInStock { get; set; }
+        public decimal ConsumptionRate { get; set; }
         public string Status { get; set; }
     }
 }
