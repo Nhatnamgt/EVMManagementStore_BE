@@ -8,7 +8,9 @@
         public string Model { get; set; }
         public string Version { get; set; }
         public string Color { get; set; }
-        public decimal Price { get; set; }
+        public decimal Price { get; set; }            
+        public decimal? FinalPrice { get; set; }      
+        public int? DiscountId { get; set; }
         public string Distance { get; set; }
         public string Timecharging { get; set; }
         public string Speed { get; set; }
