@@ -20,7 +20,7 @@ namespace EVMManagementStore.Service.Service.EVM
 
         public async Task<IEnumerable<DiscountDTO>> GetAllAsync()
         {
-            var discounts = await _unitOfWork.DiscountRepository.GetAllAsync();
+            var discounts = await _unitOfWork.DiscountsRepository.GetAllAsync();
 
             return discounts.Select(d => new DiscountDTO
             {
@@ -38,7 +38,7 @@ namespace EVMManagementStore.Service.Service.EVM
 
         public async Task<DiscountDTO?> GetByIdAsync(int id)
         {
-            var d = await _unitOfWork.DiscountRepository.GetByIdAsync(id);
+            var d = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
             if (d == null) return null;
 
             return new DiscountDTO
@@ -69,7 +69,7 @@ namespace EVMManagementStore.Service.Service.EVM
                 Status = dto.Status ?? "ACTIVE"
             };
 
-            await _unitOfWork.DiscountRepository.AddAsync(entity);
+            await _unitOfWork.DiscountsRepository.AddAsync(entity);
             await _unitOfWork.SaveAsync();
 
             dto.DiscountId = entity.DiscountId;
@@ -78,7 +78,7 @@ namespace EVMManagementStore.Service.Service.EVM
 
         public async Task<DiscountDTO?> UpdateAsync(int id, DiscountDTO dto)
         {
-            var existing = await _unitOfWork.DiscountRepository.GetByIdAsync(id);
+            var existing = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
             if (existing == null) return null;
 
             existing.DiscountName = dto.DiscountName;
@@ -88,7 +88,7 @@ namespace EVMManagementStore.Service.Service.EVM
             existing.EndDate = dto.EndDate;
             existing.Status = dto.Status;
 
-            _unitOfWork.DiscountRepository.Update(existing);
+            _unitOfWork.DiscountsRepository.Update(existing);
             await _unitOfWork.SaveAsync();
 
             return dto;
@@ -96,10 +96,10 @@ namespace EVMManagementStore.Service.Service.EVM
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var existing = await _unitOfWork.DiscountRepository.GetByIdAsync(id);
+            var existing = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
             if (existing == null) return false;
 
-            _unitOfWork.DiscountRepository.Remove(existing);
+            _unitOfWork.DiscountsRepository.Remove(existing);
             await _unitOfWork.SaveAsync();
             return true;
         }
@@ -108,12 +108,12 @@ namespace EVMManagementStore.Service.Service.EVM
         public async Task<bool> ApplyDiscountToVehicleAsync(int vehicleId, int discountId)
         {
             var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
-            var discount = await _unitOfWork.DiscountRepository.GetByIdAsync(discountId);
+            var discount = await _unitOfWork.DiscountsRepository.GetByIdAsync(discountId);
 
             if (vehicle == null || discount == null)
                 return false;
 
-            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var today = DateTime.UtcNow.Date;
             if (discount.StartDate > today || discount.EndDate < today)
                 throw new Exception("Discount is not active or has expired.");
 
@@ -144,6 +144,7 @@ namespace EVMManagementStore.Service.Service.EVM
 
             return true;
         }
+
         public async Task<bool> RemoveDiscountFromVehicleAsync(int vehicleId)
         {
             var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
@@ -157,34 +158,31 @@ namespace EVMManagementStore.Service.Service.EVM
 
             return true;
         }
+
         public decimal CalculateFinalPrice(Vehicle vehicle)
         {
             if (vehicle.DiscountId == null)
-                return vehicle.Price; // Không có giảm giá → trả giá gốc
+                return vehicle.Price;
 
-            var discount = _unitOfWork.DiscountRepository.GetByIdAsync(vehicle.DiscountId).Result;
-            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var discount = _unitOfWork.DiscountsRepository.GetByIdAsync(vehicle.DiscountId).Result;
+            var today = DateTime.UtcNow.Date;
 
-            // Nếu giảm giá chưa bắt đầu hoặc đã hết hạn → không áp dụng nữa
             if (discount == null || discount.StartDate > today || discount.EndDate < today)
                 return vehicle.Price;
 
             decimal finalPrice = vehicle.Price;
 
-            // Nếu giảm theo % → giảm theo phần trăm
             switch (discount.DiscountType?.ToLower())
             {
                 case "percent":
                     finalPrice -= vehicle.Price * (discount.DiscountValue / 100);
                     break;
 
-                // Nếu giảm số tiền cụ thể → trừ thẳng
                 case "amount":
                     finalPrice -= discount.DiscountValue;
                     break;
             }
 
-            // Không để giá âm
             return finalPrice < 0 ? 0 : finalPrice;
         }
     }

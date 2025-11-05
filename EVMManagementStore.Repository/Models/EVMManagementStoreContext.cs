@@ -41,7 +41,7 @@ public partial class EVMManagementStoreContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Vehicle> Vehicles { get; set; }
-    public virtual DbSet<Discount> Discounts { get; set; }
+    public virtual DbSet<Discount> Discount { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -447,30 +447,44 @@ public partial class EVMManagementStoreContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Users__role_id__3B75D760");
         });
+
         modelBuilder.Entity<Discount>(entity =>
         {
-            entity.HasKey(e => e.DiscountId).HasName("PK__Discount__discount_id");
+            entity.HasKey(e => e.DiscountId).HasName("PK__Discounts__discount_id");
 
-            entity.ToTable("Discount");
+            entity.ToTable("Discounts");
 
             entity.Property(e => e.DiscountId).HasColumnName("discount_id");
 
+            entity.Property(e => e.DiscountCode)
+                .HasMaxLength(100)
+                .HasColumnName("discount_code");
+
             entity.Property(e => e.DiscountName)
-                .IsRequired()
                 .HasMaxLength(100)
                 .HasColumnName("discount_name");
+
+            entity.Property(e => e.DiscountType)
+                .HasMaxLength(50)
+                .HasColumnName("discount_type");
 
             entity.Property(e => e.DiscountValue)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("discount_value");
 
             entity.Property(e => e.StartDate)
-                .HasColumnType("dateonly")
+                .HasColumnType("datetime")
                 .HasColumnName("start_date");
 
             entity.Property(e => e.EndDate)
-                .HasColumnType("dateonly")
+                .HasColumnType("datetime")
                 .HasColumnName("end_date");
+
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .HasColumnName("status");
         });
 
         modelBuilder.Entity<Vehicle>(entity =>
@@ -523,10 +537,10 @@ public partial class EVMManagementStoreContext : DbContext
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("final_price");
 
-            entity.HasOne(d => d.Discount)
+            entity.HasOne(d => d.Discounts)
                 .WithMany(p => p.Vehicles)
                 .HasForeignKey(d => d.DiscountId)
-                .HasConstraintName("FK_Vehicle_Discount");
+                .HasConstraintName("FK_Vehicle_Discounts");
         });
 
         OnModelCreatingPartial(modelBuilder);
