@@ -23,7 +23,7 @@ namespace EVMManagementStore.Repository.UnitOfWork
         GenericRepository<Vehicle> VehicleRepository { get; }
         GenericRepository<User> UserRepository { get; }
         GenericRepository<Delivery> DeliveryRepository { get; }
-        GenericRepository<Discount> DiscountRepository { get; }
+        GenericRepository<Discount> DiscountsRepository { get; }
         int Save();
         Task<int> SaveAsync();
         Task BeginTransactionAsync();
