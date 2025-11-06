@@ -33,7 +33,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Timecharging = v.Timecharging,
                 Speed = v.Speed,
                 Image1 = v.Image1,
-                Image2 = v.Image3,
+                Image2 = v.Image2,
                 Image3 = v.Image3,
                 Status = v.Status
             }).ToList();
@@ -56,7 +56,7 @@ namespace EVMManagementStore.Service.Service.Dealer
                 Timecharging = v.Timecharging,
                 Speed = v.Speed,
                 Image1 = v.Image1,
-                Image2 = v.Image3,
+                Image2 = v.Image2,
                 Image3 = v.Image3,
                 Status = v.Status
             };

@@ -29,7 +29,11 @@ public partial class Vehicle
 
     public string Color { get; set; }
 
+    public int? DiscountId { get; set; }
+
     public decimal Price { get; set; }
+
+    public decimal? FinalPrice { get; set; }
 
     public string Status { get; set; }
 
