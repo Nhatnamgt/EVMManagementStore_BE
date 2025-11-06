@@ -32,10 +32,7 @@ namespace EVMManagementStore.Service.Service.EVM
                 Color = v.Color,
 
                 Price = v.Price,
-                FinalPrice = v.DiscountId != null
-                    ? _discountService.CalculateFinalPrice(v)
-                    : v.Price,
-
+                FinalPrice = v.FinalPrice ?? v.Price,
                 DiscountId = v.DiscountId,
                 Distance = v.Distance,
                 Timecharging = v.Timecharging,
@@ -61,10 +58,7 @@ namespace EVMManagementStore.Service.Service.EVM
                 Color = v.Color,
 
                 Price = v.Price,
-                FinalPrice = v.DiscountId != null
-                    ? _discountService.CalculateFinalPrice(v)
-                    : v.Price,
-
+                FinalPrice = v.FinalPrice ?? v.Price,
                 DiscountId = v.DiscountId,
                 Distance = v.Distance,
                 Timecharging = v.Timecharging,
