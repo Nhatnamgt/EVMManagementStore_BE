@@ -20,6 +20,8 @@ public partial class EVMManagementStoreContext : DbContext
 
     public virtual DbSet<Delivery> Deliveries { get; set; }
 
+    public virtual DbSet<Discount> Discounts { get; set; }
+
     public virtual DbSet<Inventory> Inventories { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -121,6 +123,43 @@ public partial class EVMManagementStoreContext : DbContext
                 .HasForeignKey(d => d.VehicleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Deliverie__vehic__5FB337D6");
+        });
+
+        modelBuilder.Entity<Discount>(entity =>
+        {
+            entity.HasKey(e => e.DiscountId).HasName("PK__Discount__BDBE9EF9FB3940FF");
+
+            entity.HasIndex(e => e.DiscountCode, "UQ__Discount__75C1F00637184BB4").IsUnique();
+
+            entity.Property(e => e.DiscountId).HasColumnName("discount_id");
+            entity.Property(e => e.DiscountCode)
+                .IsRequired()
+                .HasMaxLength(100)
+                .HasColumnName("discount_code");
+            entity.Property(e => e.DiscountName)
+                .IsRequired()
+                .HasMaxLength(200)
+                .HasColumnName("discount_name");
+            entity.Property(e => e.DiscountType)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("discount_type");
+            entity.Property(e => e.DiscountValue)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("discount_value");
+            entity.Property(e => e.EndDate).HasColumnName("end_date");
+            entity.Property(e => e.StartDate).HasColumnName("start_date");
+            entity.Property(e => e.Status)
+                .IsRequired()
+                .HasMaxLength(20)
+                .HasDefaultValue("ACTIVE")
+                .HasColumnName("status");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Discounts)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Discounts__user___412EB0B6");
         });
 
         modelBuilder.Entity<Inventory>(entity =>
@@ -496,6 +535,10 @@ public partial class EVMManagementStoreContext : DbContext
             entity.Property(e => e.Version)
                 .HasMaxLength(50)
                 .HasColumnName("version");
+
+            entity.HasOne(d => d.Discount).WithMany(p => p.Vehicles)
+                .HasForeignKey(d => d.DiscountId)
+                .HasConstraintName("FK__Vehicles__discou__44FF419A");
         });
 
         OnModelCreatingPartial(modelBuilder);
