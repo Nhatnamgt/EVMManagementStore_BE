@@ -134,7 +134,7 @@ public partial class EVMManagementStoreContext : DbContext
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
             entity.Property(e => e.Color)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .HasColumnName("color");
 
             entity.HasOne(d => d.Vehicle).WithMany(p => p.Inventories)
@@ -496,7 +496,7 @@ public partial class EVMManagementStoreContext : DbContext
 
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
             entity.Property(e => e.Color)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .HasColumnName("color");
             entity.Property(e => e.Distance)
                 .HasMaxLength(50)

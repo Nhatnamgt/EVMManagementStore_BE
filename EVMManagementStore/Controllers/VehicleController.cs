@@ -20,7 +20,7 @@ namespace EVMManagementStore.Controllers
             _vehicleService = vehicleService;
             _evmVehicleService = evmVehicleService;
         }
-        [Authorize(Roles = "dealer,evm_staff,admin")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet]
         public async Task<IActionResult> GetVehicle()
         {
@@ -31,7 +31,7 @@ namespace EVMManagementStore.Controllers
             }
             return Ok(ApiResponse<List<VehicleDTO>>.OkResponse(vehicles.ToList(), "Lấy danh sách xe thành công"));
         }
-        [Authorize(Roles = "dealer,evm_staff,admin")]
+        [Authorize(Roles = "dealer,evm_staff")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicleById(int id)
         {
@@ -67,7 +67,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<List<VehicleDTO>>.OkResponse(searchs, "search xe thành công"));
         }
 
-        [Authorize(Roles = "evm_staff, admin")]
+        [Authorize(Roles = "evm_staff")]
         [HttpPost]
         public async Task<IActionResult> CreateVehicle([FromBody] VehicleDTO dto)
         {
@@ -75,7 +75,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<VehicleDTO>.OkResponse(created, "Thêm xe mới thành công."));
         }
 
-        [Authorize(Roles = "evm_staff, admin")]
+        [Authorize(Roles = "evm_staff")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleDTO dto)
         {
@@ -86,7 +86,7 @@ namespace EVMManagementStore.Controllers
             return Ok(ApiResponse<VehicleDTO>.OkResponse(updated, "Cập nhật xe thành công."));
         }
 
-        [Authorize(Roles = "evm_staff, admin")]
+        [Authorize(Roles = "evm_staff")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
