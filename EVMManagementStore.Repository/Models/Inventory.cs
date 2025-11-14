@@ -10,7 +10,7 @@ public partial class Inventory
     public int InventoryId { get; set; }
 
     public int VehicleId { get; set; }
-
+    public string Color { get; set; }
     public int Quantity { get; set; }
 
     public virtual Vehicle Vehicle { get; set; }
