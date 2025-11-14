@@ -34,7 +34,7 @@ public partial class Vehicle
     public int? DiscountId { get; set; }
     public string Status { get; set; }
 
-    public virtual Discount Discounts { get; set; }
+    public virtual Discount Discount { get; set; }
 
     public virtual ICollection<DealerOrder> DealerOrders { get; set; } = new List<DealerOrder>();
 

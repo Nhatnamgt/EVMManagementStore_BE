@@ -30,7 +30,6 @@ namespace EVMManagementStore.Service.Service.EVM
                 Model = v.Model,
                 Version = v.Version,
                 Color = v.Color,
-
                 Price = v.Price,
                 FinalPrice = v.FinalPrice ?? v.Price,
                 DiscountId = v.DiscountId,
@@ -56,7 +55,6 @@ namespace EVMManagementStore.Service.Service.EVM
                 Model = v.Model,
                 Version = v.Version,
                 Color = v.Color,
-
                 Price = v.Price,
                 FinalPrice = v.FinalPrice ?? v.Price,
                 DiscountId = v.DiscountId,
@@ -70,72 +68,99 @@ namespace EVMManagementStore.Service.Service.EVM
             };
         }
 
-        public async Task<VehicleDTO> CreateVehicleAsync(VehicleDTO vehicleDto)
+        // ======================================
+        // CREATE VEHICLE 
+        // ======================================
+        public async Task<VehicleDTO> CreateVehicleAsync(VehicleDTO dto)
         {
-            var newVehicle = new Vehicle
+            var v = new Vehicle
             {
-                Type = vehicleDto.Type,
-                Model = vehicleDto.Model,
-                Version = vehicleDto.Version,
-                Color = vehicleDto.Color,
-                Price = vehicleDto.Price,
-                FinalPrice = vehicleDto.Price, 
+                Type = dto.Type,
+                Model = dto.Model,
+                Version = dto.Version,
+                Color = dto.Color,
+                Price = dto.Price,
+                FinalPrice = dto.Price,
                 DiscountId = null,
-                Distance = vehicleDto.Distance,
-                Timecharging = vehicleDto.Timecharging,
-                Speed = vehicleDto.Speed,
-                Image1 = vehicleDto.Image1,
-                Image2 = vehicleDto.Image2,
-                Image3 = vehicleDto.Image3,
-                Status = vehicleDto.Status
+                Distance = dto.Distance,
+                Timecharging = dto.Timecharging,
+                Speed = dto.Speed,
+                Image1 = dto.Image1,
+                Image2 = dto.Image2,
+                Image3 = dto.Image3,
+                Status = dto.Status
             };
 
-            await _unitOfWork.VehicleRepository.AddAsync(newVehicle);
+            await _unitOfWork.VehicleRepository.AddAsync(v);
             await _unitOfWork.SaveAsync();
 
-            await _unitOfWork.InventoryRepository.AddAsync(new Inventory { VehicleId = newVehicle.VehicleId, Quantity = 0 });
+            // 🔥 AUTO TẠO INVENTORY THEO MÀU
+            var colors = dto.Color.Split(',', StringSplitOptions.TrimEntries);
+
+            foreach (var c in colors)
+            {
+                await _unitOfWork.InventoryRepository.AddAsync(new Inventory
+                {
+                    VehicleId = v.VehicleId,
+                    Color = c,
+                    Quantity = 0
+                });
+            }
+
             await _unitOfWork.SaveAsync();
 
-            vehicleDto.VehicleId = newVehicle.VehicleId;
-            vehicleDto.FinalPrice = newVehicle.FinalPrice;
-            return vehicleDto;
+            dto.VehicleId = v.VehicleId;
+            return dto;
         }
 
+        // ======================================
+        // UPDATE VEHICLE
+        // ======================================
         public async Task<VehicleDTO?> UpdateVehicleAsync(int id, VehicleDTO dto)
         {
-            var existing = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
-            if (existing == null) return null;
+            var v = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
+            if (v == null) return null;
 
-            existing.Type = dto.Type;
-            existing.Model = dto.Model;
-            existing.Version = dto.Version;
-            existing.Color = dto.Color;
-            existing.Price = dto.Price;
-            existing.Distance = dto.Distance;
-            existing.Timecharging = dto.Timecharging;
-            existing.Speed = dto.Speed;
-            existing.Image1 = dto.Image1;
-            existing.Image2 = dto.Image2;
-            existing.Image3 = dto.Image3;
-            existing.Status = dto.Status;
+            v.Type = dto.Type;
+            v.Model = dto.Model;
+            v.Version = dto.Version;
+            v.Color = dto.Color;
+            v.Price = dto.Price;
+            v.Distance = dto.Distance;
+            v.Timecharging = dto.Timecharging;
+            v.Speed = dto.Speed;
+            v.Image1 = dto.Image1;
+            v.Image2 = dto.Image2;
+            v.Image3 = dto.Image3;
+            v.Status = dto.Status;
 
-            if (existing.DiscountId != null)
-                existing.FinalPrice = _discountService.CalculateFinalPrice(existing);
+            if (v.DiscountId != null)
+                v.FinalPrice = _discountService.CalculateFinalPrice(v);
             else
-                existing.FinalPrice = existing.Price;
+                v.FinalPrice = v.Price;
 
-            _unitOfWork.VehicleRepository.Update(existing);
+            _unitOfWork.VehicleRepository.Update(v);
             await _unitOfWork.SaveAsync();
 
             return dto;
         }
 
+        // ======================================
+        // DELETE VEHICLE 
+        // ======================================
         public async Task<bool> DeleteVehicleAsync(int id)
         {
-            var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
-            if (vehicle == null) return false;
+            var v = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
+            if (v == null) return false;
 
-            _unitOfWork.VehicleRepository.Remove(vehicle);
+            // 🔥 XOÁ HẾT INVENTORY LIÊN QUAN TRƯỚC
+            var inventories = await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == id);
+            foreach (var inv in inventories)
+                _unitOfWork.InventoryRepository.Remove(inv);
+
+            // XOÁ XE
+            _unitOfWork.VehicleRepository.Remove(v);
+
             await _unitOfWork.SaveAsync();
             return true;
         }

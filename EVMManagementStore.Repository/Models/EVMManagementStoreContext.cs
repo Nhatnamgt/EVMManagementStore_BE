@@ -41,7 +41,7 @@ public partial class EVMManagementStoreContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Vehicle> Vehicles { get; set; }
-    public virtual DbSet<Discount> Discount { get; set; }
+    public virtual DbSet<Discount> Discounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -133,6 +133,9 @@ public partial class EVMManagementStoreContext : DbContext
             entity.Property(e => e.InventoryId).HasColumnName("inventory_id");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
+            entity.Property(e => e.Color)
+                .HasMaxLength(50)
+                .HasColumnName("color");
 
             entity.HasOne(d => d.Vehicle).WithMany(p => p.Inventories)
                 .HasForeignKey(d => d.VehicleId)
@@ -537,7 +540,7 @@ public partial class EVMManagementStoreContext : DbContext
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("final_price");
 
-            entity.HasOne(d => d.Discounts)
+            entity.HasOne(d => d.Discount)
                 .WithMany(p => p.Vehicles)
                 .HasForeignKey(d => d.DiscountId)
                 .HasConstraintName("FK_Vehicle_Discounts");

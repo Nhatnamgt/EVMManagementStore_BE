@@ -25,6 +25,7 @@
     {
         public int VehicleId { get; set; }
         public int Quantity { get; set; }
+        public string Color { get; set; }
         public int DealerId { get; set; } 
     }
 }
