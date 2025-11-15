@@ -1,5 +1,6 @@
 ﻿using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.EVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace EVMManagementStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "evm_staff")]
     public class DiscountController : ControllerBase
     {
         private readonly IDiscountService _discountService;
@@ -16,7 +18,7 @@ namespace EVMManagementStore.Controllers
             _discountService = discountService;
         }
 
-        // GET: api/discount
+        // GET All
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +26,7 @@ namespace EVMManagementStore.Controllers
             return Ok(result);
         }
 
-        // GET: api/discount/{id}
+        // GET By id
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -33,7 +35,7 @@ namespace EVMManagementStore.Controllers
             return Ok(result);
         }
 
-        // POST: api/discount
+        // Create
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] DiscountDTO dto)
         {
@@ -41,7 +43,7 @@ namespace EVMManagementStore.Controllers
             return Ok(result);
         }
 
-        // PUT: api/discount/{id}
+        // Update
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] DiscountDTO dto)
         {
@@ -50,7 +52,7 @@ namespace EVMManagementStore.Controllers
             return Ok(result);
         }
 
-        // DELETE: api/discount/{id}
+        // DELETE
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

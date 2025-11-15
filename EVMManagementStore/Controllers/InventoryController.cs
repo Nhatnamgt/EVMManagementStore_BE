@@ -1,5 +1,6 @@
 ﻿using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.EVM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace EVMManagementStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "evm_staff")]
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryService _service;

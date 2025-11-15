@@ -18,7 +18,7 @@ namespace EVMManagementStore.Controllers
         }
 
         // ✅ Báo cáo dispatch trong khoảng thời gian
-        [Authorize(Roles = "admin, evm_staff")]
+        [Authorize(Roles = "evm_staff")]
         [HttpGet("dispatch-report")]
         public async Task<IActionResult> GetDispatchReport([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
         {

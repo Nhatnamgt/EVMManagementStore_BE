@@ -118,32 +118,41 @@ namespace EVMManagementStore.Service.Service.EVM
         // ======================================
         public async Task<VehicleDTO?> UpdateVehicleAsync(int id, VehicleDTO dto)
         {
-            var v = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
-            if (v == null) return null;
+            var existing = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
+            if (existing == null) return null;
+            
+            existing.Type = dto.Type;
+            existing.Model = dto.Model;
+            existing.Version = dto.Version;
+            existing.Color = dto.Color;
+            existing.Price = dto.Price;
+            existing.Distance = dto.Distance;
+            existing.Timecharging = dto.Timecharging;
+            existing.Speed = dto.Speed;
+            existing.Image1 = dto.Image1;
+            existing.Image2 = dto.Image2;
+            existing.Image3 = dto.Image3;
+            existing.Status = dto.Status;
 
-            v.Type = dto.Type;
-            v.Model = dto.Model;
-            v.Version = dto.Version;
-            v.Color = dto.Color;
-            v.Price = dto.Price;
-            v.Distance = dto.Distance;
-            v.Timecharging = dto.Timecharging;
-            v.Speed = dto.Speed;
-            v.Image1 = dto.Image1;
-            v.Image2 = dto.Image2;
-            v.Image3 = dto.Image3;
-            v.Status = dto.Status;
+            if (existing.DiscountId != null)
+            {
+                var discount = await _unitOfWork.DiscountsRepository.GetByIdAsync(existing.DiscountId.Value);
 
-            if (v.DiscountId != null)
-                v.FinalPrice = _discountService.CalculateFinalPrice(v);
+                if (discount != null)
+                    existing.FinalPrice = _discountService.CalculateFinalPrice(existing, discount);
+                else
+                    existing.FinalPrice = existing.Price;
+            }
             else
-                v.FinalPrice = v.Price;
+            {
+                existing.FinalPrice = existing.Price;
+            }
 
-            _unitOfWork.VehicleRepository.Update(v);
+            _unitOfWork.VehicleRepository.Update(existing);
             await _unitOfWork.SaveAsync();
 
             return dto;
-        }
+        }   
 
         // ======================================
         // DELETE VEHICLE 

@@ -20,7 +20,7 @@ namespace EVMManagementStore.Controllers
             _salesReportService = salesReportService;
         }
 
-        [Authorize(Roles = "admin,evm_staff")]
+        [Authorize(Roles = "evm_staff")]
         [HttpGet]
         public async Task<IActionResult> GetSalesReports([FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
         {
