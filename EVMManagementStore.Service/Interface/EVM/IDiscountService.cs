@@ -1,4 +1,5 @@
-﻿using EVMManagementStore.Service.DTO;
+﻿using EVMManagementStore.Repository.Models;
+using EVMManagementStore.Service.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,8 +12,10 @@ namespace EVMManagementStore.Service.Interface.EVM
         Task<DiscountDTO> CreateAsync(DiscountDTO dto);
         Task<DiscountDTO?> UpdateAsync(int id, DiscountDTO dto);
         Task<bool> DeleteAsync(int id);
+
         Task<bool> ApplyDiscountToVehicleAsync(int vehicleId, int discountId);
         Task<bool> RemoveDiscountFromVehicleAsync(int vehicleId);
-        decimal CalculateFinalPrice(EVMManagementStore.Repository.Models.Vehicle vehicle);
+
+        decimal CalculateFinalPrice(Vehicle vehicle, Discount discount);
     }
 }

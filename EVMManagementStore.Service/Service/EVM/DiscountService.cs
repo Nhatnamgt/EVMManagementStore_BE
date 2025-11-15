@@ -18,9 +18,33 @@ namespace EVMManagementStore.Service.Service.EVM
             _unitOfWork = unitOfWork;
         }
 
+        // ================================
+        // AUTO UPDATE DISCOUNT STATUS
+        // ================================
+        private void AutoUpdateDiscountStatus(Discount d)
+        {
+            var today = DateTime.UtcNow.Date;
+
+            if (d.EndDate < today)
+                d.Status = "EXPIRED";
+            else if (d.StartDate <= today)
+                d.Status = "ACTIVE";
+            else
+                d.Status = "UPCOMING";
+        }
+
+
+        // ================================
+        // GET ALL
+        // ================================
         public async Task<IEnumerable<DiscountDTO>> GetAllAsync()
         {
             var discounts = await _unitOfWork.DiscountsRepository.GetAllAsync();
+
+            foreach (var d in discounts)
+                AutoUpdateDiscountStatus(d);
+
+            await _unitOfWork.SaveAsync();
 
             return discounts.Select(d => new DiscountDTO
             {
@@ -36,10 +60,16 @@ namespace EVMManagementStore.Service.Service.EVM
             }).ToList();
         }
 
+        // ================================
+        // GET BY ID
+        // ================================
         public async Task<DiscountDTO?> GetByIdAsync(int id)
         {
             var d = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
             if (d == null) return null;
+
+            AutoUpdateDiscountStatus(d);
+            await _unitOfWork.SaveAsync();
 
             return new DiscountDTO
             {
@@ -55,6 +85,9 @@ namespace EVMManagementStore.Service.Service.EVM
             };
         }
 
+        // ================================
+        // CREATE DISCOUNT
+        // ================================
         public async Task<DiscountDTO> CreateAsync(DiscountDTO dto)
         {
             var entity = new Discount
@@ -65,123 +98,167 @@ namespace EVMManagementStore.Service.Service.EVM
                 DiscountType = dto.DiscountType,
                 DiscountValue = dto.DiscountValue,
                 StartDate = dto.StartDate,
-                EndDate = dto.EndDate,
-                Status = dto.Status ?? "ACTIVE"
+                EndDate = dto.EndDate
             };
+
+            AutoUpdateDiscountStatus(entity);
 
             await _unitOfWork.DiscountsRepository.AddAsync(entity);
             await _unitOfWork.SaveAsync();
 
             dto.DiscountId = entity.DiscountId;
+            dto.Status = entity.Status;
             return dto;
         }
 
+        // ================================
+        // UPDATE DISCOUNT
+        // ================================
         public async Task<DiscountDTO?> UpdateAsync(int id, DiscountDTO dto)
         {
-            var existing = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
-            if (existing == null) return null;
+            var d = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
+            if (d == null) return null;
 
-            existing.DiscountName = dto.DiscountName;
-            existing.DiscountType = dto.DiscountType;
-            existing.DiscountValue = dto.DiscountValue;
-            existing.StartDate = dto.StartDate;
-            existing.EndDate = dto.EndDate;
-            existing.Status = dto.Status;
+            d.DiscountName = dto.DiscountName;
+            d.DiscountType = dto.DiscountType;
+            d.DiscountValue = dto.DiscountValue;
+            d.StartDate = dto.StartDate;
+            d.EndDate = dto.EndDate;
 
-            _unitOfWork.DiscountsRepository.Update(existing);
+            AutoUpdateDiscountStatus(d);
+
+            _unitOfWork.DiscountsRepository.Update(d);
+            await _unitOfWork.SaveAsync();
+
+            var vehicles = await _unitOfWork.VehicleRepository.FindAsync(v => v.DiscountId == id);
+
+            foreach (var v in vehicles)
+            {
+                if (d.Status == "EXPIRED")
+                {
+                    v.DiscountId = null;
+                    v.FinalPrice = v.Price;
+                }
+                else
+                {
+                    v.FinalPrice = CalculateFinalPrice(v, d);
+                }
+
+                _unitOfWork.VehicleRepository.Update(v);
+            }
+
             await _unitOfWork.SaveAsync();
 
             return dto;
         }
 
+        // ================================
+        // DELETE
+        // ================================
         public async Task<bool> DeleteAsync(int id)
         {
-            var existing = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
-            if (existing == null) return false;
+            var d = await _unitOfWork.DiscountsRepository.GetByIdAsync(id);
+            if (d == null) return false;
 
-            _unitOfWork.DiscountsRepository.Remove(existing);
+            var vehicles = await _unitOfWork.VehicleRepository.FindAsync(v => v.DiscountId == id);
+
+            foreach (var v in vehicles)
+            {
+                v.DiscountId = null;
+                v.FinalPrice = v.Price;
+                _unitOfWork.VehicleRepository.Update(v);
+            }
+
+            _unitOfWork.DiscountsRepository.Remove(d);
             await _unitOfWork.SaveAsync();
+
             return true;
         }
 
-        // ⭐ Áp dụng giảm giá vào xe
+        // ================================
+        // APPLY DISCOUNT TO VEHICLE
+        // ================================
         public async Task<bool> ApplyDiscountToVehicleAsync(int vehicleId, int discountId)
         {
-            var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
-            var discount = await _unitOfWork.DiscountsRepository.GetByIdAsync(discountId);
+            var v = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
+            var d = await _unitOfWork.DiscountsRepository.GetByIdAsync(discountId);
 
-            if (vehicle == null || discount == null)
-                return false;
+            if (v == null || d == null)
+                throw new Exception("Vehicle hoặc Discount không tồn tại.");
 
-            var today = DateTime.UtcNow.Date;
-            if (discount.StartDate > today || discount.EndDate < today)
-                throw new Exception("Discount is not active or has expired.");
+            AutoUpdateDiscountStatus(d);
 
-            decimal finalPrice = vehicle.Price;
+           
+            if (d.Status == "EXPIRED")
+                throw new Exception("Discount đã hết hạn.");
 
-            switch (discount.DiscountType?.ToLower())
-            {
-                case "percent":
-                    finalPrice -= vehicle.Price * (discount.DiscountValue / 100);
-                    break;
+       
+            if (v.DiscountId != null)
+                throw new Exception("Xe đã có discount. Không thể áp dụng thêm.");
 
-                case "amount":
-                    finalPrice -= discount.DiscountValue;
-                    break;
 
-                default:
-                    throw new Exception("Invalid discount type.");
-            }
+            ValidateDiscountValue(v.Price, d);
 
-            if (finalPrice < 0)
-                finalPrice = 0;
+            v.DiscountId = discountId;
+            v.FinalPrice = CalculateFinalPrice(v, d);
 
-            vehicle.FinalPrice = finalPrice;
-            vehicle.DiscountId = discountId;
-
-            _unitOfWork.VehicleRepository.Update(vehicle);
+            _unitOfWork.VehicleRepository.Update(v);
             await _unitOfWork.SaveAsync();
 
             return true;
         }
 
+        // ================================
+        // REMOVE DISCOUNT
+        // ================================
         public async Task<bool> RemoveDiscountFromVehicleAsync(int vehicleId)
         {
-            var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
-            if (vehicle == null) return false;
+            var v = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
+            if (v == null) return false;
 
-            vehicle.DiscountId = null;
-            vehicle.FinalPrice = vehicle.Price;
+            v.DiscountId = null;
+            v.FinalPrice = v.Price;
 
-            _unitOfWork.VehicleRepository.Update(vehicle);
+            _unitOfWork.VehicleRepository.Update(v);
             await _unitOfWork.SaveAsync();
 
             return true;
         }
 
-        public decimal CalculateFinalPrice(Vehicle vehicle)
+        // ================================
+        // VALIDATION FOR VALUE
+        // ================================
+        private void ValidateDiscountValue(decimal price, Discount d)
         {
-            if (vehicle.DiscountId == null)
-                return vehicle.Price;
-
-            var discount = _unitOfWork.DiscountsRepository.GetByIdAsync(vehicle.DiscountId).Result;
-            var today = DateTime.UtcNow.Date;
-
-            if (discount == null || discount.StartDate > today || discount.EndDate < today)
-                return vehicle.Price;
-
-            decimal finalPrice = vehicle.Price;
-
-            switch (discount.DiscountType?.ToLower())
+            if (d.DiscountType == "percent")
             {
-                case "percent":
-                    finalPrice -= vehicle.Price * (discount.DiscountValue / 100);
-                    break;
-
-                case "amount":
-                    finalPrice -= discount.DiscountValue;
-                    break;
+                if (d.DiscountValue < 0 || d.DiscountValue > 100)
+                    throw new Exception("Giá trị phần trăm phải từ 0–100%.");
             }
+            else if (d.DiscountType == "amount")
+            {
+                if (d.DiscountValue < 0)
+                    throw new Exception("Giá trị giảm không được âm.");
+
+                if (d.DiscountValue > price)
+                    throw new Exception("Số tiền giảm không được lớn hơn giá xe.");
+            }
+        }
+
+        // ================================
+        // FINAL PRICE CALCULATION
+        // ================================
+        public decimal CalculateFinalPrice(Vehicle v, Discount d)
+        {
+            ValidateDiscountValue(v.Price, d);
+
+            decimal finalPrice = v.Price;
+
+            if (d.DiscountType == "percent")
+                finalPrice -= v.Price * (d.DiscountValue / 100m);
+
+            else if (d.DiscountType == "amount")
+                finalPrice -= d.DiscountValue;
 
             return finalPrice < 0 ? 0 : finalPrice;
         }
