@@ -95,7 +95,10 @@ namespace EVMManagementStore.Service.Service.EVM
             await _unitOfWork.SaveAsync();
 
             // 🔥 AUTO TẠO INVENTORY THEO MÀU
-            var colors = dto.Color.Split(',', StringSplitOptions.TrimEntries);
+            var colors = dto.Color
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => c.Trim())
+                .ToList();
 
             foreach (var c in colors)
             {
@@ -108,19 +111,17 @@ namespace EVMManagementStore.Service.Service.EVM
             }
 
             await _unitOfWork.SaveAsync();
-
             dto.VehicleId = v.VehicleId;
+
             return dto;
         }
 
-        // ======================================
-        // UPDATE VEHICLE
-        // ======================================
+
         public async Task<VehicleDTO?> UpdateVehicleAsync(int id, VehicleDTO dto)
         {
             var existing = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
             if (existing == null) return null;
-            
+
             existing.Type = dto.Type;
             existing.Model = dto.Model;
             existing.Version = dto.Version;
@@ -134,6 +135,45 @@ namespace EVMManagementStore.Service.Service.EVM
             existing.Image3 = dto.Image3;
             existing.Status = dto.Status;
 
+            var updatedColorsRaw = dto.Color
+                           .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                           .Select(c => c.Trim())
+                           .ToList();
+
+            var updatedColorsLower = updatedColorsRaw
+                .Select(c => c.ToLower())
+                .ToList();
+            var existingInventories = await _unitOfWork.InventoryRepository
+                 .FindAsync(i => i.VehicleId == id);
+
+            var existingColorsLower = existingInventories
+                .Select(i => i.Color.ToLower())
+                .ToList();
+
+            foreach (var color in updatedColorsRaw)
+            {
+                if (!existingColorsLower.Contains(color.ToLower()))
+                {
+                    await _unitOfWork.InventoryRepository.AddAsync(new Inventory
+                    {
+                        VehicleId = id,
+                        Color = color,
+                        Quantity = 0
+                    });
+                }
+            }
+
+            foreach (var inv in existingInventories)
+            {
+                if (!updatedColorsLower.Contains(inv.Color.ToLower()))
+                {
+                    _unitOfWork.InventoryRepository.Remove(inv);
+                }
+            }
+
+            // ================================
+            // 🔥 CẬP NHẬT FINAL PRICE (Nếu có discount)
+            // ================================
             if (existing.DiscountId != null)
             {
                 var discount = await _unitOfWork.DiscountsRepository.GetByIdAsync(existing.DiscountId.Value);
@@ -152,7 +192,7 @@ namespace EVMManagementStore.Service.Service.EVM
             await _unitOfWork.SaveAsync();
 
             return dto;
-        }   
+        }
 
         // ======================================
         // DELETE VEHICLE 

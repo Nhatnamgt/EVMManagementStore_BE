@@ -2,7 +2,6 @@
 using EVMManagementStore.Repository.UnitOfWork;
 using EVMManagementStore.Service.DTO;
 using EVMManagementStore.Service.Interface.EVM;
-using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace EVMManagementStore.Service.Service.EVM
             _unitOfWork = unitOfWork;
         }
 
-        // ✅ Báo cáo dispatch theo khoảng thời gian
+ 
         public async Task<IEnumerable<InventoryReportDTO>> GetDispatchReportAsync(DateTime fromDate, DateTime toDate)
         {
             var inventories = await _unitOfWork.InventoryRepository.GetAllAsync();
@@ -28,12 +27,13 @@ namespace EVMManagementStore.Service.Service.EVM
             var dealers = await _unitOfWork.UserRepository.GetAllAsync();
 
             int totalDays = (toDate - fromDate).Days;
-            if (totalDays <= 0) totalDays = 1; 
+            if (totalDays <= 0) totalDays = 1;
+
 
             var report = (from d in dispatches
                           join v in vehicles on d.VehicleId equals v.VehicleId
-                          join inv in inventories on v.VehicleId equals inv.VehicleId into invJoin
-                          from inv in invJoin.DefaultIfEmpty()
+                          join inv in inventories on new { d.VehicleId, d.Color }
+                                                   equals new { inv.VehicleId, inv.Color }
                           join u in dealers on d.UserId equals u.UserId
                           where d.OrderDate >= fromDate && d.OrderDate <= toDate
                           group new { d, v, inv, u } by new
@@ -44,7 +44,7 @@ namespace EVMManagementStore.Service.Service.EVM
                               v.Type,
                               v.Model,
                               v.Version,
-                              v.Color
+                              inv.Color  
                           }
                           into g
                           let dispatched = g.Sum(x => x.d.Quantity)
@@ -52,16 +52,19 @@ namespace EVMManagementStore.Service.Service.EVM
                           select new InventoryReportDTO
                           {
                               DealerId = g.Key.UserId,
-                              CompanyName = g.Key.CompanyName, 
+                              CompanyName = g.Key.CompanyName,
+
                               VehicleId = g.Key.VehicleId,
-                              Type = g.Key.Type,               
+                              Type = g.Key.Type,
                               Model = g.Key.Model,
                               Version = g.Key.Version,
-                              Color = g.Key.Color,
-                              DispatchedQuantity = g.Sum(x => x.d.Quantity),
-                              RemainingInStock = g.FirstOrDefault()?.inv?.Quantity ?? 0,
+                              Color = g.Key.Color,  
+
+                              DispatchedQuantity = dispatched,
+                              RemainingInStock = remaining,
                               ConsumptionRate = Math.Round((decimal)dispatched / totalDays, 2),
-                              Status = (g.FirstOrDefault()?.inv?.Quantity ?? 0) > 0 ? "Còn hàng" : "Hết hàng"
+
+                              Status = remaining > 0 ? "Còn hàng" : "Hết hàng"
                           }).ToList();
 
             return report;
