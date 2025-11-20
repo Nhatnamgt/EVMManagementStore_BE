@@ -18,16 +18,22 @@ namespace EVMManagementStore.Service.Service.EVM
         }
 
         // ================================
-        // GET ALL INVENTORIES
+        // GET ALL INVENTORIES (GROUP BY VEHICLE)
         // ================================
         public async Task<IEnumerable<InventoryDTO>> GetAllInventoriesAsync()
         {
             var vehicles = await _unitOfWork.VehicleRepository.GetAllAsync();
-            var inventories = await _unitOfWork.InventoryRepository.GetAllAsync();
+
+            // 🔥 Nhóm theo VehicleId 
+            var inventories = (await _unitOfWork.InventoryRepository.GetAllAsync())
+                .OrderBy(inv => inv.VehicleId)
+                .ThenBy(inv => inv.Color)
+                .ToList();
 
             return inventories.Select(inv =>
             {
-                var v = vehicles.First(x => x.VehicleId == inv.VehicleId);
+                var v = vehicles.FirstOrDefault(x => x.VehicleId == inv.VehicleId);
+                if (v == null) return null; // phòng crash dữ liệu
 
                 return new InventoryDTO
                 {
@@ -49,11 +55,13 @@ namespace EVMManagementStore.Service.Service.EVM
                     DiscountId = v.DiscountId,
                     Status = inv.Quantity > 0 ? "Còn hàng" : "Hết hàng"
                 };
-            }).ToList();
+            })
+            .Where(x => x != null)
+            .ToList()!;
         }
 
         // ================================
-        // GET BY INVENTORY ID
+        // GET INVENTORY BY ID
         // ================================
         public async Task<InventoryDTO?> GetInventoryByIdAsync(int inventoryId)
         {
@@ -118,7 +126,8 @@ namespace EVMManagementStore.Service.Service.EVM
         public async Task<bool> DispatchVehicleAsync(DispatchRequest request)
         {
             var inventory = (await _unitOfWork.InventoryRepository
-                .FindAsync(i => i.VehicleId == request.VehicleId && i.Color == request.Color))
+                .FindAsync(i => i.VehicleId == request.VehicleId
+                                && i.Color == request.Color))
                 .FirstOrDefault();
 
             if (inventory == null)
