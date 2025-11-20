@@ -42,6 +42,16 @@ namespace EVMManagementStore.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("{inventoryId}")]
+        public async Task<IActionResult> DeleteInventoryColor(int inventoryId)
+        {
+            var ok = await _service.DeleteInventoryAsync(inventoryId);
+            if (!ok)
+                return BadRequest("Không thể xoá màu này.");
+
+            return Ok(new { message = "Xóa màu thành công và cập nhật lại màu của xe." });
+        }
+
         [HttpPost("dispatch")]
         public async Task<IActionResult> Dispatch([FromBody] DispatchRequest req)
         {

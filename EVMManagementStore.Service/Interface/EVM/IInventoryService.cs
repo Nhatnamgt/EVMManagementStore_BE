@@ -9,6 +9,7 @@ namespace EVMManagementStore.Service.Interface.EVM
         Task<IEnumerable<InventoryDTO>> GetAllInventoriesAsync();
         Task<InventoryDTO?> GetInventoryByIdAsync(int inventoryId);
         Task<InventoryDTO> UpdateInventoryAsync(int inventoryId, int quantity);
+        Task<bool> DeleteInventoryAsync(int inventoryId);
         Task<bool> DispatchVehicleAsync(DispatchRequest request);
     }
 }
