@@ -115,13 +115,15 @@ namespace EVMManagementStore.Service.Service.EVM
 
             return dto;
         }
-
-
+        // ================================
+        // UPDATE VEHICLE
+        // ================================
         public async Task<VehicleDTO?> UpdateVehicleAsync(int id, VehicleDTO dto)
         {
             var existing = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
             if (existing == null) return null;
 
+            // Cập nhật các thuộc tính cơ bản
             existing.Type = dto.Type;
             existing.Model = dto.Model;
             existing.Version = dto.Version;
@@ -135,24 +137,21 @@ namespace EVMManagementStore.Service.Service.EVM
             existing.Image3 = dto.Image3;
             existing.Status = dto.Status;
 
-            var updatedColorsRaw = dto.Color
-                           .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                           .Select(c => c.Trim())
-                           .ToList();
-
-            var updatedColorsLower = updatedColorsRaw
-                .Select(c => c.ToLower())
+            var updatedColors = dto.Color
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => c.Trim())
                 .ToList();
+
             var existingInventories = await _unitOfWork.InventoryRepository
-                 .FindAsync(i => i.VehicleId == id);
+                .FindAsync(i => i.VehicleId == id);
 
-            var existingColorsLower = existingInventories
-                .Select(i => i.Color.ToLower())
+            var existingColors = existingInventories
+                .Select(i => i.Color)
                 .ToList();
 
-            foreach (var color in updatedColorsRaw)
+            foreach (var color in updatedColors)
             {
-                if (!existingColorsLower.Contains(color.ToLower()))
+                if (!existingColors.Any(x => x.Equals(color, StringComparison.OrdinalIgnoreCase)))
                 {
                     await _unitOfWork.InventoryRepository.AddAsync(new Inventory
                     {
@@ -165,29 +164,31 @@ namespace EVMManagementStore.Service.Service.EVM
 
             foreach (var inv in existingInventories)
             {
-                if (!updatedColorsLower.Contains(inv.Color.ToLower()))
+                if (!updatedColors.Any(x => x.Equals(inv.Color, StringComparison.OrdinalIgnoreCase)))
                 {
+                    if (inv.Quantity > 0)
+                        throw new Exception($"Không thể xoá màu {inv.Color} vì vẫn còn xe trong kho.");
+
                     _unitOfWork.InventoryRepository.Remove(inv);
                 }
             }
 
-            // ================================
-            // 🔥 CẬP NHẬT FINAL PRICE (Nếu có discount)
-            // ================================
+            // -------------------------
+            // Cập nhật Final Price theo discount
+            // -------------------------
             if (existing.DiscountId != null)
             {
                 var discount = await _unitOfWork.DiscountsRepository.GetByIdAsync(existing.DiscountId.Value);
-
-                if (discount != null)
-                    existing.FinalPrice = _discountService.CalculateFinalPrice(existing, discount);
-                else
-                    existing.FinalPrice = existing.Price;
+                existing.FinalPrice = discount != null
+                    ? _discountService.CalculateFinalPrice(existing, discount)
+                    : existing.Price;
             }
             else
             {
                 existing.FinalPrice = existing.Price;
             }
 
+            // Lưu lại thay đổi
             _unitOfWork.VehicleRepository.Update(existing);
             await _unitOfWork.SaveAsync();
 
@@ -202,12 +203,14 @@ namespace EVMManagementStore.Service.Service.EVM
             var v = await _unitOfWork.VehicleRepository.GetByIdAsync(id);
             if (v == null) return false;
 
-            // 🔥 XOÁ HẾT INVENTORY LIÊN QUAN TRƯỚC
             var inventories = await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == id);
+            
+            if (inventories.Any(inv => inv.Quantity > 0))
+                throw new Exception("Không thể xoá xe vì vẫn còn xe trong kho.");
+
             foreach (var inv in inventories)
                 _unitOfWork.InventoryRepository.Remove(inv);
 
-            // XOÁ XE
             _unitOfWork.VehicleRepository.Remove(v);
 
             await _unitOfWork.SaveAsync();

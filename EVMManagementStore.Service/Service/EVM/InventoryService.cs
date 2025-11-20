@@ -18,7 +18,7 @@ namespace EVMManagementStore.Service.Service.EVM
         }
 
         // ================================
-        // GET ALL INVENTORIES (GROUP BY VEHICLE)
+        // GET ALL INVENTORIES 
         // ================================
         public async Task<IEnumerable<InventoryDTO>> GetAllInventoriesAsync()
         {
@@ -118,6 +118,35 @@ namespace EVMManagementStore.Service.Service.EVM
                 Image2 = vehicle.Image2,
                 Image3 = vehicle.Image3
             };
+        }
+        // ================================
+        // DELETE INVENTORY 
+        // ================================
+        public async Task<bool> DeleteInventoryAsync(int inventoryId)
+        {
+            var inv = await _unitOfWork.InventoryRepository.GetByIdAsync(inventoryId);
+            if (inv == null) throw new Exception("Không tìm thấy tồn kho.");
+
+            if (inv.Quantity > 0)
+                throw new Exception("Không thể xoá màu vì vẫn còn xe trong kho.");
+
+            int vehicleId = inv.VehicleId;
+
+            // xoá inventory
+            _unitOfWork.InventoryRepository.Remove(inv);
+
+            // rebuild color list
+            var inventories = await _unitOfWork.InventoryRepository.FindAsync(i => i.VehicleId == vehicleId);
+
+            var newColors = inventories.Select(i => i.Color).ToList();
+
+            var vehicle = await _unitOfWork.VehicleRepository.GetByIdAsync(vehicleId);
+            vehicle.Color = string.Join(", ", newColors);
+
+            _unitOfWork.VehicleRepository.Update(vehicle);
+
+            await _unitOfWork.SaveAsync();
+            return true;
         }
 
         // ================================
